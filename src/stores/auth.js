@@ -1,93 +1,42 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
 import HTTP from "../helper/axiosInstance";
-import bcrypt from "bcryptjs";
-import useKeyStore from "./key";
 
 const useAuthStore = defineStore("auth", {
   state: () => ({
     isLoggedIn: ref(false),
-    username: ref(""),
-    token: ref(""),
-    expiredTime: ref(null),
+    user: ref(null),
   }),
   getters: {
     getIsLoggedIn: (state) => state.isLoggedIn,
-    getUsername: (state) => state.username,
-    getToken: (state) => state.token,
-    isAuthenticated: (state) => !!state.token && state.isLoggedIn,
+    getStudentName: (state) => state.user.studentName,
+    getStudentClass: (state) => state.user.studentClass,
+    getStudentCode: (state) => state.user.studentCode,
   },
   actions: {
-    setStoreData({ username, token, isLoggedIn }) {
-      this.username = username;
-      this.token = token;
-      this.isLoggedIn = isLoggedIn; // bug: setStoreData function does not work
-    },
-
-    async register({ username, password }) {
-      try {
-        const response = await HTTP.post("/auth/register", {
-          username,
-          password,
-        });
-
-        if (response?.status && response?.status === "success") {
-          const keyStore = useKeyStore();
-
-          await keyStore.createKeyPair();
-          await keyStore.exportPrivateKey(username);
-          await keyStore.sendPublicKeyToServer(username);
-        }
-      } catch (error) {
-        console.log(error?.message);
-        throw error;
-      }
-    },
-
-    async login({ username, password }) {
+    async login({ studentCode, password }) {
+      localStorage.clear();
       try {
         const response = await HTTP.post("/auth/login", {
-          username,
+          studentCode,
           password,
         });
 
-        if (response?.status && response?.status === "success") {
-          const keyStore = useKeyStore();
-          this.username = response.username;
-          this.token = response.token;
+        if (response?.success && response?.success === true) {
+          this.user = response.payload.user;
           this.isLoggedIn = true;
 
-          //
-          await keyStore.importPrivateKey();
-
-          //
           localStorage.setItem(
-            "user",
-            JSON.stringify({
-              username: this.username,
-              token: this.token,
-              isLoggedIn: this.isLoggedIn,
-            })
+            "accessToken",
+            JSON.stringify(response.payload.accessToken)
           );
-
-          //
-          const privateKeyJwkStr = localStorage.getItem("privateKey") || "";
-
-          const isMatch = bcrypt.compareSync(
-            privateKeyJwkStr,
-            response?.privateKeyHash
+          localStorage.setItem(
+            "refreshToken",
+            JSON.stringify(response.payload.refreshToken)
           );
+          localStorage.setItem("user", JSON.stringify(response.payload.user));
 
-          if (!isMatch) {
-            this.$reset();
-            localStorage.clear();
-            throw new Error("Khóa private không hợp lệ!");
-          }
-
-          keyStore.setKeyPair(
-            JSON.parse(response.publicKey),
-            JSON.parse(privateKeyJwkStr)
-          );
+          return response;
         }
       } catch (error) {
         throw error;
