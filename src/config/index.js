@@ -1,4 +1,14 @@
 export const ENVIRONMENT = import.meta.env.VITE_NODE_ENV || "development";
-export const X_API_KEY = process.env.VITE_X_API_KEY_SECRET || "ddapi";
+export const X_API_KEY = import.meta.env.VITE_X_API_KEY_SECRET || "ddapi";
 export const API_URL =
-  `${import.meta.env.VITE_API_URL}/v1/api` || "http://localhost:8080/v1/api";
+  `${import.meta.env.VITE_API_URL}/api/v1` || "http://localhost:8181/api/v1";
+
+export const firebaseConfig = {
+  apiKey: import.meta.env.VITE_API_KEY,
+  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_APP_ID,
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
+};
