@@ -1,7 +1,8 @@
 export const ENVIRONMENT = import.meta.env.VITE_NODE_ENV || "development";
 export const X_API_KEY = import.meta.env.VITE_X_API_KEY_SECRET || "ddapi";
 export const API_URL =
-  `${import.meta.env.VITE_API_URL}/api/v1` || "http://localhost:8181/api/v1";
+  `${import.meta.env.VITE_API_URL}/api/v1` ||
+  "https://web-pv-be.onrender.com/api/v1";
 
 export const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
