@@ -8,10 +8,11 @@ const useAuthStore = defineStore("auth", {
     user: ref(null),
   }),
   getters: {
-    getIsLoggedIn: (state) => state.isLoggedIn,
-    getStudentName: (state) => state.user.studentName,
-    getStudentClass: (state) => state.user.studentClass,
-    getStudentCode: (state) => state.user.studentCode,
+    getIsLoggedIn: (state) => state.isLoggedIn || "",
+    getStudentName: (state) => state.user.studentName || "",
+    getStudentClass: (state) => state.user.studentClass || "",
+    getStudentCode: (state) => state.user.studentCode || "",
+    getRole: (state) => state.user?.role || "user",
   },
   actions: {
     async login({ studentCode, password }) {

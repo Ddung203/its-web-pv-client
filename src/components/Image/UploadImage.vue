@@ -1,6 +1,6 @@
 <script setup>
   import { ref } from "vue";
-  import { uploadImageHandle } from "../helper/uploadImageHandle.js";
+  import { uploadImageHandle } from "../../helper/uploadImageHandle.js";
 
   const uploadStatus = ref(null);
   const imageURL = ref(null);
