@@ -54,7 +54,7 @@
         <div
           class="text-sm font-semibold tracking-wide text-indigo-500 uppercase"
         >
-          Câu hỏi {{ props.questions.id }}
+          Câu hỏi {{ props.questions.code }}
         </div>
         <span
           class="block mt-1 text-lg font-medium leading-tight text-black hover:underline"

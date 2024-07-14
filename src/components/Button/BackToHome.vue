@@ -1,7 +1,17 @@
 <script setup>
   import router from "../../routes";
 
+  const props = defineProps({
+    urlPath: {
+      type: String,
+    },
+  });
+
   const handleBackToHome = () => {
+    if (props.urlPath) {
+      router.push(props.urlPath);
+      return;
+    }
     router.push("/");
   };
 </script>

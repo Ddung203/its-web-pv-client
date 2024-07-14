@@ -2,22 +2,44 @@
   import { ref } from "vue";
   import HTTP from "@/helper/axiosInstance.js";
   import ImportQuestion from "@/components/Question/ImportQuestion.vue";
-  import UploadImage from "@/components/Image/UploadImage.vue";
   import QuestionCard from "@/components/Question/QuestionCard.vue";
-  import QuestionCardCanEdit from "@/components/Question/QuestionCardCanEdit.vue";
   import BackToHome from "@/components/Button/BackToHome.vue";
   import ScrollToTop from "@/components/Button/ScrollToTop.vue";
   import useAuthStore from "../../stores/auth";
+  import showNotification from "../../utils/showNotification";
+  import { useToast } from "primevue/usetoast";
 
   const authStore = useAuthStore();
   const receivedQuestions = ref([]);
+  const toast = useToast();
 
   const saveQuestionsHandle = async () => {
     const bodyData = { questions: receivedQuestions.value };
 
-    const response = await HTTP.post("/question/insert", bodyData);
+    try {
+      const response = await HTTP.post("/question/insert", bodyData);
+      // console.log("response :>> ", response);
 
-    console.log("responsev :>> ", response);
+      if (response && response?.success) {
+        showNotification(
+          toast,
+          "success",
+          "Thông báo",
+          response?.message || "Nhập câu hỏi thành công!",
+          3000
+        );
+        handleQuestionsReset();
+      }
+    } catch (error) {
+      showNotification(
+        toast,
+        "error",
+        "Thông báo lỗi",
+        error?.error?.message.slice(14) || "Tài khoản không có quyền!",
+        3000
+      );
+      return;
+    }
   };
 
   const handleQuestionsUpdated = (questions) => {
@@ -30,6 +52,8 @@
 </script>
 
 <template>
+  <Toast />
+
   <div>
     <div class="import">
       <ImportQuestion
@@ -41,7 +65,7 @@
       v-if="receivedQuestions.length === 0"
       class="flex justify-end gap-4 px-8 py-4 actions"
     >
-      <BackToHome></BackToHome>
+      <BackToHome urlPath="questions"></BackToHome>
     </div>
 
     <div
@@ -73,10 +97,10 @@
             :questions="question"
           ></QuestionCard>
           -->
-          <QuestionCardCanEdit
+          <QuestionCard
             :role="'admin'"
             :questions="question"
-          ></QuestionCardCanEdit>
+          ></QuestionCard>
           <!-- <QuestionCard
             :role="authStore?.getRole"
             :questions="question"
@@ -87,7 +111,6 @@
 
     <!-- ScrollToTop -->
     <ScrollToTop></ScrollToTop>
-    <!-- <UploadImage></UploadImage> -->
   </div>
 </template>
 

@@ -24,7 +24,7 @@
 
   const transformData = (data) => {
     return data.map((row) => ({
-      id: Math.floor(100000 + Math.random() * 900000),
+      code: Math.floor(100000 + Math.random() * 900000),
       imageURL: row.imageURL || "",
       content: row.content,
       options: [
@@ -37,10 +37,6 @@
       level: row.level || "easy",
     }));
   };
-
-  // const customBase64Uploader = async (event) => {
-  //   handleFileUpload(event);
-  // };
 </script>
 
 <template>

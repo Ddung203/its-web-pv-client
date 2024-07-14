@@ -1,8 +1,11 @@
 <script setup>
   import { ref } from "vue";
+  import { uploadImageHandle } from "../../helper/uploadImageHandle";
+  import HTTP from "../../helper/axiosInstance";
+  import DeleteButton from "../Button/DeleteButton.vue";
 
   const props = defineProps({
-    questions: {
+    question: {
       type: Object,
       required: true,
     },
@@ -13,24 +16,17 @@
     },
   });
 
+  // TO SHOW
   const answers = ref([]);
 
-  const visible = ref(false);
-
-  const selectedCorrectAnswer = ref();
-  const correctAnswers = ref([
-    { name: "New York", code: "NY" },
-    { name: "Rome", code: "RM" },
-    { name: "London", code: "LDN" },
-    { name: "Istanbul", code: "IST" },
-  ]);
-
-  if (props.questions) {
-    answers.value = props.questions.options.map((option) => {
+  if (props.question) {
+    answers.value = props.question.options.map((option) => {
       return {
         text: option.answer,
-        isCorrect: false,
+        isCorrect: props.question.correctAnswer == option.numbering,
         selected: false,
+        name: `Ans.${option.numbering}`,
+        code: option.numbering,
       };
     });
   }
@@ -42,7 +38,95 @@
     answer.selected = true;
   };
 
-  // TODO: sửa lại correctAnswers, update link ảnh
+  // TO EDIT:
+  const visible = ref(false);
+
+  const correctAnswers = ref([]);
+  const selectedCorrectAnswer = ref();
+
+  const imageURL = ref("");
+  const imageURLDefault = ref(props.question.imageURL);
+  const uploadStatus = ref("error");
+
+  const levels = ref([
+    { name: "easy", code: "easy" },
+    { name: "normal", code: "normal" },
+    { name: "medium", code: "medium" },
+    { name: "hard", code: "hard" },
+  ]);
+
+  const orginalSelectedLevel = levels.value.find(
+    (level) => level.code === props.question.level
+  );
+
+  const selectedLevel = ref(orginalSelectedLevel);
+
+  const editQuestionHandle = () => {
+    visible.value = true;
+    correctAnswers.value = answers.value;
+    selectedCorrectAnswer.value = correctAnswers.value.find(
+      (ans) => ans.isCorrect
+    );
+  };
+
+  const handleFileUpload = async (event) => {
+    uploadStatus.value = "error";
+    const file = event.target.files[0];
+
+    if (!file) {
+      uploadStatus.value = "error";
+      imageURL.value = null;
+      alert("No file selected");
+      return;
+    }
+
+    const fileType = file.type.split("/")[0];
+    if (fileType !== "image") {
+      uploadStatus.value = "error";
+      imageURL.value = null;
+      console.log("Invalid file type. Only images are allowed.");
+      return;
+    }
+
+    const fileName = `Question_${props.question.code}_${Date.now()}.${
+      file.type.split("/")[1]
+    }`;
+
+    const result = await uploadImageHandle(file, fileName);
+
+    uploadStatus.value = result.status;
+    if (result.status === "success") {
+      imageURL.value = result.url;
+    } else {
+      imageURL.value = null;
+    }
+  };
+
+  const updateQuestionHandle = async () => {
+    const dataToUpdate = {
+      imageURL: imageURL.value || imageURLDefault.value,
+      content: document.getElementById("content").value,
+      options: answers.value.map((ans, index) => ({
+        numbering: ans.code,
+        answer: document.getElementById(`ans${ans.code}`).value,
+      })),
+      correctAnswer: `${selectedCorrectAnswer.value.code}`,
+      level: selectedLevel.value.code,
+    };
+
+    console.log("dataToUpdate :>> ", dataToUpdate);
+
+    try {
+      const response = await HTTP.put(
+        `/question/update/${props.question._id}`,
+        dataToUpdate
+      );
+      console.log("response :>> ", response);
+    } catch (error) {
+      console.log("error :>> ", error);
+    }
+    visible.value = false;
+  };
 </script>
 
 <template>
@@ -52,12 +136,12 @@
     <div class="md:flex">
       <div class="md:shrink-0">
         <a
-          :href="props.questions.imageURL"
+          :href="props.question.imageURL"
           target="_blank"
         >
           <img
             class="object-contain w-full h-48 md:h-full md:w-48"
-            :src="props.questions.imageURL"
+            :src="props.question.imageURL"
             alt="Question image"
           />
         </a>
@@ -66,10 +150,11 @@
         <div
           class="text-sm font-semibold tracking-wide text-indigo-500 uppercase"
         >
-          Câu hỏi {{ props.questions.id }}
+          Câu hỏi {{ props.question.code }} - {{ props.question._id }} -
+          {{ props.question.level }}
         </div>
         <span class="block mt-1 text-lg font-medium leading-tight text-black">{{
-          props.questions.content
+          props.question.content
         }}</span>
         <!-- Đáp án -->
         <div class="mt-4">
@@ -77,20 +162,26 @@
             v-for="(answer, index) in answers"
             :key="index"
             class="p-2 mt-2 border rounded cursor-pointer"
-            :class="{ 'bg-blue-200': answer.selected }"
+            :class="{ 'bg-blue-200': answer.isCorrect }"
             @click="selectAnswer(answer)"
           >
-            {{ answer.text }}
+            {{ answer.text }} - {{ answer.isCorrect }}
           </div>
         </div>
+
+        <!-- Đáp án đúng -->
       </div>
     </div>
 
     <!-- !EDIT -->
-    <div class="flex justify-end pb-2 pr-2">
+    <div class="flex justify-end gap-4 md:gap-6 pb-2 pr-[32px] lg:pr-[40px]">
+      <DeleteButton
+        :urlPath="'/question/delete'"
+        :idObject="props.question._id"
+      ></DeleteButton>
       <Button
         label="Chỉnh sửa"
-        @click="visible = true"
+        @click="editQuestionHandle"
       />
     </div>
     <div class="flex card justify-content-center">
@@ -111,67 +202,46 @@
             id="content"
             class="flex-auto"
             autocomplete="off"
+            :value="props.question.content"
           />
         </div>
         <!--  -->
-        <div class="flex items-center gap-3 mb-3">
-          <label
-            for="ans1"
-            class="font-semibold w-6rem"
-            >A</label
-          >
-          <InputText
-            id="ans1"
-            class="flex-auto"
-            autocomplete="off"
-          />
+        <div
+          v-for="(option, index) in props.question.options"
+          :key="index"
+        >
+          <div class="flex items-center gap-3 mb-3">
+            <label
+              for="ans1"
+              class="font-semibold w-6rem"
+              >Ans.{{ option.numbering }}</label
+            >
+            <InputText
+              :id="'ans' + option.numbering"
+              class="flex-auto"
+              autocomplete="off"
+              :value="option.answer"
+            />
+          </div>
         </div>
-        <!--  -->
-        <div class="flex items-center gap-3 mb-3">
-          <label
-            for="ans2"
-            class="font-semibold w-6rem"
-            >B</label
-          >
-          <InputText
-            id="ans2"
-            class="flex-auto"
-            autocomplete="off"
-          />
-        </div>
-        <!--  -->
-        <div class="flex items-center gap-3 mb-3">
-          <label
-            for="ans3"
-            class="font-semibold w-6rem"
-            >C
-          </label>
-          <InputText
-            id="ans3"
-            class="flex-auto"
-            autocomplete="off"
-          />
-        </div>
-        <!--  -->
-        <div class="flex items-center gap-3 mb-3">
-          <label
-            for="ans4"
-            class="font-semibold w-6rem"
-            >D
-          </label>
-          <InputText
-            id="ans4"
-            class="flex-auto"
-            autocomplete="off"
-          />
-        </div>
-
         <!-- Dropbow Correct Answer -->
         <div class="flex flex-col items-start justify-center pb-3">
           <span class="pb-2 font-semibold text-red-500">Chọn đáp án đúng*</span>
           <Dropdown
             v-model="selectedCorrectAnswer"
             :options="correctAnswers"
+            optionLabel="name"
+            placeholder="-"
+            class="w-full md:w-14rem"
+          />
+        </div>
+
+        <!-- Dropbow Level Answer -->
+        <div class="flex flex-col items-start justify-center pb-3">
+          <span class="pb-2 font-semibold text-red-500">Chọn cấp độ</span>
+          <Dropdown
+            v-model="selectedLevel"
+            :options="levels"
             optionLabel="name"
             placeholder="-"
             class="w-full md:w-14rem"
@@ -186,19 +256,33 @@
             type="file"
             @change="handleFileUpload"
           />
+
+          <p
+            class="py-1 text-sm text-[#16a34a] uppercase"
+            v-if="uploadStatus === 'success'"
+          >
+            Tải ảnh thành công!
+          </p>
+          <p
+            class="py-1 text-sm text-red-500 uppercase"
+            v-else
+          >
+            Nếu không chọn ảnh, ảnh mặc định sẽ được sử dụng.
+          </p>
         </div>
         <!-- Dialog Bottom -->
-        <div class="flex gap-2 justify-content-end">
+        <div class="flex justify-end gap-6">
           <Button
             type="button"
-            label="Cancel"
+            label="Hủy bỏ"
             severity="secondary"
             @click="visible = false"
           ></Button>
           <Button
             type="button"
-            label="Save"
-            @click="visible = false"
+            label="Cập nhật"
+            severity="success"
+            @click="updateQuestionHandle"
           ></Button>
         </div>
       </Dialog>

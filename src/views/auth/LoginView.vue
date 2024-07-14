@@ -24,7 +24,7 @@
         toast,
         "error",
         "Thông báo",
-        error.error.message || "Tài khoản hoặc mật khẩu không đúng",
+        error?.error?.message || "Tài khoản hoặc mật khẩu không đúng",
         1500
       );
 
