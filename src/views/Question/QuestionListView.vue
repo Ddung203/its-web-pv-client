@@ -18,28 +18,31 @@
       const response = await HTTP.get("/question/list");
       console.log("response :>> ", response);
       receivedQuestions.value = response.payload?.questions?.data;
-      // if (response && response?.success) {
-      //   showNotification(
-      //     toast,
-      //     "success",
-      //     "Thông báo",
-      //     response?.message || "Nhập câu hỏi thành công!",
-      //     3000
-      //   );
-      //   handleQuestionsReset();
-      // }
+      if (response && response?.success) {
+        showNotification(
+          toast,
+          "info",
+          "Thông báo",
+          response?.message || "Lấy danh sách câu hỏi thành công!",
+          1500
+        );
+      }
     } catch (error) {
-      // showNotification(
-      //   toast,
-      //   "error",
-      //   "Thông báo lỗi",
-      //   error?.error?.message.slice(14) || "Tài khoản không có quyền!",
-      //   3000
-      // );
+      showNotification(
+        toast,
+        "error",
+        "Thông báo",
+        error?.error?.message.slice(14) || "Tài khoản không có quyền!",
+        200
+      );
       console.log("error :>> ", error);
       return;
     }
   };
+
+  onMounted(() => {
+    getQuestionsHandle();
+  });
 </script>
 
 <template>
@@ -49,8 +52,6 @@
     <div class="title">
       <TitleBanner :title="'Danh sách câu hỏi'"></TitleBanner>
     </div>
-
-    <Button @click="getQuestionsHandle">GET</Button>
 
     <div class="qCard">
       <div v-if="receivedQuestions.length !== 0">

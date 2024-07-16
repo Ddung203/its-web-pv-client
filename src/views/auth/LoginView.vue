@@ -8,18 +8,18 @@
   const toast = useToast();
   const authStore = useAuthStore();
 
-  const studentCode = ref("2021602111");
+  const studentCode = ref("2021602195");
   const password = ref("123456");
 
   const loginHandle = async () => {
     const loginData = {
-      studentCode: studentCode.value,
+      studentCode: studentCode.value.trim(),
       password: password.value,
     };
     try {
       await authStore.login(loginData);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       showNotification(
         toast,
         "error",
@@ -41,7 +41,7 @@
       );
 
       setTimeout(() => {
-        router.push("/import");
+        router.push("/import-questions");
       }, 1500);
     }
   };

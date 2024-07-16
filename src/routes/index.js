@@ -5,12 +5,24 @@ import NotFoundView from "../views/NotFound/NotFoundView.vue";
 import HomeView from "../views/Home/HomeView.vue";
 import ImportQuestionView from "../views/Question/ImportQuestionView.vue";
 import QuestionListView from "../views/Question/QuestionListView.vue";
+import IntroductionView from "../views/Introduction/IntroductionView.vue";
+import LeaderboardView from "../views/Leaderboard/LeaderboardView.vue";
 
 const routes = [
   { path: "/", name: "home", component: HomeView },
   { path: "/login", name: "login", component: LoginView },
-  { path: "/import", name: "question", component: ImportQuestionView },
-  { path: "/questions", name: "questionList", component: QuestionListView },
+  {
+    path: "/import-questions",
+    name: "importQuestions",
+    component: ImportQuestionView,
+  },
+  { path: "/questions", name: "questions", component: QuestionListView },
+  { path: "/introduction", name: "introduction", component: IntroductionView },
+  {
+    path: "/leaderboard",
+    name: "leaderboard",
+    component: LeaderboardView,
+  },
   { path: "/:catchAll(.*)", component: NotFoundView },
 ];
 

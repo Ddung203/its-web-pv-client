@@ -1,6 +1,23 @@
 <script setup>
   import useAuthStore from "@/stores/auth";
+  import { API_URL } from "../../config";
+  import useUIStore from "../../stores/ui";
+  import showNotification from "../../utils/showNotification";
+  import { useToast } from "primevue/usetoast";
+  import router from "../../routes";
+
+  const toast = useToast();
   const authStore = useAuthStore();
+  const UIStore = useUIStore();
+
+  console.log(`${API_URL}/ping`);
+
+  const logOutHandle = () => {
+    // setTimeout(() => {
+    //   authStore.logout();
+    //   router.push("/login");
+    // }, 1000);
+  };
 </script>
 
 <template>
@@ -12,24 +29,33 @@
         <div class="flex flex-row items-center justify-between py-3 px-7">
           <!--  -->
           <section class="left">
-            <div class="logo">
-              <img
-                class="block h-[40px]"
-                src="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/logos%2FLogo_bo%203%20goc.png?alt=media&token=aeb9dfc2-e57d-403a-a884-9ffd9ed2fb53"
-                alt="Logo"
+            <div class="flex gap-2 justify-content-center introduction-farm">
+              <Button
+                icon="pi pi-align-justify"
+                @click="UIStore.toggle"
               />
             </div>
           </section>
 
-          <!--  -->
-          <p>{{ authStore.getRole }}</p>
-
+          <!-- Middle -->
+          <section>
+            <!-- LOGO -->
+            <router-link to="/introduction">
+              <div class="logo">
+                <img
+                  class="block h-[40px]"
+                  src="@/public/assets/imgs/logofull.png"
+                  alt="Logo"
+                />
+              </div>
+            </router-link>
+          </section>
           <!--  -->
           <section class="flex gap-5 lg:flex-row right">
             <Button
-              label="Đăng xuất"
-              severity="danger"
+              icon="pi pi-wrench"
               rounded
+              @click="logOutHandle"
             />
           </section>
         </div>

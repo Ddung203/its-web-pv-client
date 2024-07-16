@@ -31,6 +31,8 @@ import Password from "primevue/password";
 import ScrollTop from "primevue/scrolltop";
 import MegaMenu from "primevue/megamenu";
 import Galleria from "primevue/galleria";
+import Sidebar from "primevue/sidebar";
+import Ripple from "primevue/ripple";
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -42,6 +44,7 @@ app.use(ToastService);
 app.use(ConfirmationService);
 
 //! Register PrimeVue Components
+app.directive("ripple", Ripple);
 app.component("ScrollTop", ScrollTop);
 app.component("Paginator", Paginator);
 app.component("Fieldset", Fieldset);
@@ -62,5 +65,6 @@ app.component("FloatLabel", FloatLabel);
 app.component("Password", Password);
 app.component("MegaMenu", MegaMenu);
 app.component("Galleria", Galleria);
+app.component("Sidebar", Sidebar);
 
 app.mount("#app");

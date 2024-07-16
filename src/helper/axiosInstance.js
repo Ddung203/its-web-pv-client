@@ -1,5 +1,5 @@
 import axios from "axios";
-import { API_URL } from "../config";
+import { API_URL, X_API_KEY } from "../config";
 
 const http = axios.create({
   baseURL: API_URL,
@@ -14,6 +14,7 @@ const addTokenToRequest = (config) => {
   const accessToken = JSON.parse(localStorage.getItem("accessToken"));
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
+    config.headers["x-api-key"] = X_API_KEY;
   }
   return config;
 };

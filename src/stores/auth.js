@@ -9,9 +9,9 @@ const useAuthStore = defineStore("auth", {
   }),
   getters: {
     getIsLoggedIn: (state) => state.isLoggedIn || "",
-    getStudentName: (state) => state.user.studentName || "",
-    getStudentClass: (state) => state.user.studentClass || "",
-    getStudentCode: (state) => state.user.studentCode || "",
+    getStudentName: (state) => state.user?.studentName || "user",
+    getStudentClass: (state) => state.user?.studentClass || "",
+    getStudentCode: (state) => state.user?.studentCode || "",
     getRole: (state) => state.user?.role || "user",
   },
   actions: {
