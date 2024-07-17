@@ -7,7 +7,6 @@ import { createPinia } from "pinia";
 import PrimeVue from "primevue/config";
 import "primevue/resources/themes/aura-light-amber/theme.css";
 import "primeicons/primeicons.css";
-
 //! Import PrimeVue Components
 import ToastService from "primevue/toastservice";
 import ConfirmationService from "primevue/confirmationservice";

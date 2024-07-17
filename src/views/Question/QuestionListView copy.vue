@@ -9,39 +9,46 @@
   import showNotification from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
   import TitleBanner from "../../components/Banner/TitleBanner.vue";
-  import QuestionList from "../../components/Question/QuestionList.vue";
-  import { storeToRefs } from "pinia";
 
   const toast = useToast();
   const authStore = useAuthStore();
   const questionStore = useQuestionStore();
-  const { questions } = storeToRefs(questionStore);
+  const receivedQuestions = ref([]);
 
   const getQuestionsHandle = async () => {
     try {
       await questionStore.getQuestionsHandle();
 
-      if (questions.value.length > 0) {
-        showNotification(
-          toast,
-          "info",
-          "Thông báo",
-          "Lấy danh sách câu hỏi thành công!",
-          1000
-        );
-      }
+      receivedQuestions.value = questionStore.getQuestions;
+      // questionStore
+      // if (response && response?.success) {
+      //   showNotification(
+      //     toast,
+      //     "info",
+      //     "Thông báo",
+      //     response?.message || "Lấy danh sách câu hỏi thành công!",
+      //     1500
+      //   );
+      // }
+
+      console.log("receivedQuestions.value :>> ", receivedQuestions.value);
     } catch (error) {
-      showNotification(
-        toast,
-        "error",
-        "Thông báo",
-        "Xảy ra lỗi khi lấy danh sách câu hỏi!",
-        2000
-      );
+      // showNotification(
+      //   toast,
+      //   "error",
+      //   "Thông báo",
+      //   error?.error?.message.slice(14) || "Tài khoản không có quyền!",
+      //   200
+      // );
       console.log("error :>> ", error);
       return;
     }
   };
+
+  // const questionChangedHandle = async (newQuestion) => {
+  //   console.log("newQuestion :>> ", newQuestion);
+  //   await getQuestionsHandle();
+  // };
 
   onMounted(() => {
     getQuestionsHandle();
@@ -52,15 +59,16 @@
   <Toast />
 
   <div>
-    <!-- TitleBanner -->
     <div class="title">
       <TitleBanner :title="'Danh sách câu hỏi'"></TitleBanner>
     </div>
 
-    <!-- Question List -->
-
-    <div v-if="questions">
-      <QuestionList :questions="questions"></QuestionList>
+    <div class="qCard">
+      <div v-if="receivedQuestions.length !== 0">
+        <QuestionCardCanEdit
+          :questions="receivedQuestions"
+        ></QuestionCardCanEdit>
+      </div>
     </div>
 
     <!-- ScrollToTop -->

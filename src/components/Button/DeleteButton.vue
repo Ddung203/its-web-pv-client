@@ -1,20 +1,9 @@
 <script setup>
-  import { ref } from "vue";
-  import HTTP from "../../helper/axiosInstance";
-  import showNotification from "../../utils/showNotification";
+  import ConfirmPopup from "primevue/confirmpopup";
   import { useToast } from "primevue/usetoast";
-  import router from "../../routes";
+  import { useConfirm } from "primevue/useconfirm";
 
-  // toPath: {
-  //     type: String,
-  //     required: true,
-  //   },
   const props = defineProps({
-    urlPath: {
-      type: String,
-      required: true,
-    },
-
     idObject: {
       type: String,
       required: true,
@@ -22,33 +11,46 @@
   });
 
   const toast = useToast();
+  const confirm = useConfirm();
 
-  const deleteHandle = async () => {
-    try {
-      await HTTP.delete(`${props.urlPath}/${props.idObject}`);
-      showNotification(toast, "success", "Thông báo", "Xóa thành công", 1500);
-      // router.push("/");
-    } catch (error) {
-      console.log("error :>> ", error);
-      showNotification(
-        toast,
-        "error",
-        "Thông báo",
-        error?.error?.message || "Xóa thất bại",
-        1500
-      );
-    }
+  const emit = defineEmits(["delete"]);
+
+  function deleteQuestion() {
+    emit("delete", props.idObject);
+  }
+
+  const confirm2 = (event) => {
+    confirm.require({
+      target: event.currentTarget,
+      message: "Do you want to delete this record?",
+      icon: "pi pi-info-circle",
+      rejectClass: "p-button-secondary p-button-outlined p-button-sm",
+      acceptClass: "p-button-danger p-button-sm",
+      rejectLabel: "Cancel",
+      acceptLabel: "Delete",
+      accept: async () => {
+        deleteQuestion();
+        toast.add({
+          severity: "info",
+          summary: "Confirmed",
+          detail: "Record deleted",
+          life: 1500,
+        });
+      },
+      reject: () => {},
+    });
   };
 </script>
 
 <template>
   <Toast />
-  <div>
+  <ConfirmPopup></ConfirmPopup>
+  <div class="flex flex-wrap gap-2 card justify-content-center">
     <Button
-      type="button"
+      @click="confirm2($event)"
       label="Xóa"
       severity="danger"
-      @click="deleteHandle"
+      outlined
     ></Button>
   </div>
 </template>
