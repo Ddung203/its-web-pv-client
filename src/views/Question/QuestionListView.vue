@@ -60,7 +60,7 @@
     <!-- Question List -->
 
     <div v-if="questions">
-      <QuestionList :questions="questions"></QuestionList>
+      <QuestionList></QuestionList>
     </div>
 
     <!-- ScrollToTop -->

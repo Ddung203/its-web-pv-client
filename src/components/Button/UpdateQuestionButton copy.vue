@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, watch } from "vue";
+  import { ref } from "vue";
   import { uploadImageHandle } from "@/helper/uploadImageHandle.js";
   import { storeToRefs } from "pinia";
   import useQuestionStore from "../../stores/question";
@@ -9,16 +9,17 @@
   });
 
   const questionStore = useQuestionStore();
+
   let { questions } = storeToRefs(questionStore);
 
-  const questionWillUpdate = ref(questions.value[props.index]);
+  const questionWillUpdate = questions.value[props.index];
 
   const visible = ref(false);
 
   const selectedCorrectAnswer = ref(
-    questionWillUpdate.value
-      ? questionWillUpdate.value.options.find(
-          (o) => o.numbering == questionWillUpdate.value.correctAnswer
+    questionWillUpdate
+      ? questionWillUpdate?.options.find(
+          (o) => o.numbering == questionWillUpdate.correctAnswer
         )
       : null
   );
@@ -31,12 +32,12 @@
   ]);
 
   const selectedLevel = ref(
-    questionWillUpdate.value
-      ? levels.value.find((l) => l.code == questionWillUpdate.value.level)
+    questionWillUpdate
+      ? levels.value.find((l) => l.code == questionWillUpdate?.level)
       : null
   );
 
-  const uploadStatus = ref("error");
+  const uploadStatus = ref("error"); //
   const imageURL = ref("");
   const defaultImageURL =
     "https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/logos%2FLogo_bo%203%20goc.png?alt=media&token=aeb9dfc2-e57d-403a-a884-9ffd9ed2fb53"; // logo its
@@ -46,6 +47,7 @@
 
     const file = event.target.files[0];
 
+    // Check if the file is already
     if (!file) {
       uploadStatus.value = "error";
       imageURL.value = defaultImageURL;
@@ -53,6 +55,7 @@
       return;
     }
 
+    // Check if the file type is correct
     const fileType = file.type.split("/")[0];
     if (fileType !== "image") {
       uploadStatus.value = "error";
@@ -61,7 +64,8 @@
       return;
     }
 
-    const fileName = `Question_${questionWillUpdate.value.code}_${Date.now()}.${
+    // Set the file name
+    const fileName = `Question_${questionWillUpdate.code}_${Date.now()}.${
       file.type.split("/")[1]
     }`;
 
@@ -76,51 +80,36 @@
     }
   };
 
-  const dataToUpdate = ref({
-    id: questionWillUpdate.value._id,
+  const dataToUpdate = {
+    id: questionWillUpdate._id,
     question: {
       imageURL: imageURL.value ? imageURL.value : defaultImageURL,
-      content: questionWillUpdate.value.content,
+      content: questionWillUpdate.content,
       correctAnswer: selectedCorrectAnswer.value,
       level: selectedLevel.value.code,
     },
-  });
+  };
 
   const resetQuestionToUpdate = () => {
-    selectedCorrectAnswer.value = questionWillUpdate.value
-      ? questionWillUpdate.value.options.find(
-          (o) => o.numbering == questionWillUpdate.value.correctAnswer
+    // Important Reset
+    selectedCorrectAnswer.value = questionWillUpdate
+      ? questionWillUpdate?.options.find(
+          (o) => o.numbering == questionWillUpdate.correctAnswer
         )
       : null;
     visible.value = false;
 
-    selectedLevel.value = questionWillUpdate.value
-      ? levels.value.find((l) => l.code == questionWillUpdate.value.level)
+    selectedLevel.value = questionWillUpdate
+      ? levels.value.find((l) => l.code == questionWillUpdate?.level)
       : null;
 
     imageURL.value = defaultImageURL;
   };
 
-  watch(
-    [questionWillUpdate, selectedCorrectAnswer, selectedLevel, imageURL],
-    () => {
-      dataToUpdate.value = {
-        id: questionWillUpdate.value._id,
-        question: {
-          imageURL: imageURL.value ? imageURL.value : defaultImageURL,
-          content: questionWillUpdate.value.content,
-          correctAnswer: selectedCorrectAnswer.value,
-          level: selectedLevel.value.code,
-        },
-      };
-    },
-    { deep: true }
-  );
-
   const emit = defineEmits(["update"]);
 
   const setQuestionToUpdate = () => {
-    emit("update", dataToUpdate.value);
+    emit("update", dataToUpdate);
   };
 </script>
 
@@ -131,6 +120,7 @@
       @click="visible = true"
     />
 
+    <!-- ! FORM -->
     <div class="flex card justify-content-center">
       <Dialog
         v-model:visible="visible"
@@ -138,6 +128,7 @@
         header="Chỉnh sửa câu hỏi"
         :style="{ width: '25rem' }"
       >
+        <!--  -->
         <div class="flex items-center gap-3 mb-3">
           <label
             for="content"
@@ -148,10 +139,10 @@
             id="content"
             class="flex-auto"
             autocomplete="off"
-            v-model="questionWillUpdate.content"
+            :value="questionWillUpdate.content"
           />
         </div>
-
+        <!--  -->
         <div
           v-for="(option, index) in questionWillUpdate.options"
           :key="index"
@@ -166,14 +157,15 @@
               :id="'ans' + option.numbering"
               class="flex-auto"
               autocomplete="off"
-              v-model="option.answer"
+              :value="option.answer"
             />
           </div>
         </div>
-
+        <!-- Dropbow Correct Answer -->
         <div class="flex flex-col items-start justify-center pb-3">
           <span class="pb-2 font-semibold text-red-500">Chọn đáp án đúng*</span>
 
+          <!-- ! BUG -->
           <Dropdown
             v-model="selectedCorrectAnswer"
             :options="questionWillUpdate.options"
@@ -183,9 +175,11 @@
           />
         </div>
 
+        <!-- Dropbow Level Answer -->
         <div class="flex flex-col items-start justify-center pb-3">
           <span class="pb-2 font-semibold text-red-500">Chọn cấp độ</span>
 
+          <!-- ! BUG -->
           <Dropdown
             v-model="selectedLevel"
             :options="levels"
@@ -195,9 +189,11 @@
           />
         </div>
 
+        <!-- Ảnh -->
         <div class="flex flex-col items-start justify-center pb-3">
           <span class="pb-2 font-semibold">Chọn ảnh</span>
 
+          <!-- !BUG -->
           <input
             type="file"
             @change="handleFileUpload"
@@ -216,7 +212,7 @@
             Chưa tải ảnh!
           </p>
         </div>
-
+        <!-- Dialog Bottom -->
         <div class="flex justify-end gap-6">
           <Button
             type="button"

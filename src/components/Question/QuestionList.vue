@@ -3,15 +3,22 @@
   import DeleteButton from "../Button/DeleteButton.vue";
   import UpdateQuestionButton from "../Button/UpdateQuestionButton.vue";
   import useQuestionStore from "../../stores/question";
-
-  const props = defineProps({
-    questions: { type: Array, required: true },
-  });
+  import { storeToRefs } from "pinia";
 
   const questionStore = useQuestionStore();
+  let { questions } = storeToRefs(questionStore);
 
   const deleteOneQuestion = async (id) => {
-    await questionStore.deleteOneQuestionHandle(id);
+    questions.value = await questionStore.deleteOneQuestionHandle(id);
+  };
+
+  const updateOneQuestion = async (dataToUpdate) => {
+    console.log("dataToUpdate :>> ", dataToUpdate);
+
+    // await questionStore.updateOneQuestionHandle(
+    //   dataToUpdate.id,
+    //   dataToUpdate.question
+    // );
   };
 </script>
 
@@ -72,7 +79,10 @@
           :idObject="question._id"
           @delete="deleteOneQuestion"
         />
-        <!-- <UpdateQuestionButton :question="question" /> -->
+        <UpdateQuestionButton
+          :index="index"
+          @update="updateOneQuestion"
+        />
       </div>
     </div>
   </div>

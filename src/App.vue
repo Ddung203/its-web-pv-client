@@ -11,17 +11,17 @@
   const UIStore = useUIStore();
   const authStore = useAuthStore();
 
-  const showHeader = computed(() => {
+  const showComponent = computed(() => {
     return route.path !== "/login";
   });
 </script>
 
 <template>
   <div>
-    <Header v-if="showHeader" />
-    <NavBar v-if="showHeader" />
+    <Header v-if="showComponent" />
+    <NavBar v-if="showComponent" />
     <router-view />
-    <Footer v-if="showHeader" />
+    <Footer v-if="showComponent" />
   </div>
 </template>
 

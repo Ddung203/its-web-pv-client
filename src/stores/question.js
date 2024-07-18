@@ -32,11 +32,25 @@ const useQuestionStore = defineStore("question", () => {
     }
   }
 
+  async function updateOneQuestionHandle(id, data) {
+    if (questions.value.length > 0) {
+      try {
+        await HTTP.put(`/question/update/${id}`, data);
+        await getQuestionsHandle();
+      } catch (error) {
+        console.log("error :>> ", error);
+        throw error;
+      }
+      return questions.value;
+    }
+  }
+
   return {
     questions,
     getQuestions,
     getQuestionsHandle,
     deleteOneQuestionHandle,
+    updateOneQuestionHandle,
   };
 });
 
