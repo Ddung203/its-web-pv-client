@@ -13,12 +13,12 @@
   };
 
   const updateOneQuestion = async (dataToUpdate) => {
-    console.log("dataToUpdate :>> ", dataToUpdate);
+    // console.log("dataToUpdate :>> ", dataToUpdate);
 
-    // await questionStore.updateOneQuestionHandle(
-    //   dataToUpdate.id,
-    //   dataToUpdate.question
-    // );
+    await questionStore.updateOneQuestionHandle(
+      dataToUpdate.id,
+      dataToUpdate.question
+    );
   };
 </script>
 
@@ -74,7 +74,7 @@
       </div>
 
       <!-- !EDIT -->
-      <div class="flex justify-end p-8">
+      <div class="flex justify-end gap-4 p-8">
         <DeleteButton
           :idObject="question._id"
           @delete="deleteOneQuestion"

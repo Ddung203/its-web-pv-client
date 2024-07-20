@@ -10,7 +10,16 @@ const useQuestionStore = defineStore("question", () => {
     try {
       const response = await HTTP.get("/question/list");
 
-      questions.value = response?.payload?.questions?.data;
+      if (
+        response &&
+        response.data &&
+        response.data.payload &&
+        response.data.payload.questions
+      ) {
+        questions.value = response.data.payload.questions.data;
+      } else {
+        console.error("Invalid response structure", response);
+      }
 
       return questions.value;
     } catch (error) {
@@ -20,10 +29,21 @@ const useQuestionStore = defineStore("question", () => {
   }
 
   async function deleteOneQuestionHandle(id) {
+    if (!id) {
+      console.error("Invalid id");
+      return;
+    }
+
     if (questions.value.length > 0) {
       try {
-        await HTTP.delete(`/question/delete/${id}`);
-        await getQuestionsHandle();
+        const response = await HTTP.delete(`/question/delete/${id}`);
+        if (response.status === 200) {
+          questions.value = questions.value.filter(
+            (question) => question.id !== id
+          );
+        } else {
+          console.error("Failed to delete question", response);
+        }
       } catch (error) {
         console.log("error :>> ", error);
         throw error;
@@ -33,10 +53,19 @@ const useQuestionStore = defineStore("question", () => {
   }
 
   async function updateOneQuestionHandle(id, data) {
+    if (!id || !data) {
+      console.error("Invalid id or data");
+      return;
+    }
+
     if (questions.value.length > 0) {
       try {
-        await HTTP.put(`/question/update/${id}`, data);
-        await getQuestionsHandle();
+        const response = await HTTP.put(`/question/update/${id}`, data);
+        if (response.status === 200) {
+          await getQuestionsHandle();
+        } else {
+          console.error("Failed to update question", response);
+        }
       } catch (error) {
         console.log("error :>> ", error);
         throw error;

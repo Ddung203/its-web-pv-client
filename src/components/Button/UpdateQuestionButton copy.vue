@@ -4,6 +4,7 @@
   import { storeToRefs } from "pinia";
   import useQuestionStore from "../../stores/question";
 
+  // GET Question
   const props = defineProps({
     index: { type: Number, required: true },
   });
@@ -14,15 +15,12 @@
 
   const questionWillUpdate = questions.value[props.index];
 
+  // TO UPDATE
   const visible = ref(false);
 
-  const selectedCorrectAnswer = ref(
-    questionWillUpdate
-      ? questionWillUpdate?.options.find(
-          (o) => o.numbering == questionWillUpdate.correctAnswer
-        )
-      : null
-  );
+  const content = ref(questionWillUpdate.content);
+
+  const options = ref(questionWillUpdate.options);
 
   const levels = ref([
     { name: "easy", code: "easy" },
@@ -30,6 +28,14 @@
     { name: "medium", code: "medium" },
     { name: "hard", code: "hard" },
   ]);
+
+  const selectedCorrectAnswer = ref(
+    options.value.length > 0
+      ? options.value.find(
+          (o) => o.numbering == questionWillUpdate.correctAnswer
+        )
+      : null
+  );
 
   const selectedLevel = ref(
     questionWillUpdate
@@ -80,18 +86,13 @@
     }
   };
 
-  const dataToUpdate = {
-    id: questionWillUpdate._id,
-    question: {
-      imageURL: imageURL.value ? imageURL.value : defaultImageURL,
-      content: questionWillUpdate.content,
-      correctAnswer: selectedCorrectAnswer.value,
-      level: selectedLevel.value.code,
-    },
-  };
-
   const resetQuestionToUpdate = () => {
     // Important Reset
+
+    content.value = questionWillUpdate.content;
+    console.log("questionWillUpdate.options :>> ", questionWillUpdate.options);
+    options.value = questionWillUpdate.options;
+    //
     selectedCorrectAnswer.value = questionWillUpdate
       ? questionWillUpdate?.options.find(
           (o) => o.numbering == questionWillUpdate.correctAnswer
@@ -109,6 +110,17 @@
   const emit = defineEmits(["update"]);
 
   const setQuestionToUpdate = () => {
+    const dataToUpdate = {
+      id: questionWillUpdate._id,
+      question: {
+        imageURL: imageURL.value ? imageURL.value : defaultImageURL,
+        content: content.value,
+        options: options.value,
+        correctAnswer: selectedCorrectAnswer.value,
+        level: selectedLevel.value.code,
+      },
+    };
+
     emit("update", dataToUpdate);
   };
 </script>
@@ -139,12 +151,12 @@
             id="content"
             class="flex-auto"
             autocomplete="off"
-            :value="questionWillUpdate.content"
+            v-model="content"
           />
         </div>
         <!--  -->
         <div
-          v-for="(option, index) in questionWillUpdate.options"
+          v-for="(option, index) in options"
           :key="index"
         >
           <div class="flex items-center gap-3 mb-3">
@@ -157,7 +169,7 @@
               :id="'ans' + option.numbering"
               class="flex-auto"
               autocomplete="off"
-              :value="option.answer"
+              v-model="option.answer"
             />
           </div>
         </div>
@@ -168,7 +180,7 @@
           <!-- ! BUG -->
           <Dropdown
             v-model="selectedCorrectAnswer"
-            :options="questionWillUpdate.options"
+            :options="options"
             optionLabel="numbering"
             placeholder="-"
             class="w-full md:w-14rem"

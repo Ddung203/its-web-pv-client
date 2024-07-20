@@ -1,27 +1,27 @@
 <script setup>
-  import { ref, watch } from "vue";
+  import { ref, computed } from "vue";
   import { uploadImageHandle } from "@/helper/uploadImageHandle.js";
   import { storeToRefs } from "pinia";
   import useQuestionStore from "../../stores/question";
 
+  // GET Question
   const props = defineProps({
     index: { type: Number, required: true },
   });
 
   const questionStore = useQuestionStore();
-  let { questions } = storeToRefs(questionStore);
 
-  const questionWillUpdate = ref(questions.value[props.index]);
+  const { questions } = storeToRefs(questionStore);
 
+  const questionWillUpdate = computed(() => questions.value[props.index] || {});
+
+  // TO UPDATE
   const visible = ref(false);
 
-  const selectedCorrectAnswer = ref(
-    questionWillUpdate.value
-      ? questionWillUpdate.value.options.find(
-          (o) => o.numbering == questionWillUpdate.value.correctAnswer
-        )
-      : null
-  );
+  const content = ref(questionWillUpdate.value.content || "");
+
+  const optionsOrigin = questionWillUpdate.value.options;
+  const options = ref(questionWillUpdate.value.options || []);
 
   const levels = ref([
     { name: "easy", code: "easy" },
@@ -29,6 +29,14 @@
     { name: "medium", code: "medium" },
     { name: "hard", code: "hard" },
   ]);
+
+  const selectedCorrectAnswer = ref(
+    options.value.length > 0
+      ? options.value.find(
+          (o) => o.numbering == questionWillUpdate.value.correctAnswer
+        )
+      : null
+  );
 
   const selectedLevel = ref(
     questionWillUpdate.value
@@ -39,7 +47,8 @@
   const uploadStatus = ref("error");
   const imageURL = ref("");
   const defaultImageURL =
-    "https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/logos%2FLogo_bo%203%20goc.png?alt=media&token=aeb9dfc2-e57d-403a-a884-9ffd9ed2fb53"; // logo its
+    "https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/logos%2FLogo_bo%203%20goc.png?alt=media&token=aeb9dfc2-e57d-403a-a884-9ffd9ed2fb53";
+  imageURL.value = questionWillUpdate.value.imageURL;
 
   const handleFileUpload = async (event) => {
     uploadStatus.value = "error";
@@ -48,7 +57,7 @@
 
     if (!file) {
       uploadStatus.value = "error";
-      imageURL.value = defaultImageURL;
+      imageURL.value === "" ? defaultImageURL : imageURL.value;
       console.log("No file selected!");
       return;
     }
@@ -56,7 +65,7 @@
     const fileType = file.type.split("/")[0];
     if (fileType !== "image") {
       uploadStatus.value = "error";
-      imageURL.value = defaultImageURL;
+      imageURL.value === "" ? defaultImageURL : imageURL.value;
       console.log("Invalid file type. Only images are allowed.");
       return;
     }
@@ -76,51 +85,43 @@
     }
   };
 
-  const dataToUpdate = ref({
-    id: questionWillUpdate.value._id,
-    question: {
-      imageURL: imageURL.value ? imageURL.value : defaultImageURL,
-      content: questionWillUpdate.value.content,
-      correctAnswer: selectedCorrectAnswer.value,
-      level: selectedLevel.value.code,
-    },
-  });
-
   const resetQuestionToUpdate = () => {
+    content.value = questionWillUpdate.value.content;
+
+    options.value = JSON.parse(JSON.stringify(optionsOrigin));
+
     selectedCorrectAnswer.value = questionWillUpdate.value
       ? questionWillUpdate.value.options.find(
           (o) => o.numbering == questionWillUpdate.value.correctAnswer
         )
       : null;
-    visible.value = false;
 
     selectedLevel.value = questionWillUpdate.value
       ? levels.value.find((l) => l.code == questionWillUpdate.value.level)
       : null;
 
-    imageURL.value = defaultImageURL;
-  };
+    imageURL.value === "" ? defaultImageURL : imageURL.value;
 
-  watch(
-    [questionWillUpdate, selectedCorrectAnswer, selectedLevel, imageURL],
-    () => {
-      dataToUpdate.value = {
-        id: questionWillUpdate.value._id,
-        question: {
-          imageURL: imageURL.value ? imageURL.value : defaultImageURL,
-          content: questionWillUpdate.value.content,
-          correctAnswer: selectedCorrectAnswer.value,
-          level: selectedLevel.value.code,
-        },
-      };
-    },
-    { deep: true }
-  );
+    visible.value = false;
+  };
 
   const emit = defineEmits(["update"]);
 
   const setQuestionToUpdate = () => {
-    emit("update", dataToUpdate.value);
+    const dataToUpdate = {
+      id: questionWillUpdate.value._id,
+      question: {
+        imageURL: imageURL.value ? imageURL.value : defaultImageURL,
+        content: content.value,
+        options: options.value,
+        correctAnswer: `${selectedCorrectAnswer.value.numbering}`,
+        level: selectedLevel.value.code,
+      },
+    };
+
+    emit("update", dataToUpdate);
+
+    visible.value = false;
   };
 </script>
 
@@ -131,6 +132,7 @@
       @click="visible = true"
     />
 
+    <!-- ! FORM -->
     <div class="flex card justify-content-center">
       <Dialog
         v-model:visible="visible"
@@ -138,6 +140,7 @@
         header="Chỉnh sửa câu hỏi"
         :style="{ width: '25rem' }"
       >
+        <!--  -->
         <div class="flex items-center gap-3 mb-3">
           <label
             for="content"
@@ -148,12 +151,12 @@
             id="content"
             class="flex-auto"
             autocomplete="off"
-            v-model="questionWillUpdate.content"
+            v-model="content"
           />
         </div>
-
+        <!--  -->
         <div
-          v-for="(option, index) in questionWillUpdate.options"
+          v-for="(option, index) in options"
           :key="index"
         >
           <div class="flex items-center gap-3 mb-3">
@@ -170,22 +173,25 @@
             />
           </div>
         </div>
-
+        <!-- Dropbow Correct Answer -->
         <div class="flex flex-col items-start justify-center pb-3">
           <span class="pb-2 font-semibold text-red-500">Chọn đáp án đúng*</span>
 
+          <!-- ! BUG -->
           <Dropdown
             v-model="selectedCorrectAnswer"
-            :options="questionWillUpdate.options"
+            :options="options"
             optionLabel="numbering"
             placeholder="-"
             class="w-full md:w-14rem"
           />
         </div>
 
+        <!-- Dropbow Level Answer -->
         <div class="flex flex-col items-start justify-center pb-3">
           <span class="pb-2 font-semibold text-red-500">Chọn cấp độ</span>
 
+          <!-- ! BUG -->
           <Dropdown
             v-model="selectedLevel"
             :options="levels"
@@ -195,9 +201,11 @@
           />
         </div>
 
+        <!-- Ảnh -->
         <div class="flex flex-col items-start justify-center pb-3">
           <span class="pb-2 font-semibold">Chọn ảnh</span>
 
+          <!-- !BUG -->
           <input
             type="file"
             @change="handleFileUpload"
@@ -216,7 +224,7 @@
             Chưa tải ảnh!
           </p>
         </div>
-
+        <!-- Dialog Bottom -->
         <div class="flex justify-end gap-6">
           <Button
             type="button"
