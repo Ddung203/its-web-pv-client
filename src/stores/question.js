@@ -5,22 +5,21 @@ import HTTP from "../helper/axiosInstance";
 const useQuestionStore = defineStore("question", () => {
   const questions = ref([]);
   const getQuestions = computed(() => questions.value);
+  const getOneQuestion = computed((id) =>
+    questions.value.find((item) => {
+      return (item._id = id);
+    })
+  );
 
   async function getQuestionsHandle() {
     try {
       const response = await HTTP.get("/question/list");
 
-      if (
-        response &&
-        response.data &&
-        response.data.payload &&
-        response.data.payload.questions
-      ) {
-        questions.value = response.data.payload.questions.data;
+      if (response?.success) {
+        questions.value = response?.payload?.questions?.data;
       } else {
         console.error("Invalid response structure", response);
       }
-
       return questions.value;
     } catch (error) {
       console.log("error :>> ", error);
@@ -37,10 +36,8 @@ const useQuestionStore = defineStore("question", () => {
     if (questions.value.length > 0) {
       try {
         const response = await HTTP.delete(`/question/delete/${id}`);
-        if (response.status === 200) {
-          questions.value = questions.value.filter(
-            (question) => question.id !== id
-          );
+        if (response.success) {
+          questions.value = await getQuestionsHandle();
         } else {
           console.error("Failed to delete question", response);
         }
@@ -61,8 +58,8 @@ const useQuestionStore = defineStore("question", () => {
     if (questions.value.length > 0) {
       try {
         const response = await HTTP.put(`/question/update/${id}`, data);
-        if (response.status === 200) {
-          await getQuestionsHandle();
+        if (response.success) {
+          questions.value = await getQuestionsHandle();
         } else {
           console.error("Failed to update question", response);
         }
@@ -80,6 +77,7 @@ const useQuestionStore = defineStore("question", () => {
     getQuestionsHandle,
     deleteOneQuestionHandle,
     updateOneQuestionHandle,
+    getOneQuestion,
   };
 });
 

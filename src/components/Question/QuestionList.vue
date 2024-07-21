@@ -1,17 +1,45 @@
+// QuestionList.vue
 <script setup>
-  import { ref } from "vue";
-  import DeleteButton from "../Button/DeleteButton.vue";
+  import { ref, watch } from "vue";
+  import ConfirmPopup from "primevue/confirmpopup";
+  import { useToast } from "primevue/usetoast";
+  import { useConfirm } from "primevue/useconfirm";
   import UpdateQuestionButton from "../Button/UpdateQuestionButton.vue";
   import useQuestionStore from "../../stores/question";
   import { storeToRefs } from "pinia";
 
+  const toast = useToast();
+  const confirm = useConfirm();
   const questionStore = useQuestionStore();
-  let { questions } = storeToRefs(questionStore);
+  const { questions } = storeToRefs(questionStore);
 
-  const deleteOneQuestion = async (id) => {
-    questions.value = await questionStore.deleteOneQuestionHandle(id);
+  // ! DELETE
+
+  const confirmDelete = (event, id) => {
+    confirm.require({
+      target: event.currentTarget,
+      message: "Bạn có muốn xóa câu hỏi?",
+      icon: "pi pi-info-circle",
+      rejectClass: "p-button-secondary p-button-outlined p-button-sm",
+      acceptClass: "p-button-danger p-button-sm",
+      rejectLabel: "Hủy",
+      acceptLabel: "Xác nhận",
+      accept: async () => {
+        await questionStore.deleteOneQuestionHandle(id);
+        toast.add({
+          severity: "info",
+          summary: "Thông báo",
+          detail: "Đã xóa 1 câu hỏi",
+          life: 1500,
+        });
+      },
+      reject: () => {
+        console.log("Rejecting");
+      },
+    });
   };
 
+  // ! UPDATE
   const updateOneQuestion = async (dataToUpdate) => {
     // console.log("dataToUpdate :>> ", dataToUpdate);
 
@@ -75,12 +103,21 @@
 
       <!-- !EDIT -->
       <div class="flex justify-end gap-4 p-8">
-        <DeleteButton
-          :idObject="question._id"
-          @delete="deleteOneQuestion"
-        />
+        <!-- ! DELETE -->
+        <Toast />
+        <ConfirmPopup></ConfirmPopup>
+        <div class="flex flex-wrap gap-2 card justify-content-center">
+          <Button
+            @click="confirmDelete($event, question._id)"
+            label="Xóa"
+            severity="danger"
+            outlined
+          ></Button>
+        </div>
+
+        <!-- ! UPDATE -->
         <UpdateQuestionButton
-          :index="index"
+          :question="question"
           @update="updateOneQuestion"
         />
       </div>

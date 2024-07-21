@@ -1,3 +1,5 @@
+// DeleteButton.vue
+
 <script setup>
   import ConfirmPopup from "primevue/confirmpopup";
   import { useToast } from "primevue/usetoast";
@@ -19,7 +21,7 @@
     emit("delete", props.idObject);
   }
 
-  const confirm2 = (event) => {
+  const confirmDelete = (event) => {
     confirm.require({
       target: event.currentTarget,
       message: "Do you want to delete this record?",
@@ -47,7 +49,7 @@
   <ConfirmPopup></ConfirmPopup>
   <div class="flex flex-wrap gap-2 card justify-content-center">
     <Button
-      @click="confirm2($event)"
+      @click="confirmDelete($event)"
       label="Xóa"
       severity="danger"
       outlined

@@ -1,8 +1,5 @@
 <script setup>
-  import { onMounted, ref } from "vue";
-  import HTTP from "@/helper/axiosInstance.js";
-  import UploadImage from "@/components/Image/UploadImage.vue";
-  import QuestionCardCanEdit from "@/components/Question/QuestionCardCanEdit.vue";
+  import { onMounted } from "vue";
   import ScrollToTop from "@/components/Button/ScrollToTop.vue";
   import useAuthStore from "../../stores/auth";
   import useQuestionStore from "../../stores/question";
