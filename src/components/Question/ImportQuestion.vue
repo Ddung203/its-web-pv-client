@@ -35,8 +35,8 @@
         { numbering: 3, answer: row.option3 },
         { numbering: 4, answer: row.option4 },
       ],
-      correctAnswer: row.correctAnswer.toString(),
-      level: row.level || "easy",
+      correctAnswer: row.correctAnswer.toString().toLowerCase(),
+      level: row.level.toString().toLowerCase() || "easy",
     }));
   };
 </script>
@@ -65,8 +65,8 @@
           id="fileUpload"
           name="fileUpload"
           type="file"
-          @change="handleFileUpload"
           accept=".xlsx"
+          @change="handleFileUpload"
         />
         <Button> <label for="fileUpload"> Nhập file câu hỏi </label></Button>
       </div>

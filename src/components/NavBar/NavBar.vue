@@ -35,6 +35,27 @@
       },
     },
     {
+      label: "Phỏng vấn",
+      icon: "pi pi-file-edit",
+      items: [
+        {
+          label: "Phỏng vấn",
+          icon: "pi pi-list",
+          route: "/interview",
+        },
+        {
+          label: "Interviewer",
+          icon: "pi pi-user",
+          route: "/questions",
+        },
+        {
+          label: "Thêm người phỏng vấn",
+          icon: "pi pi-plus",
+          route: "/import-questions",
+        },
+      ],
+    },
+    {
       label: "Sinh viên",
       icon: "pi pi-users",
       items: [
@@ -61,27 +82,6 @@
         },
         {
           label: "Thêm câu hỏi",
-          icon: "pi pi-plus",
-          route: "/import-questions",
-        },
-      ],
-    },
-    {
-      label: "Phỏng vấn",
-      icon: "pi pi-file-edit",
-      items: [
-        {
-          label: "Phỏng vấn",
-          icon: "pi pi-list",
-          route: "/questions",
-        },
-        {
-          label: "Interviewer",
-          icon: "pi pi-user",
-          route: "/questions",
-        },
-        {
-          label: "Thêm người phỏng vấn",
           icon: "pi pi-plus",
           route: "/import-questions",
         },

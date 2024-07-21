@@ -72,20 +72,19 @@
             <FloatLabel>
               <InputText
                 id="studentCode"
-                class="outline-1 outline-[#ffcd94]"
+                class="outline-1 outline-[#ffcd94] w-full"
                 v-model="studentCode"
               />
               <label for="studentCode">Mã sinh viên</label>
             </FloatLabel>
           </div>
           <!-- Password -->
-          <div>
+          <div class="pt-4">
             <FloatLabel>
-              <InputText
+              <Password
                 id="password"
-                type="password"
-                class="outline-1 outline-[#ffcd94]"
                 v-model="password"
+                toggleMask
               />
               <label for="password">Mật khẩu</label>
             </FloatLabel>

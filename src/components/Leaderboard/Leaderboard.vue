@@ -72,7 +72,7 @@
         :first="first"
         @page="onPageChange"
         template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+        currentPageReportTemplate="{first} to {last} of {totalRecords}"
       />
     </div>
   </div>
@@ -83,7 +83,7 @@
     class="flex justify-center"
   >
     <img
-      class="block h-[600px]"
+      class="block md:h-[600px]"
       src="@/public/assets/imgs/nodata.png"
       alt=""
     />

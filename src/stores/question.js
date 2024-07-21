@@ -5,11 +5,6 @@ import HTTP from "../helper/axiosInstance";
 const useQuestionStore = defineStore("question", () => {
   const questions = ref([]);
   const getQuestions = computed(() => questions.value);
-  const getOneQuestion = computed((id) =>
-    questions.value.find((item) => {
-      return (item._id = id);
-    })
-  );
 
   async function getQuestionsHandle() {
     try {
@@ -77,7 +72,6 @@ const useQuestionStore = defineStore("question", () => {
     getQuestionsHandle,
     deleteOneQuestionHandle,
     updateOneQuestionHandle,
-    getOneQuestion,
   };
 });
 

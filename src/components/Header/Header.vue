@@ -51,7 +51,7 @@
             </router-link>
           </section>
           <!--  -->
-          <section class="flex gap-5 lg:flex-row right">
+          <section class="hidden gap-5 md:flex lg:flex-row right">
             <Button
               icon="pi pi-wrench"
               rounded
