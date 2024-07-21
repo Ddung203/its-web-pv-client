@@ -17,6 +17,8 @@
         questions.value = transformData(jsonData);
 
         emit("questions-updated", questions.value);
+
+        event.target.value = "";
       };
       reader.readAsArrayBuffer(file);
     }
