@@ -7,6 +7,7 @@ import ImportQuestionView from "../views/Question/ImportQuestionView.vue";
 import QuestionListView from "../views/Question/QuestionListView.vue";
 import IntroductionView from "../views/Introduction/IntroductionView.vue";
 import LeaderboardView from "../views/Leaderboard/LeaderboardView.vue";
+import InterviewView from "../views/Interview/InterviewView.vue";
 
 const routes = [
   { path: "/", name: "home", component: HomeView },
@@ -22,6 +23,11 @@ const routes = [
     path: "/leaderboard",
     name: "leaderboard",
     component: LeaderboardView,
+  },
+  {
+    path: "/interview",
+    name: "interview",
+    component: InterviewView,
   },
   { path: "/:catchAll(.*)", component: NotFoundView },
 ];

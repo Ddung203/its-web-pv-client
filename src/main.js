@@ -8,6 +8,7 @@ import PrimeVue from "primevue/config";
 import "primevue/resources/themes/aura-light-amber/theme.css";
 import "primeicons/primeicons.css";
 //! Import PrimeVue Components
+import ProgressBar from "primevue/progressbar";
 import ToastService from "primevue/toastservice";
 import ConfirmationService from "primevue/confirmationservice";
 import InputIcon from "primevue/inputicon";
@@ -44,6 +45,7 @@ app.use(ConfirmationService);
 
 //! Register PrimeVue Components
 app.directive("ripple", Ripple);
+app.component("ProgressBar", ProgressBar);
 app.component("ScrollTop", ScrollTop);
 app.component("Paginator", Paginator);
 app.component("Fieldset", Fieldset);
