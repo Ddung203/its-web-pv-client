@@ -12,7 +12,7 @@
   const authStore = useAuthStore();
 
   const showComponent = computed(() => {
-    return route.path !== "/login";
+    return route.path !== "/login" && route.path !== "/test";
   });
 </script>
 

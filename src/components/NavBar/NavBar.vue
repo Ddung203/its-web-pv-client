@@ -24,7 +24,7 @@
       label: "Bài kiểm tra",
       icon: "pi pi-pencil",
       command: () => {
-        router.push("/introduction");
+        router.push("/test");
       },
     },
     {
@@ -62,12 +62,12 @@
         {
           label: "Danh sách sinh viên",
           icon: "pi pi-list",
-          route: "/questions",
+          route: "/students",
         },
         {
           label: "Thêm sinh viên",
           icon: "pi pi-plus",
-          route: "/import-questions",
+          route: "/import-students",
         },
       ],
     },

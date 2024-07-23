@@ -8,6 +8,8 @@ import QuestionListView from "../views/Question/QuestionListView.vue";
 import IntroductionView from "../views/Introduction/IntroductionView.vue";
 import LeaderboardView from "../views/Leaderboard/LeaderboardView.vue";
 import InterviewView from "../views/Interview/InterviewView.vue";
+import TestView from "../views/Test/TestView.vue";
+import StudentListView from "../views/Student/StudentListView.vue";
 
 const routes = [
   { path: "/", name: "home", component: HomeView },
@@ -28,6 +30,21 @@ const routes = [
     path: "/interview",
     name: "interview",
     component: InterviewView,
+  },
+  {
+    path: "/test",
+    name: "test",
+    component: TestView,
+  },
+  {
+    path: "/students",
+    name: "students",
+    component: StudentListView,
+  },
+  {
+    path: "/import-students",
+    name: "import-students",
+    component: StudentListView,
   },
   { path: "/:catchAll(.*)", component: NotFoundView },
 ];

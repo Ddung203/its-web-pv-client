@@ -35,7 +35,7 @@
 
 <template>
   <div
-    class="max-w-md mx-auto my-3 overflow-hidden bg-white shadow-c rounded-xl md:max-w-2xl"
+    class="max-w-md mx-auto my-8 overflow-hidden bg-white shadow-c rounded-xl md:max-w-2xl"
   >
     <div class="md:flex">
       <div class="md:shrink-0">
@@ -44,7 +44,7 @@
           target="_blank"
         >
           <img
-            class="object-contain w-full h-48 md:h-full md:w-48"
+            class="object-contain w-full h-48 pl-4 md:h-full md:w-48"
             :src="props.questions.imageURL"
             alt="Question image"
           />
@@ -83,6 +83,7 @@
   }
 
   .shadow-c {
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   }
 </style>

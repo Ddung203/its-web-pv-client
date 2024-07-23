@@ -2,7 +2,6 @@
   import useAuthStore from "@/stores/auth";
   import { API_URL } from "../../config";
   import useUIStore from "../../stores/ui";
-  import showNotification from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
   import router from "../../routes";
 
@@ -11,48 +10,36 @@
   const UIStore = useUIStore();
 
   console.log(`${API_URL}/ping`);
-  const header = authStore.getStudentName || "Guest";
 </script>
 
 <template>
   <Toast />
-
   <header class="w-[100vw] h-[66px]">
     <div class="">
       <div class="fixed top-0 left-0 w-[100%] z-40 bg-white shadow-c">
-        <div
-          class="flex flex-row-reverse items-center justify-between py-3 md:flex-row px-7"
-        >
-          <!--  -->
+        <div class="flex flex-row items-center justify-between py-3 px-7">
+          <!-- Left -->
           <section class="left">
             <div class="flex gap-2 justify-content-center introduction-farm">
               <Button
-                outlined
                 icon="pi pi-align-justify"
                 @click="UIStore.toggle"
+                outlined
               />
             </div>
           </section>
 
           <!-- Middle -->
-          <section>
-            <!-- LOGO -->
-            <router-link to="/introduction">
-              <div class="logo">
-                <img
-                  class="block h-[40px]"
-                  src="@/public/assets/imgs/logofull.png"
-                  alt="Logo"
-                />
-              </div>
-            </router-link>
+          <section class="flex flex-col items-center justify-center">
+            <p class="hidden md:block">Đã chọn</p>
+            <span class="font-bold">0/20</span>
           </section>
-          <!--  -->
-          <section class="hidden gap-5 md:flex lg:flex-row right">
+          <!-- Right -->
+          <section class="gap-5 md:flex lg:flex-row right">
             <Button
-              :label="header"
+              label="Hoàn thành"
+              severity="secondary"
               outlined
-              icon="pi pi-user"
             />
           </section>
         </div>
