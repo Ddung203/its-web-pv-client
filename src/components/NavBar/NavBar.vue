@@ -46,12 +46,7 @@
         {
           label: "Interviewer",
           icon: "pi pi-user",
-          route: "/questions",
-        },
-        {
-          label: "Thêm người phỏng vấn",
-          icon: "pi pi-plus",
-          route: "/import-questions",
+          route: "/students",
         },
       ],
     },
@@ -60,14 +55,9 @@
       icon: "pi pi-users",
       items: [
         {
-          label: "Danh sách sinh viên",
+          label: "Quản lý sinh viên",
           icon: "pi pi-list",
           route: "/students",
-        },
-        {
-          label: "Thêm sinh viên",
-          icon: "pi pi-plus",
-          route: "/import-students",
         },
       ],
     },
