@@ -85,7 +85,7 @@
         toast.add({
           severity: "info",
           summary: "Thông báo",
-          detail: "Bạn đã đăng xuất thành công!",
+          detail: "Tạm biệt!",
           life: 1000,
         });
         setTimeout(() => {

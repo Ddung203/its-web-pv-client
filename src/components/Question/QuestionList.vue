@@ -55,7 +55,7 @@
     <div
       v-for="(question, index) in questions"
       :key="index"
-      class="max-w-md mx-auto my-3 overflow-hidden bg-white shadow-c rounded-xl md:max-w-2xl"
+      class="max-w-md mx-auto my-3 overflow-hidden bg-white md:my-0 md:mb-8 shadow-c rounded-xl md:max-w-2xl"
     >
       <!-- !TOP -->
       <div class="md:flex">
@@ -66,7 +66,7 @@
             target="_blank"
           >
             <img
-              class="object-contain w-full h-48 md:h-full md:w-48"
+              class="object-contain w-full h-48 pl-4 md:h-full md:w-48"
               :src="question.imageURL"
               alt="Question image"
             />
@@ -86,17 +86,17 @@
           >
           <!-- Đáp án -->
           <div class="mt-4">
-            <div
+            <p
               v-for="(option, index) in question.options"
               :key="index"
-              class="p-2 mt-2 border rounded cursor-pointer"
+              class="p-2 mt-2 border rounded cursor-pointer text-wrap"
               :class="{
                 'bg-blue-200': question.correctAnswer == option.numbering,
               }"
             >
               {{ option.answer }} -
               {{ question.correctAnswer == option.numbering }}
-            </div>
+            </p>
           </div>
         </div>
       </div>
