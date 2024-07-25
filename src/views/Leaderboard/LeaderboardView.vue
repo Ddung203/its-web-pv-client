@@ -2,29 +2,19 @@
   import { onMounted, ref } from "vue";
   import Leaderboard from "../../components/Leaderboard/Leaderboard.vue";
   import TitleBannerMini from "../../components/Banner/TitleBannerMini.vue";
+  import useLeaderboardStore from "../../stores/leaderboard";
 
-  import HTTP from "@/helper/axiosInstance.js";
+  const leaderboardStore = useLeaderboardStore();
 
-  const playsData = ref([]);
-
-  const fetchData = async () => {
-    try {
-      const response = await HTTP.get("/play/leaderboard");
-      playsData.value = response.payload.plays;
-
-      console.log("playsData.value :>> ", playsData.value);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  onMounted(() => fetchData());
+  onMounted(leaderboardStore.getLeaderboardHandle);
 </script>
 
 <template>
   <div class="p-5">
     <TitleBannerMini :title="'Bảng xếp hạng'"></TitleBannerMini>
-    <Leaderboard :playsData="playsData"></Leaderboard>
+    <div v-if="leaderboardStore.getPlays.length !== 0">
+      <Leaderboard :playsData="leaderboardStore.getPlays"></Leaderboard>
+    </div>
   </div>
 </template>
 

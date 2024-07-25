@@ -3,13 +3,30 @@
   import SingleSearch from "../Search/SingleSearch.vue";
   import Paginator from "primevue/paginator";
   import DataTableCustom from "../DataTableCustom/DataTableCustom.vue";
-  import { playsData } from "../../testData";
 
   const props = defineProps({
     playsData: { type: Array, required: true },
   });
 
-  const plays = ref(playsData);
+  const selectedData = props.playsData.map(
+    ({
+      studentCode,
+      studentName,
+      studentClass,
+      score,
+      interviewScore,
+      totalScore,
+    }) => ({
+      studentCode,
+      studentName,
+      studentClass,
+      score,
+      interviewScore,
+      totalScore,
+    })
+  );
+
+  const plays = ref(selectedData);
 
   // For DataTableCustom component
   const titles = [
@@ -24,10 +41,6 @@
   const nameSearch = ref("");
   const rowsPerPage = ref(10);
   const first = ref(0);
-
-  // const currentPage = computed(() => {
-  //   return Math.floor(first.value / rowsPerPage.value) + 1;
-  // });
 
   const filteredPlays = computed(() => {
     if (!nameSearch.value) {
@@ -51,10 +64,12 @@
 <template>
   <div>
     <!-- SingleSearch.vue -->
-    <SingleSearch
-      v-model="nameSearch"
-      placeholder="Tìm tên"
-    />
+    <div>
+      <SingleSearch
+        v-model="nameSearch"
+        placeholder="Tìm tên"
+      />
+    </div>
 
     <!-- Data Table -->
     <div>
