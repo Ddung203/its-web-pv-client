@@ -41,7 +41,7 @@
       );
 
       setTimeout(() => {
-        router.push("/import-questions");
+        router.push("/introduction");
       }, 1500);
     }
   };

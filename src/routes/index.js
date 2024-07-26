@@ -19,6 +19,7 @@ const routes = [
     component: HomeView,
     meta: {
       requiredAuth: false,
+      requiredRole: ["admin", "interviewer", "user"],
       layout: true,
     },
   },
@@ -28,6 +29,7 @@ const routes = [
     component: LoginView,
     meta: {
       requiredAuth: false,
+      requiredRole: ["admin", "interviewer", "user"],
       layout: true,
     },
   },
@@ -37,6 +39,7 @@ const routes = [
     component: ImportQuestionView,
     meta: {
       requiredAuth: true,
+      requiredRole: ["admin", "interviewer"],
       layout: true,
     },
   },
@@ -46,6 +49,7 @@ const routes = [
     component: QuestionListView,
     meta: {
       requiredAuth: true,
+      requiredRole: ["admin", "interviewer"],
       layout: true,
     },
   },
@@ -55,6 +59,7 @@ const routes = [
     component: IntroductionView,
     meta: {
       requiredAuth: false,
+      requiredRole: ["admin", "interviewer", "user"],
       layout: true,
     },
   },
@@ -64,6 +69,7 @@ const routes = [
     component: LeaderboardView,
     meta: {
       requiredAuth: true,
+      requiredRole: ["admin", "interviewer"],
       layout: true,
     },
   },
@@ -73,6 +79,7 @@ const routes = [
     component: InterviewView,
     meta: {
       requiredAuth: true,
+      requiredRole: ["admin", "interviewer"],
       layout: true,
     },
   },
@@ -82,6 +89,7 @@ const routes = [
     component: TestView,
     meta: {
       requiredAuth: true,
+      requiredRole: ["admin", "interviewer", "user"],
       layout: true,
     },
   },
@@ -91,6 +99,7 @@ const routes = [
     component: StudentListView,
     meta: {
       requiredAuth: true,
+      requiredRole: ["admin", "interviewer"],
       layout: true,
     },
   },
@@ -100,6 +109,7 @@ const routes = [
     component: StudentListView,
     meta: {
       requiredAuth: true,
+      requiredRole: ["admin", "interviewer"],
       layout: true,
     },
   },
@@ -109,6 +119,7 @@ const routes = [
     component: SocketView,
     meta: {
       requiredAuth: false,
+      requiredRole: ["admin", "interviewer", "user"],
       layout: true,
     },
   },
@@ -123,10 +134,31 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
 
-  if (to.name == "login" && authStore.getIsLoggedIn) {
+  if (to.name === "login" && authStore.getIsLoggedIn) {
     next({ name: "introduction" });
-  } else if (to.meta.requiredAuth && !authStore.getIsLoggedIn) {
-    next({ name: "introduction" });
+    return;
+  }
+
+  if (to.meta.requiredAuth && !authStore.getIsLoggedIn) {
+    next({ name: "login" });
+    return;
+  }
+
+  if (
+    to.meta.requiredRole &&
+    !to.meta.requiredRole.includes(authStore.getRole)
+  ) {
+    next({ name: "login" });
+    return;
+  }
+
+  if (to.meta.requiredAuth && !authStore.getIsLoggedIn) {
+    next({ name: "login" });
+  } else if (
+    to.meta.requiredRole &&
+    !to.meta.requiredRole.includes(authStore.getRole)
+  ) {
+    next({ name: "login" });
   } else {
     next();
   }
