@@ -10,7 +10,7 @@ const useQuestionStore = defineStore(
 
     async function getQuestionsHandle() {
       try {
-        const response = await HTTP.get("/question/list");
+        const response = await HTTP.get("/question/list?limit=500");
 
         if (response?.success) {
           questions.value = response?.payload?.questions?.data;

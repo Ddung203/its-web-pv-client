@@ -122,7 +122,7 @@
   <div v-if="questionWillUpdate">
     <!-- ! BUTTON -->
     <Button
-      label="Edit"
+      label="Sửa câu hỏi"
       @click="visible = true"
     />
 

@@ -13,6 +13,12 @@
   const questionStore = useQuestionStore();
   const { questions } = storeToRefs(questionStore);
 
+  const props = defineProps({
+    currentData: {
+      type: Array,
+    },
+  });
+
   // ! DELETE
 
   const confirmDelete = (event, id) => {
@@ -51,9 +57,9 @@
 </script>
 
 <template>
-  <div>
+  <div class="px-3 md:px-0">
     <div
-      v-for="(question, index) in questions"
+      v-for="(question, index) in props.currentData"
       :key="index"
       class="max-w-md mx-auto my-3 overflow-hidden bg-white md:my-0 md:mb-8 shadow-c rounded-xl md:max-w-2xl"
     >
@@ -66,7 +72,7 @@
             target="_blank"
           >
             <img
-              class="object-contain w-full h-48 pl-4 md:h-full md:w-48"
+              class="object-contain w-full h-48 pt-4 pl-4 md:h-full md:w-48"
               :src="question.imageURL"
               alt="Question image"
             />
@@ -75,10 +81,12 @@
 
         <!-- ! RIGHT -->
         <div class="p-8">
+          <!-- Câu hỏi -->
           <div
             class="text-sm font-semibold tracking-wide text-indigo-500 uppercase"
           >
-            Câu hỏi {{ question.code }} - {{ question.level }} - {{ index + 1 }}
+            Câu hỏi {{ index + 1 }}/{{ props.currentData.length }} -
+            {{ question.level }}
           </div>
           <span
             class="block mt-1 text-lg font-medium leading-tight text-black"
