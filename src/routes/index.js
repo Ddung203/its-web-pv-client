@@ -10,6 +10,7 @@ import LeaderboardView from "../views/Leaderboard/LeaderboardView.vue";
 import InterviewView from "../views/Interview/InterviewView.vue";
 import TestView from "../views/Test/TestView.vue";
 import StudentListView from "../views/Student/StudentListView.vue";
+import SocketView from "../views/Socket/SocketView.vue";
 
 const routes = [
   { path: "/", name: "home", component: HomeView },
@@ -45,6 +46,11 @@ const routes = [
     path: "/import-students",
     name: "import-students",
     component: StudentListView,
+  },
+  {
+    path: "/socket",
+    name: "socket",
+    component: SocketView,
   },
   { path: "/:catchAll(.*)", component: NotFoundView },
 ];

@@ -20,13 +20,13 @@
       await questionStore.getQuestionsHandle();
 
       if (questions.value.length > 0) {
-        showNotification(
-          toast,
-          "info",
-          "Thông báo",
-          "Lấy danh sách câu hỏi thành công!",
-          1000
-        );
+        // showNotification(
+        //   toast,
+        //   "info",
+        //   "Thông báo",
+        //   "Lấy danh sách câu hỏi thành công!",
+        //   1000
+        // );
       }
     } catch (error) {
       showNotification(

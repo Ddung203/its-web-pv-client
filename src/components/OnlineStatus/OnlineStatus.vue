@@ -1,16 +1,15 @@
 <script setup>
-  import { ref } from "vue";
+  import { ref, watch } from "vue";
+  import { API_URL } from "../../config";
 
   const onlineStatus = ref(navigator.onLine);
 
   async function checkNetwork() {
     try {
-      const response = await fetch(
-        "https://web-pv-be.onrender.com/api/v1/ping",
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch(`${API_URL}/ping`, {
+        method: "GET",
+      });
+
       if (response.ok) {
         onlineStatus.value = true;
       } else {
@@ -22,11 +21,12 @@
   }
 
   setInterval(checkNetwork, 5000);
+
+  watch(onlineStatus, () => {
+    onlineStatus.value
+      ? console.log("Bạn đang trực tuyến")
+      : console.log("Không có kết nối mạng");
+  });
 </script>
 
-<template>
-  <div>
-    <p v-if="onlineStatus">Bạn đang trực tuyến</p>
-    <p v-else>Không có kết nối mạng</p>
-  </div>
-</template>
+<template></template>
