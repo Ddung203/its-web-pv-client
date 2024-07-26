@@ -1,36 +1,145 @@
 <script setup>
-  import { ref } from "vue";
+  import { computed, onMounted, ref, watch } from "vue";
 
   import OnlineStatus from "@/components/OnlineStatus/OnlineStatus.vue";
+  import useIntervieweeStore from "../../stores/interviewee";
+  import useInterviewerStore from "../../stores/interviewer";
+  import HTTP from "../../helper/axiosInstance";
+  import showNotification from "../../utils/showNotification";
+  import { useToast } from "primevue/usetoast";
 
-  const value = ref(50);
+  const toast = useToast();
+  const comment = ref("");
+  const interviewScorePart1 = ref(25);
+  const interviewScorePart2 = ref(25);
 
-  function increaseValue() {
-    if (value.value < 100) {
-      value.value += 5;
+  const interviewScore = computed(() => {
+    return interviewScorePart1.value + interviewScorePart2.value;
+  });
+
+  function increaseValue1() {
+    if (interviewScorePart1.value < 50) {
+      interviewScorePart1.value += 5;
+    }
+  }
+  function decreaseValue1() {
+    if (interviewScorePart1.value > 0) {
+      interviewScorePart1.value -= 5;
+    }
+  }
+  function increaseValue2() {
+    if (interviewScorePart2.value < 50) {
+      interviewScorePart2.value += 5;
+    }
+  }
+  function decreaseValue2() {
+    if (interviewScorePart2.value > 0) {
+      interviewScorePart2.value -= 5;
     }
   }
 
-  function decreaseValue() {
-    if (value.value > 0) {
-      value.value -= 5;
-    }
+  // Call API
+  const intervieweeStore = useIntervieweeStore();
+  const interviewerStore = useInterviewerStore();
+
+  const selectedStudent = ref(null);
+
+  const selectedInterviewer = ref({ name: "Phong van 1", code: "2021602111" });
+
+  async function load() {
+    await intervieweeStore.getIntervieweesHandle();
+    await interviewerStore.getInterviewersHandle();
   }
 
-  // 1
-  const selectedCity = ref();
-  const cities = ref([
-    { name: "New York", code: "NY" },
-    { name: "Rome", code: "RM" },
-    { name: "London", code: "LDN" },
-    { name: "Istanbul", code: "IST" },
-    { name: "Paris", code: "PRS" },
-  ]);
+  const intervieweeInformation = ref({});
+
+  const endInterviewHandle = async () => {
+    console.log(selectedStudent.value);
+    const data = {
+      interviewScore: interviewScore.value,
+      comment: comment.value,
+      interviewer: selectedInterviewer.name,
+    };
+
+    try {
+      const response = await HTTP.post(
+        `/play/interview/${intervieweeInformation.value.playID}`,
+        data
+      );
+      if (response.success) {
+        showNotification(
+          toast,
+          "success",
+          "Thông báo",
+          "Lưu thông tin phỏng vấn thành công!",
+          2000
+        );
+      }
+
+      // Reset data to default
+      try {
+        await load();
+      } catch (loadError) {
+        console.error("Error loading data:", loadError);
+        showNotification(
+          toast,
+          "error",
+          "Thông báo",
+          "Có lỗi xảy ra khi lấy dữ liệu phỏng vấn. Vui lòng thử lại sau!",
+          3000
+        );
+      }
+
+      selectedStudent.value = null;
+    } catch (error) {
+      console.error("Error during endInterviewHandle:", error);
+
+      showNotification(
+        toast,
+        "error",
+        "Thông báo",
+        "Có lỗi xảy ra khi gửi dữ liệu phỏng vấn. Vui lòng thử lại sau!",
+        3000
+      );
+    }
+  };
+
+  watch(selectedStudent, async () => {
+    try {
+      if (selectedStudent.value?.code) {
+        const response = await HTTP.get(
+          `/user/infor/${selectedStudent.value.code}`
+        );
+
+        intervieweeInformation.value = response?.payload?.user;
+
+        const response2 = await HTTP.get(
+          `/play/user/${intervieweeInformation.value._id}`
+        );
+
+        intervieweeInformation.value = {
+          ...intervieweeInformation.value,
+          score: response2?.payload?.play?.score,
+          playID: response2?.payload?.play?._id,
+        };
+
+        // console.log(intervieweeInformation.value);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  onMounted(load);
 </script>
 
 <template>
+  <div>
+    <Toast />
+    <OnlineStatus></OnlineStatus>
+  </div>
   <div class="pt-8 px-[30px] bg-[#f6f7fb]">
-    <div class="grid grid-cols-1 grid-rows-1 gap-5 md:grid-cols-3">
+    <div class="grid grid-cols-1 grid-rows-1 gap-5 lg:grid-cols-3">
       <!-- 1 -->
       <div>
         <h2 class="mb-2 font-semibold text-center uppercase">
@@ -41,9 +150,9 @@
         <div class="flex justify-center card py-7">
           <FloatLabel class="w-full md:w-14rem">
             <Dropdown
-              v-model="selectedCity"
+              v-model="selectedStudent"
               inputId="dd-city"
-              :options="cities"
+              :options="intervieweeStore.getStudents"
               optionLabel="name"
               class="w-full"
             />
@@ -64,7 +173,11 @@
               />
             </div>
             <div class="flex flex-col right">
-              <span class="text-lg">2021602195</span>
+              <span class="text-lg">{{
+                intervieweeInformation?.studentCode
+                  ? intervieweeInformation?.studentCode
+                  : "None"
+              }}</span>
               <span class="text-sm">Mã sinh viên</span>
             </div>
           </div>
@@ -79,7 +192,11 @@
               />
             </div>
             <div class="flex flex-col right">
-              <span class="text-lg">Dương Văn Dũng</span>
+              <span class="text-lg">{{
+                intervieweeInformation?.studentName
+                  ? intervieweeInformation?.studentName
+                  : "None"
+              }}</span>
               <span class="text-sm">Họ tên</span>
             </div>
           </div>
@@ -94,7 +211,11 @@
               />
             </div>
             <div class="flex flex-col right">
-              <span class="text-lg">KTPM2-K16</span>
+              <span class="text-lg">{{
+                intervieweeInformation?.studentClass
+                  ? intervieweeInformation?.studentClass
+                  : "None"
+              }}</span>
               <span class="text-sm">Lớp</span>
             </div>
           </div>
@@ -109,7 +230,11 @@
               />
             </div>
             <div class="flex flex-col right">
-              <span class="text-lg">Bắc Giang</span>
+              <span class="text-lg">{{
+                intervieweeInformation?.studentHometown
+                  ? intervieweeInformation?.studentHometown
+                  : "None"
+              }}</span>
               <span class="text-sm">Địa chỉ</span>
             </div>
           </div>
@@ -124,7 +249,11 @@
               />
             </div>
             <div class="flex flex-col right">
-              <span class="text-lg">80</span>
+              <span class="text-lg">{{
+                intervieweeInformation?.score >= 0
+                  ? intervieweeInformation?.score
+                  : "None"
+              }}</span>
               <span class="text-sm">Điểm bài test</span>
             </div>
           </div>
@@ -143,18 +272,20 @@
                 <div class="w-full h-full bg-gray-200 rounder-c">
                   <div
                     class="h-full bg-[#f59e0b] rounder-c"
-                    :style="{ width: value + '%' }"
+                    :style="{ width: interviewScorePart1 * 2 + '%' }"
                   >
-                    <p class="text-center text-white">{{ value }}</p>
+                    <p class="text-center text-white">
+                      {{ interviewScorePart1 }}
+                    </p>
                   </div>
                 </div>
                 <div
                   class="absolute top-0 left-0 w-2/5 h-full cursor-pointer"
-                  @click="decreaseValue"
+                  @click="decreaseValue1"
                 ></div>
                 <div
                   class="absolute top-0 right-0 w-3/5 h-full cursor-pointer"
-                  @click="increaseValue"
+                  @click="increaseValue1"
                 ></div>
               </div>
             </div>
@@ -170,18 +301,20 @@
                 <div class="w-full h-full bg-gray-200 rounder-c">
                   <div
                     class="h-full bg-[#f59e0b] rounder-c"
-                    :style="{ width: value + '%' }"
+                    :style="{ width: interviewScorePart2 * 2 + '%' }"
                   >
-                    <p class="text-center text-white">{{ value }}</p>
+                    <p class="text-center text-white">
+                      {{ interviewScorePart2 }}
+                    </p>
                   </div>
                 </div>
                 <div
                   class="absolute top-0 left-0 w-2/5 h-full cursor-pointer"
-                  @click="decreaseValue"
+                  @click="decreaseValue2"
                 ></div>
                 <div
                   class="absolute top-0 right-0 w-3/5 h-full cursor-pointer"
-                  @click="increaseValue"
+                  @click="increaseValue2"
                 ></div>
               </div>
             </div>
@@ -198,9 +331,9 @@
         <div class="flex justify-center card py-7">
           <FloatLabel class="w-full md:w-14rem">
             <Dropdown
-              v-model="selectedCity"
+              v-model="selectedInterviewer"
               inputId="dd-city"
-              :options="cities"
+              :options="interviewerStore.getInterviewers"
               optionLabel="name"
               class="w-full"
             />
@@ -282,7 +415,7 @@
         <!-- NOTE -->
         <div class="flex justify-center my-8">
           <Textarea
-            v-model="value"
+            v-model="comment"
             rows="10"
             cols="42"
             placeholder="Nhận xét..."
@@ -291,7 +424,11 @@
 
         <div class="w-full h-[1px] mb-1 bg-[#ff9700]"></div>
         <div class="flex justify-center mt-4 mb-8 md:justify-end">
-          <Button label="Kết thúc phỏng vấn" />
+          <Button
+            @click="endInterviewHandle"
+            label="Kết thúc phỏng vấn"
+            :disabled="!selectedStudent"
+          />
         </div>
       </div>
     </div>

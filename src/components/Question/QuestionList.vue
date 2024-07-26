@@ -78,7 +78,7 @@
           <div
             class="text-sm font-semibold tracking-wide text-indigo-500 uppercase"
           >
-            Câu hỏi {{ question.code }} - {{ question.level }}
+            Câu hỏi {{ question.code }} - {{ question.level }} - {{ index + 1 }}
           </div>
           <span
             class="block mt-1 text-lg font-medium leading-tight text-black"
