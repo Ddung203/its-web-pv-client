@@ -7,6 +7,8 @@ import { createPinia } from "pinia";
 import PrimeVue from "primevue/config";
 import "primevue/resources/themes/aura-light-amber/theme.css";
 import "primeicons/primeicons.css";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+
 //! Import PrimeVue Components
 import ProgressBar from "primevue/progressbar";
 import ToastService from "primevue/toastservice";
@@ -36,6 +38,7 @@ import Ripple from "primevue/ripple";
 
 const app = createApp(App);
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 
 app.use(pinia);
 app.use(router);

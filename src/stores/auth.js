@@ -7,6 +7,7 @@ const useAuthStore = defineStore("auth", {
     isLoggedIn: ref(false),
     user: ref(null),
   }),
+  persist: true,
   getters: {
     getIsLoggedIn: (state) => state.isLoggedIn || "",
     getStudentName: (state) => state.user?.studentName || "Guest",
