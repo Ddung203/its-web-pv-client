@@ -54,7 +54,6 @@
   const intervieweeInformation = ref({});
 
   const endInterviewHandle = async () => {
-    console.log(selectedStudent.value);
     const data = {
       interviewScore: interviewScore.value,
       comment: comment.value,
