@@ -12,6 +12,40 @@
 
   const header = "Welcome, " + authStore.getStudentName || "user";
 
+  const userItemArray = [
+    {
+      label: "IT SUPPORTER",
+      icon: "pi pi-home",
+      command: () => {
+        router.push("/introduction");
+      },
+    },
+    {
+      label: "Bài kiểm tra",
+      icon: "pi pi-pencil",
+      command: () => {
+        router.push("/test");
+      },
+    },
+
+    {
+      label: "Đăng xuất",
+      icon: "pi pi-sign-out",
+      command: () => {
+        toast.add({
+          severity: "info",
+          summary: "Thông báo",
+          detail: "Tạm biệt!",
+          life: 1000,
+        });
+        setTimeout(() => {
+          authStore.logout();
+          router.push("/login");
+        }, 1000);
+      },
+    },
+  ];
+
   const items = ref([
     {
       label: "IT SUPPORTER",
@@ -95,6 +129,10 @@
       },
     },
   ]);
+
+  if (authStore.getRole === "user") {
+    items.value = userItemArray;
+  }
 </script>
 
 <template>
