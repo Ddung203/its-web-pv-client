@@ -326,19 +326,7 @@
           />
         </template>
       </Column>
-      <Column
-        field="status"
-        header="Tình trạng"
-        sortable
-        style="min-width: 12rem"
-      >
-        <template #body="slotProps">
-          <Tag
-            :value="getStatusLabel(slotProps.data.status)"
-            :severity="getStatusSeverity(slotProps.data.status)"
-          />
-        </template>
-      </Column>
+
       <Column
         :exportable="false"
         style="min-width: 8rem"
