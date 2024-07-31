@@ -11,13 +11,13 @@ Giao diện Start
 Giao diện Làm bài test
 Giao diện Kết quả của bạn
 
-
 == More features
 
 - Send mail 
 - Find Result
 
-
+recruitment
+"Previous registration"
 
 == color
 

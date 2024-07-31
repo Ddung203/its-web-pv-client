@@ -9,8 +9,8 @@
   import showNotification from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
   import Header from "../../components/Header/Header.vue";
+  import Footer from "../../components/Footer/Footer.vue";
 
-  const authStore = useAuthStore();
   const receivedQuestions = ref([]);
   const toast = useToast();
 
@@ -19,7 +19,6 @@
 
     try {
       const response = await HTTP.post("/question/insert", bodyData);
-      // console.log("response :>> ", response);
 
       if (response && response?.success) {
         showNotification(
@@ -93,26 +92,17 @@
           v-for="question in receivedQuestions"
           :key="question.id"
         >
-          <!-- dev -->
-          <!-- <QuestionCard
-            :role="'user'"
-            :questions="question"
-          ></QuestionCard>
-          -->
           <QuestionCard
             :role="'admin'"
             :questions="question"
           ></QuestionCard>
-          <!-- <QuestionCard
-            :role="authStore?.getRole"
-            :questions="question"
-          ></QuestionCard> -->
         </template>
       </div>
     </div>
 
     <!-- ScrollToTop -->
     <ScrollToTop></ScrollToTop>
+    <Footer v-if="receivedQuestions.length > 0"></Footer>
   </div>
 </template>
 

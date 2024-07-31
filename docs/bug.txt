@@ -1,5 +1,0 @@
-Quản lý sinh viên => Quản lý người phỏng vấn
-
-Header không căn đều
-
-Chưa add footer, Header đầy đủ

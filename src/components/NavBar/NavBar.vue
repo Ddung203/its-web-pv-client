@@ -97,7 +97,7 @@
           route: "/students",
         },
         {
-          label: "Người phỏng vấn",
+          label: "Phỏng vấn",
           icon: "pi pi-user-edit",
           route: "/interviewers",
         },
@@ -126,6 +126,27 @@
       command: () => {
         router.push("/interview");
       },
+    },
+    {
+      label: "Upcoming",
+      icon: "pi pi-hourglass",
+      items: [
+        {
+          label: "Đăng ký sớm",
+          icon: "pi pi-send",
+          route: "/previous-registration",
+        },
+        {
+          label: "Gửi mail kết quả",
+          icon: "pi pi-envelope",
+          route: "/mail",
+        },
+        {
+          label: "Tra cứu kết quả",
+          icon: "pi pi-search",
+          route: "/find-result",
+        },
+      ],
     },
     {
       label: "Đăng xuất",

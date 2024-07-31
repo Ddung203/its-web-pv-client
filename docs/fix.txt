@@ -1,0 +1,1 @@
+Log Thông báo khi call api không thành công/ ko có quyền

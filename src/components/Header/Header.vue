@@ -1,16 +1,10 @@
 <script setup>
   import useAuthStore from "@/stores/auth";
-  import { API_URL } from "../../config";
   import useUIStore from "../../stores/ui";
-  import showNotification from "../../utils/showNotification";
-  import { useToast } from "primevue/usetoast";
-  import router from "../../routes";
 
-  const toast = useToast();
   const authStore = useAuthStore();
   const UIStore = useUIStore();
 
-  console.log(`${API_URL}/ping`);
   const header = authStore.getStudentName || "Guest";
 </script>
 
@@ -21,7 +15,7 @@
     <div class="">
       <div class="fixed top-0 left-0 w-[100%] z-40 bg-white shadow-c">
         <div
-          class="flex flex-row-reverse items-center justify-between py-3 md:flex-row px-7"
+          class="flex flex-row-reverse items-center justify-between py-3 md:flex-row lg:grid lg:grid-cols-3 lg:grid-rows-1 lg:gap-0 px-7"
         >
           <!--  -->
           <section class="left">
@@ -35,20 +29,22 @@
           </section>
 
           <!-- Middle -->
-          <section>
+          <section class="lg:flex lg:items-center lg:justify-between">
             <!-- LOGO -->
-            <router-link to="/introduction">
-              <div class="logo">
+            <div class="logo">
+              <router-link to="/introduction">
                 <img
                   class="block h-[40px]"
                   src="@/public/assets/imgs/logofull.png"
                   alt="Logo"
                 />
-              </div>
-            </router-link>
+              </router-link>
+            </div>
           </section>
           <!--  -->
-          <section class="hidden gap-5 md:flex lg:flex-row right">
+          <section
+            class="hidden gap-5 md:flex lg:flex-row lg:justify-end right"
+          >
             <Button
               :label="header"
               outlined
@@ -64,5 +60,8 @@
 <style scoped>
   .shadow-c {
     box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+  }
+  .logo {
+    margin: 0 auto;
   }
 </style>

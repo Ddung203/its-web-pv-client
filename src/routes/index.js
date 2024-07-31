@@ -7,11 +7,14 @@ import QuestionListView from "../views/Question/QuestionListView.vue";
 import IntroductionView from "../views/Introduction/IntroductionView.vue";
 import LeaderboardView from "../views/Leaderboard/LeaderboardView.vue";
 import InterviewView from "../views/Interview/InterviewView.vue";
-import TestView from "../views/Test/TestView.vue";
+import TestView from "../views/Exam/TestView.vue";
 import StudentListView from "../views/Student/StudentListView.vue";
 import InterviewerListView from "../views/Student/InterviewerListView.vue";
 import SocketView from "../views/Socket/SocketView.vue";
 import useAuthStore from "../stores/auth";
+import SendMailView from "../views/Mail/SendMailView.vue";
+import FindResultView from "../views/FindResult/FindResultView.vue";
+import PreviousRegistrationView from "../views/PreviousRegistration/PreviousRegistrationView.vue";
 
 const routes = [
   {
@@ -118,6 +121,36 @@ const routes = [
     path: "/socket",
     name: "socket",
     component: SocketView,
+    meta: {
+      requiredAuth: false,
+      requiredRole: ["admin", "interviewer", "user", "guest"],
+      layout: true,
+    },
+  },
+  {
+    path: "/mail",
+    name: "mail",
+    component: SendMailView,
+    meta: {
+      requiredAuth: true,
+      requiredRole: ["admin"],
+      layout: true,
+    },
+  },
+  {
+    path: "/find-result",
+    name: "find-result",
+    component: FindResultView,
+    meta: {
+      requiredAuth: false,
+      requiredRole: ["admin", "interviewer", "user", "guest"],
+      layout: true,
+    },
+  },
+  {
+    path: "/previous-registration",
+    name: "previous-registration",
+    component: PreviousRegistrationView,
     meta: {
       requiredAuth: false,
       requiredRole: ["admin", "interviewer", "user", "guest"],

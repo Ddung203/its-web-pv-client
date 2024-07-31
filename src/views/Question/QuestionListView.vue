@@ -12,6 +12,7 @@
   import { debounce } from "lodash";
   import router from "@/routes/index.js";
   import Header from "../../components/Header/Header.vue";
+  import Footer from "../../components/Footer/Footer.vue";
 
   const toast = useToast();
   const questionStore = useQuestionStore();
@@ -212,6 +213,7 @@
 
     <!-- ScrollToTop -->
     <ScrollToTop></ScrollToTop>
+    <Footer></Footer>
   </div>
 </template>
 

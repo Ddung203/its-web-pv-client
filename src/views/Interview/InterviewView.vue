@@ -7,6 +7,7 @@
   import showNotification from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
   import Header from "../../components/Header/Header.vue";
+  import Footer from "../../components/Footer/Footer.vue";
 
   const toast = useToast();
   const comment = ref("");
@@ -140,7 +141,7 @@
   </div>
   <div class="pt-8 px-[30px] bg-[#f6f7fb]">
     <div class="grid grid-cols-1 grid-rows-1 gap-5 lg:grid-cols-3">
-      <!-- 1 -->
+      <!--! Part 1 -->
       <div>
         <h2 class="mb-2 font-semibold text-center uppercase">
           Thông tin sinh viên
@@ -321,13 +322,13 @@
           </div>
         </div>
       </div>
-      <!-- 2 -->
+      <!--! Part 2 -->
       <div>
         <h2 class="mb-2 font-semibold text-center uppercase">
           Câu hỏi phỏng vấn
         </h2>
         <div class="w-full h-[1px] mb-1 bg-[#ff9700]"></div>
-        <!-- Chọn SV -->
+        <!--! Chọn người phỏng vấn -->
         <div class="flex justify-center card py-7">
           <FloatLabel class="w-full md:w-14rem">
             <Dropdown
@@ -407,12 +408,12 @@
           </div>
         </div>
       </div>
-      <!-- 3 -->
 
+      <!--! Part 3 -->
       <div>
         <h2 class="mb-2 font-semibold text-center uppercase">Nhận xét</h2>
         <div class="w-full h-[1px] mb-1 bg-[#ff9700]"></div>
-        <!-- NOTE -->
+        <!--! NOTE -->
         <div class="flex justify-center my-8">
           <Textarea
             v-model="comment"
@@ -433,6 +434,7 @@
       </div>
     </div>
   </div>
+  <Footer></Footer>
 </template>
 
 <style scoped>

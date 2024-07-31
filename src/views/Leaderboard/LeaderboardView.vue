@@ -7,6 +7,7 @@
   import Loading from "../../components/Loading/Loading.vue";
   import { useToast } from "primevue/usetoast";
   import Header from "../../components/Header/Header.vue";
+  import Footer from "../../components/Footer/Footer.vue";
 
   const toast = useToast();
   const leaderboardStore = useLeaderboardStore();
@@ -32,13 +33,22 @@
 </script>
 
 <template>
-  <Header></Header>
-  <Loading v-if="loading"></Loading>
-  <div class="p-5">
-    <TitleBannerMini :title="'Bảng xếp hạng'"></TitleBannerMini>
-    <div v-if="leaderboardStore.getPlays.length !== 0">
-      <Leaderboard :playsData="leaderboardStore.getPlays"></Leaderboard>
+  <div>
+    <Header></Header>
+    <Loading v-if="loading"></Loading>
+    <div class="p-5">
+      <TitleBannerMini :title="'Bảng xếp hạng'"></TitleBannerMini>
+      <div v-if="leaderboardStore.getPlays.length !== 0">
+        <Leaderboard :playsData="leaderboardStore.getPlays"></Leaderboard>
+      </div>
     </div>
+    <Footer
+      :class="{
+        hidden:
+          leaderboardStore.getPlays.length > 0 &&
+          leaderboardStore.getPlays.length <= 10,
+      }"
+    ></Footer>
   </div>
 </template>
 

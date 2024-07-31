@@ -261,9 +261,8 @@
       <!-- ! HEADER DATA TABLE -->
       <template #header>
         <div class="flex flex-wrap justify-between gap-2 align-center">
-          <!-- <p class="">Quản lý sinh viên</p> -->
           <div class="flex items-center justify-center text-2xl uppercase">
-            <span>Quản lý sinh viên</span>
+            <span>Tài khoản sinh viên</span>
           </div>
           <div>
             <IconField iconPosition="left">
