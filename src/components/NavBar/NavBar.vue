@@ -1,20 +1,16 @@
 <script setup>
-  import { ref, watch } from "vue";
+  import { computed, ref } from "vue";
   import useUIStore from "../../stores/ui";
   import useAuthStore from "../../stores/auth";
   import PanelMenu from "primevue/panelmenu";
   import router from "../../routes";
   import { useToast } from "primevue/usetoast";
-  import { storeToRefs } from "pinia";
 
   const toast = useToast();
   const UIStore = useUIStore();
   const authStore = useAuthStore();
-  const { user } = storeToRefs(authStore);
 
-  let header = authStore.isLoggedIn
-    ? `Welcome, ${authStore.getStudentName}`
-    : "Welcome to IT Supporter";
+  let header = ref("Welcome to IT Supporter");
 
   const userItemArray = [
     {
@@ -42,8 +38,8 @@
           detail: "Tạm biệt!",
           life: 1000,
         });
+        authStore.logout();
         setTimeout(() => {
-          authStore.logout();
           router.push("/introduction");
         }, 1000);
       },
@@ -62,12 +58,14 @@
       label: "Đăng nhập",
       icon: "pi pi-pencil",
       command: () => {
+        UIStore.visibleLeft = false;
+
         router.push("/login");
       },
     },
   ];
 
-  const items = ref([
+  const adminItemArray = [
     {
       label: "IT SUPPORTER",
       icon: "pi pi-home",
@@ -139,36 +137,34 @@
           detail: "Tạm biệt!",
           life: 1000,
         });
+        authStore.logout();
         setTimeout(() => {
-          authStore.logout();
           router.push("/introduction");
         }, 1000);
       },
     },
-  ]);
+  ];
 
-  watch(
-    user,
-    () => {
-      if (authStore.getRole === "user") {
-        items.value = userItemArray;
-      }
-      if (authStore.getRole === "guest") {
-        items.value = guestItemArray;
-      }
+  const items = computed(() => {
+    header.value = authStore.isLoggedIn
+      ? `Welcome, ${authStore.getStudentName}`
+      : "Welcome to IT Supporter";
 
-      header = authStore.isLoggedIn
-        ? `Welcome, ${authStore.getStudentName}`
-        : "Welcome to IT Supporter";
-    },
-    { immediate: true }
-  );
+    if (authStore.getRole === "admin" || authStore.getRole === "interviewer") {
+      return adminItemArray;
+    } else if (authStore.getRole === "user") {
+      return userItemArray;
+    } else if (authStore.getRole === "guest") {
+      return guestItemArray;
+    } else {
+      return guestItemArray;
+    }
+  });
 </script>
 
 <template>
   <Toast />
-
-  <div class="card">
+  <div class="menu">
     <Sidebar
       v-model:visible="UIStore.visibleLeft"
       :header="header"
