@@ -48,8 +48,18 @@
   const selectedInterviewer = ref({ name: "Phong van 1", code: "2021602111" });
 
   async function load() {
-    await intervieweeStore.getIntervieweesHandle();
-    await interviewerStore.getInterviewersHandle();
+    try {
+      await intervieweeStore.getIntervieweesHandle();
+      await interviewerStore.getInterviewersHandle();
+    } catch (error) {
+      showNotification(
+        toast,
+        "error",
+        "Thông báo",
+        "Lấy dữ liệu thất bại!",
+        1500
+      );
+    }
   }
 
   const intervieweeInformation = ref({});

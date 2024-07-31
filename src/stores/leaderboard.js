@@ -19,7 +19,7 @@ const useLeaderboardStore = defineStore(
         }
         return plays.value;
       } catch (error) {
-        console.log("error :>> ", error);
+        // console.log("error :>> ", error);
         throw error;
       }
     }

@@ -35,7 +35,7 @@
         toast,
         "error",
         "Thông báo lỗi",
-        error?.error?.message.slice(14) || "Tài khoản không có quyền!",
+        error?.error?.message.slice(14) || "Hiện không thể lưu!",
         3000
       );
       return;

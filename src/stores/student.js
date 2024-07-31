@@ -7,18 +7,6 @@ const useStudentStore = defineStore(
   () => {
     const students = ref([]);
 
-    // const getInterviewers = computed(() => {
-    //   const students = [];
-    //   interviewers.value.forEach((i) => {
-    //     students.push({
-    //       name: `${i.studentName} - ${i.studentCode}`,
-    //       code: i.studentCode,
-    //     });
-    //   });
-
-    //   return students;
-    // });
-
     async function getStudentsHandle() {
       try {
         const response = await HTTP.get("/user/role?role=user");
@@ -30,7 +18,7 @@ const useStudentStore = defineStore(
         }
         return students.value;
       } catch (error) {
-        console.log("error :>> ", error);
+        // console.log("error :>> ", error);
         throw error;
       }
     }
@@ -54,7 +42,7 @@ const useStudentStore = defineStore(
     }
 
     async function signupHandle(data) {
-      try{
+      try {
         const response = await HTTP.post(`/auth/signup`, data);
 
         if (response?.success) {
@@ -73,7 +61,6 @@ const useStudentStore = defineStore(
 
     async function updateHandle(data) {
       try {
-        
         const {
           studentName,
           studentClass,
