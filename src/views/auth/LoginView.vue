@@ -9,7 +9,7 @@
   const authStore = useAuthStore();
 
   const studentCode = ref("2021602195");
-  const password = ref("123456");
+  const password = ref("admin");
 
   const loginHandle = async () => {
     const loginData = {

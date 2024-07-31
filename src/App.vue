@@ -8,7 +8,11 @@
   const route = useRoute();
 
   const showComponent = computed(() => {
-    return route.path !== "/login" && route.path !== "/test";
+    return (
+      route.path !== "/login" &&
+      route.path !== "/test" &&
+      route.path !== "/introduction"
+    );
   });
 </script>
 

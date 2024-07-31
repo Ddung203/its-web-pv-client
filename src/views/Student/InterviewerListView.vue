@@ -7,6 +7,7 @@
   import Column from "primevue/column";
   import Tag from "primevue/tag";
   import Loading from "../../components/Loading/Loading.vue";
+  import useInterviewerStore from "../../stores/interviewer";
   import useStudentStore from "../../stores/student.js";
 
   const toast = useToast();
@@ -19,11 +20,12 @@
   const selectedStudents = ref([]);
   const submitted = ref(false);
   const loading = ref(false);
+  const interviewerStore = useInterviewerStore();
   const studentStore = useStudentStore();
   const typeAction = ref("");
 
   const callAPI = async () => {
-    students.value = await studentStore.getStudentsHandle();
+    students.value = await interviewerStore.getInterviewersHandle();
   };
 
   const toggleLoading = async () => {
@@ -74,8 +76,8 @@
             student.value.role = student.value.role.value;
 
             try {
-              students.value = await studentStore.signupHandle(student.value);
-
+              await studentStore.signupHandle(student.value);
+              await callAPI();
               toast.add({
                 severity: "success",
                 summary: "Thành công",
@@ -100,7 +102,8 @@
 
             try {
               console.log("UPDATING");
-              students.value = await studentStore.updateHandle(student.value);
+              await studentStore.updateHandle(student.value);
+              await callAPI();
 
               toast.add({
                 severity: "success",
@@ -129,10 +132,8 @@
   };
 
   const deleteStudent = async (code) => {
-    console.log("123");
-
-    students.value = await studentStore.deleteStudentsHandle(code);
-
+    await studentStore.deleteStudentsHandle(code);
+    await callAPI();
     deleteStudentDialog.value = false;
 
     toast.add({

@@ -9,6 +9,7 @@ import LeaderboardView from "../views/Leaderboard/LeaderboardView.vue";
 import InterviewView from "../views/Interview/InterviewView.vue";
 import TestView from "../views/Test/TestView.vue";
 import StudentListView from "../views/Student/StudentListView.vue";
+import InterviewerListView from "../views/Student/InterviewerListView.vue";
 import SocketView from "../views/Socket/SocketView.vue";
 import useAuthStore from "../stores/auth";
 
@@ -104,9 +105,9 @@ const routes = [
     },
   },
   {
-    path: "/import-students",
-    name: "import-students",
-    component: StudentListView,
+    path: "/interviewers",
+    name: "interviewers",
+    component: InterviewerListView,
     meta: {
       requiredAuth: true,
       requiredRole: ["admin", "interviewer"],
