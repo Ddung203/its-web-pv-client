@@ -1,16 +1,18 @@
 <script setup>
-  import { ref } from "vue";
+  import { ref, watch } from "vue";
   import useUIStore from "../../stores/ui";
   import useAuthStore from "../../stores/auth";
   import PanelMenu from "primevue/panelmenu";
   import router from "../../routes";
   import { useToast } from "primevue/usetoast";
+  import { storeToRefs } from "pinia";
 
   const toast = useToast();
   const UIStore = useUIStore();
   const authStore = useAuthStore();
+  const { user } = storeToRefs(authStore);
 
-  const header = +authStore.isLoggedIn
+  let header = authStore.isLoggedIn
     ? `Welcome, ${authStore.getStudentName}`
     : "Welcome to IT Supporter";
 
@@ -145,12 +147,22 @@
     },
   ]);
 
-  if (authStore.getRole === "user") {
-    items.value = userItemArray;
-  }
-  if (authStore.getRole === "guest") {
-    items.value = guestItemArray;
-  }
+  watch(
+    user,
+    () => {
+      if (authStore.getRole === "user") {
+        items.value = userItemArray;
+      }
+      if (authStore.getRole === "guest") {
+        items.value = guestItemArray;
+      }
+
+      header = authStore.isLoggedIn
+        ? `Welcome, ${authStore.getStudentName}`
+        : "Welcome to IT Supporter";
+    },
+    { immediate: true }
+  );
 </script>
 
 <template>

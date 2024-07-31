@@ -11,6 +11,7 @@
   import Paginator from "primevue/paginator";
   import { debounce } from "lodash";
   import router from "@/routes/index.js";
+  import Header from "../../components/Header/Header.vue";
 
   const toast = useToast();
   const questionStore = useQuestionStore();
@@ -133,6 +134,8 @@
 <template>
   <Toast />
   <Loading v-if="loading"></Loading>
+
+  <Header></Header>
   <div>
     <!-- TitleBanner -->
     <div class="title">

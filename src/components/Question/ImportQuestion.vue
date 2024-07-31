@@ -25,7 +25,6 @@
   };
 
   const transformData = (data) => {
-    console.log("data :>> ", data);
     return data.map((row) => ({
       code: Math.floor(100000 + Math.random() * 900000),
       imageURL: row.imageURL || "",

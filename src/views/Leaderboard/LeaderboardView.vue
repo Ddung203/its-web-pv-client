@@ -6,6 +6,7 @@
   import showNotification from "../../utils/showNotification";
   import Loading from "../../components/Loading/Loading.vue";
   import { useToast } from "primevue/usetoast";
+  import Header from "../../components/Header/Header.vue";
 
   const toast = useToast();
   const leaderboardStore = useLeaderboardStore();
@@ -27,14 +28,11 @@
     loading.value = false;
   };
 
-  // setInterval(() => {
-  //   callAPI();
-  // }, 10000);
-
   onMounted(callAPI);
 </script>
 
 <template>
+  <Header></Header>
   <Loading v-if="loading"></Loading>
   <div class="p-5">
     <TitleBannerMini :title="'Bảng xếp hạng'"></TitleBannerMini>

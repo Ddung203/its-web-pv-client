@@ -1,12 +1,12 @@
 <script setup>
   import { computed, onMounted, ref, watch } from "vue";
-
   import OnlineStatus from "@/components/OnlineStatus/OnlineStatus.vue";
   import useIntervieweeStore from "../../stores/interviewee";
   import useInterviewerStore from "../../stores/interviewer";
   import HTTP from "../../helper/axiosInstance";
   import showNotification from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
+  import Header from "../../components/Header/Header.vue";
 
   const toast = useToast();
   const comment = ref("");
@@ -136,6 +136,7 @@
   <div>
     <Toast />
     <OnlineStatus></OnlineStatus>
+    <Header></Header>
   </div>
   <div class="pt-8 px-[30px] bg-[#f6f7fb]">
     <div class="grid grid-cols-1 grid-rows-1 gap-5 lg:grid-cols-3">

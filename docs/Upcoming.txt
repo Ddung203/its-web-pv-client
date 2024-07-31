@@ -1,0 +1,32 @@
+
+== Giao diện:
+
+- Giao diện đơn giới thiệu đội
+- giao diện đăng ký phỏng vấn trước + BE handle
+
+
+== USER:
+Giao diện Quên mật khẩu
+Giao diện Start
+Giao diện Làm bài test
+Giao diện Kết quả của bạn
+
+
+== More features
+
+- Send mail 
+- Find Result
+
+
+
+== color
+
+xám 1: #e8eaec
+xám 2: #f6f7f8 
+
+cam back: #ff9800
+cam đậm: #ff6700
+
+đỏ danger: #ef4444
+
+

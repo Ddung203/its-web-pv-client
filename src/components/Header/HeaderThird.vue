@@ -15,7 +15,6 @@
 
 <template>
   <Toast />
-  <NavBar></NavBar>
   <header class="w-[100vw] h-[66px]">
     <div class="">
       <div class="fixed top-0 left-0 w-[100%] z-40 bg-white shadow-c">

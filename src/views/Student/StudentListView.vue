@@ -8,6 +8,7 @@
   import Tag from "primevue/tag";
   import Loading from "../../components/Loading/Loading.vue";
   import useStudentStore from "../../stores/student.js";
+  import Header from "../../components/Header/Header.vue";
 
   const toast = useToast();
   const dt = ref();
@@ -199,6 +200,8 @@
 </script>
 
 <template>
+  <Header></Header>
+
   <Loading v-if="loading"></Loading>
   <div class="card">
     <!-- ! ACTIONS -->

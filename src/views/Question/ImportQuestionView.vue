@@ -8,6 +8,7 @@
   import useAuthStore from "../../stores/auth";
   import showNotification from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
+  import Header from "../../components/Header/Header.vue";
 
   const authStore = useAuthStore();
   const receivedQuestions = ref([]);
@@ -53,6 +54,7 @@
 
 <template>
   <Toast />
+  <Header></Header>
 
   <div>
     <div class="import">

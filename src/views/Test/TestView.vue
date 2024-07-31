@@ -12,7 +12,6 @@
 </script>
 
 <template>
-  <NavBar></NavBar>
   <div class="bg-[#f6f7fb]">
     <HeaderSecond></HeaderSecond>
     <div class="pb-8">

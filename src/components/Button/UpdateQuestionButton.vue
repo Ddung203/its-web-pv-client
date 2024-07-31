@@ -1,11 +1,7 @@
 <script setup>
   import { ref, computed, watch } from "vue";
   import { uploadImageHandle } from "@/helper/uploadImageHandle.js";
-  // import { storeToRefs } from "pinia";
-  // import useQuestionStore from "../../stores/question";
 
-  // const questionStore = useQuestionStore();
-  // const { questions } = storeToRefs(questionStore);
   // GET Question
   const props = defineProps({
     question: { type: Object, required: true },
