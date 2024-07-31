@@ -17,10 +17,10 @@ const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView,
+    redirect: "/introduction",
     meta: {
       requiredAuth: false,
-      requiredRole: ["admin", "interviewer", "user"],
+      requiredRole: ["admin", "interviewer", "user", "guest"],
       layout: true,
     },
   },
@@ -30,7 +30,7 @@ const routes = [
     component: LoginView,
     meta: {
       requiredAuth: false,
-      requiredRole: ["admin", "interviewer", "user"],
+      requiredRole: ["admin", "interviewer", "user", "guest"],
       layout: true,
     },
   },
@@ -60,7 +60,7 @@ const routes = [
     component: IntroductionView,
     meta: {
       requiredAuth: false,
-      requiredRole: ["admin", "interviewer", "user"],
+      requiredRole: ["admin", "interviewer", "user", "guest"],
       layout: true,
     },
   },
@@ -120,7 +120,7 @@ const routes = [
     component: SocketView,
     meta: {
       requiredAuth: false,
-      requiredRole: ["admin", "interviewer", "user"],
+      requiredRole: ["admin", "interviewer", "user", "guest"],
       layout: true,
     },
   },

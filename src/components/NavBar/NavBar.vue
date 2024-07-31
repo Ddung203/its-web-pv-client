@@ -10,7 +10,9 @@
   const UIStore = useUIStore();
   const authStore = useAuthStore();
 
-  const header = "Welcome, " + authStore.getStudentName || "user";
+  const header = +authStore.isLoggedIn
+    ? `Welcome, ${authStore.getStudentName}`
+    : "Welcome to IT Supporter";
 
   const userItemArray = [
     {
@@ -40,8 +42,25 @@
         });
         setTimeout(() => {
           authStore.logout();
-          router.push("/login");
+          router.push("/introduction");
         }, 1000);
+      },
+    },
+  ];
+
+  const guestItemArray = [
+    {
+      label: "IT SUPPORTER",
+      icon: "pi pi-home",
+      command: () => {
+        router.push("/introduction");
+      },
+    },
+    {
+      label: "Đăng nhập",
+      icon: "pi pi-pencil",
+      command: () => {
+        router.push("/login");
       },
     },
   ];
@@ -69,32 +88,22 @@
       },
     },
     {
-      label: "Phỏng vấn",
-      icon: "pi pi-file-edit",
-      items: [
-        {
-          label: "Phỏng vấn",
-          icon: "pi pi-list",
-          route: "/interview",
-        },
-        {
-          label: "Interviewer",
-          icon: "pi pi-user",
-          route: "/students",
-        },
-      ],
-    },
-    {
-      label: "Sinh viên",
+      label: "Tài khoản",
       icon: "pi pi-users",
       items: [
         {
-          label: "Quản lý sinh viên",
-          icon: "pi pi-list",
+          label: "Sinh viên",
+          icon: "pi pi-user",
           route: "/students",
+        },
+        {
+          label: "Người phỏng vấn",
+          icon: "pi pi-user-edit",
+          route: "/interviewers",
         },
       ],
     },
+
     {
       label: "Câu hỏi",
       icon: "pi pi-question-circle",
@@ -111,7 +120,13 @@
         },
       ],
     },
-
+    {
+      label: "Phỏng vấn",
+      icon: "pi pi-file-edit",
+      command: () => {
+        router.push("/interview");
+      },
+    },
     {
       label: "Đăng xuất",
       icon: "pi pi-sign-out",
@@ -124,7 +139,7 @@
         });
         setTimeout(() => {
           authStore.logout();
-          router.push("/login");
+          router.push("/introduction");
         }, 1000);
       },
     },
@@ -132,6 +147,9 @@
 
   if (authStore.getRole === "user") {
     items.value = userItemArray;
+  }
+  if (authStore.getRole === "guest") {
+    items.value = guestItemArray;
   }
 </script>
 
