@@ -15,6 +15,7 @@ import useAuthStore from "../stores/auth";
 import SendMailView from "../views/Mail/SendMailView.vue";
 import FindResultView from "../views/FindResult/FindResultView.vue";
 import PreviousRegistrationView from "../views/PreviousRegistration/PreviousRegistrationView.vue";
+import StartTestView from "../views/Exam/StartTestView.vue";
 
 const routes = [
   {
@@ -154,6 +155,16 @@ const routes = [
     meta: {
       requiredAuth: false,
       requiredRole: ["admin", "interviewer", "user", "guest"],
+      layout: true,
+    },
+  },
+  {
+    path: "/start-test",
+    name: "start-test",
+    component: StartTestView,
+    meta: {
+      requiredAuth: false,
+      requiredRole: ["admin", "interviewer", "user"],
       layout: true,
     },
   },

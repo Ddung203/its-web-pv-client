@@ -29,4 +29,7 @@ cam đậm: #ff6700
 
 đỏ danger: #ef4444
 
+easy #00b8a3
+gold #f0c01e
+hard #ff2e36
 
