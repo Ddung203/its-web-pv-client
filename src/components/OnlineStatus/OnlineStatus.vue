@@ -24,8 +24,8 @@
 
   watch(onlineStatus, () => {
     onlineStatus.value
-      ? console.log("Bạn đang trực tuyến")
-      : console.log("Không có kết nối mạng");
+      ? console.log("Đã kết nối!")
+      : console.log("Không có kết nối đến server!");
   });
 </script>
 

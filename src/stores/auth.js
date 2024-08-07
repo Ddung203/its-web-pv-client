@@ -20,10 +20,13 @@ const useAuthStore = defineStore("auth", {
     async login({ studentCode, password }) {
       localStorage.clear();
       try {
-        const response = await HTTP.post("/auth/login", {
-          studentCode,
-          password,
-        });
+        const response = await HTTP.post(
+          "/identity-service/api/v1/auth/login",
+          {
+            studentCode,
+            password,
+          }
+        );
 
         if (response?.success && response?.success === true) {
           this.user = response.payload.user;

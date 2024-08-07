@@ -118,7 +118,7 @@
     try {
       if (selectedStudent.value?.code) {
         const response = await HTTP.get(
-          `/user/infor/${selectedStudent.value.code}`
+          `/identity-service/api/v1/user/infor/${selectedStudent.value.code}`
         );
 
         intervieweeInformation.value = response?.payload?.user;

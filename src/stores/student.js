@@ -9,7 +9,9 @@ const useStudentStore = defineStore(
 
     async function getStudentsHandle() {
       try {
-        const response = await HTTP.get("/user/role?role=user");
+        const response = await HTTP.get(
+          "/identity-service/api/v1/user/role?role=user"
+        );
 
         if (response?.success) {
           students.value = response?.payload?.users;
@@ -25,7 +27,9 @@ const useStudentStore = defineStore(
 
     async function deleteStudentsHandle(studentCode) {
       try {
-        const response = await HTTP.delete(`/user/remove/${studentCode}`);
+        const response = await HTTP.delete(
+          `/identity-service/api/v1/user/remove/${studentCode}`
+        );
 
         if (response?.success) {
           students.value = response?.payload?.users;
@@ -43,7 +47,10 @@ const useStudentStore = defineStore(
 
     async function signupHandle(data) {
       try {
-        const response = await HTTP.post(`/auth/signup`, data);
+        const response = await HTTP.post(
+          `/identity-service/api/v1/auth/signup`,
+          data
+        );
 
         if (response?.success) {
           students.value = response?.payload?.users;
@@ -77,13 +84,16 @@ const useStudentStore = defineStore(
           role,
         });
 
-        const response = await HTTP.put(`/user/update/${data.studentCode}`, {
-          studentName,
-          studentClass,
-          studentPhone,
-          studentHometown,
-          role,
-        });
+        const response = await HTTP.put(
+          `/identity-service/api/v1/user/update/${data.studentCode}`,
+          {
+            studentName,
+            studentClass,
+            studentPhone,
+            studentHometown,
+            role,
+          }
+        );
 
         if (response?.success) {
           students.value = response?.payload?.users;

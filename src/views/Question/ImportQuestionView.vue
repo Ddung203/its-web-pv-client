@@ -18,7 +18,10 @@
     const bodyData = { questions: receivedQuestions.value };
 
     try {
-      const response = await HTTP.post("/question/insert", bodyData);
+      const response = await HTTP.post(
+        "/question-service/api/v1/question/insert",
+        bodyData
+      );
 
       if (response && response?.success) {
         showNotification(

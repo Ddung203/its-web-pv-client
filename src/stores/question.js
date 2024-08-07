@@ -10,7 +10,9 @@ const useQuestionStore = defineStore(
 
     async function getQuestionsHandle() {
       try {
-        const response = await HTTP.get("/question/list?limit=500");
+        const response = await HTTP.get(
+          "/question-service/api/v1/question/list?limit=500"
+        );
 
         if (response?.success) {
           questions.value = response?.payload?.questions?.data;
@@ -32,7 +34,9 @@ const useQuestionStore = defineStore(
 
       if (questions.value.length > 0) {
         try {
-          const response = await HTTP.delete(`/question/delete/${id}`);
+          const response = await HTTP.delete(
+            `/question-service/api/v1/question/delete/${id}`
+          );
           if (response.success) {
             questions.value = await getQuestionsHandle();
           } else {
@@ -54,7 +58,10 @@ const useQuestionStore = defineStore(
 
       if (questions.value.length > 0) {
         try {
-          const response = await HTTP.put(`/question/update/${id}`, data);
+          const response = await HTTP.put(
+            `/question-service/api/v1/question/update/${id}`,
+            data
+          );
           if (response.success) {
             questions.value = await getQuestionsHandle();
           } else {

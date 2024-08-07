@@ -109,7 +109,7 @@
 
     try {
       const response = await HTTP.put(
-        `/question/update/${props.question._id}`,
+        `/question-service/api/v1/question/update/${props.question._id}`,
         dataToUpdate
       );
       if (response.success) {

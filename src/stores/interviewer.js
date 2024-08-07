@@ -21,7 +21,9 @@ const useInterviewerStore = defineStore(
 
     async function getInterviewersHandle() {
       try {
-        const response = await HTTP.get("/user/role?role=interviewer");
+        const response = await HTTP.get(
+          "/identity-service/api/v1/user/role?role=interviewer"
+        );
 
         if (response?.success) {
           interviewers.value = response?.payload?.users;

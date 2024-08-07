@@ -19,7 +19,7 @@
     try {
       await authStore.login(loginData);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       showNotification(
         toast,
         "error",
