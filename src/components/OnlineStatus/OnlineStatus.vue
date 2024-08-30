@@ -20,7 +20,7 @@
     }
   }
 
-  setInterval(checkNetwork, 5000);
+  // setInterval(checkNetwork, 5000);
 
   watch(onlineStatus, () => {
     onlineStatus.value

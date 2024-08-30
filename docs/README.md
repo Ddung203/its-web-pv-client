@@ -5,7 +5,7 @@ This template should help get you started developing with Vue 3 + Primevue + Tai
 ## Clone Project
 
 ```sh
-git clone https://github.com/Ddung203/Custom-Vue-Template.git
+git clone
 ```
 
 ## Run Project

@@ -193,14 +193,6 @@
     }
   };
 
-  const getStatusLabel = (status) => {
-    return status === 1 ? "Đã phỏng vấn" : "Chưa phỏng vấn";
-  };
-
-  const getStatusSeverity = (status) => {
-    return status === 1 ? "success" : "warning";
-  };
-
   const exportCSV = () => {
     // TODO: Handle if needed
     // dt.value.exportCSV();

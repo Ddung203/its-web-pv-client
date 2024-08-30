@@ -8,18 +8,11 @@
     playsData: { type: Array, required: true },
   });
 
-  const selectedData = props.playsData.map(
-    ({
-      studentCode,
-      studentName,
-      studentClass,
-      score,
-      interviewScore,
-      totalScore,
-    }) => ({
-      studentCode,
-      studentName,
-      studentClass,
+  const selectedData = props.playsData?.map(
+    ({ score, interviewScore, totalScore, userDetails }) => ({
+      studentCode: userDetails.studentCode,
+      studentName: userDetails.studentName,
+      studentClass: userDetails.studentClass,
       score,
       interviewScore,
       totalScore,
@@ -28,7 +21,6 @@
 
   const plays = ref(selectedData);
 
-  // For DataTableCustom component
   const titles = [
     { title: "Mã sinh viên", sortable: true },
     { title: "Họ tên", sortable: false },

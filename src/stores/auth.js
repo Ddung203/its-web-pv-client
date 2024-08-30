@@ -12,8 +12,6 @@ const useAuthStore = defineStore("auth", {
     getIsLoggedIn: (state) => state.isLoggedIn || false,
     getStudentName: (state) =>
       state.user?.studentName + ` - ${state.user?.role}` || "Guest",
-    getStudentClass: (state) => state.user?.studentClass || "",
-    getStudentCode: (state) => state.user?.studentCode || "",
     getRole: (state) => state.user?.role || "guest",
   },
   actions: {
