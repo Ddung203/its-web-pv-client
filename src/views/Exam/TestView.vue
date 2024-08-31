@@ -39,7 +39,7 @@
 
     <div class="flex flex-col items-center justify-center gap-6 pb-16">
       <img
-        src="@/public/assets/imgs/ad.svg"
+        src="@/public/assets/imgs/finish-test.svg"
         alt=""
       />
       <p class="text-center">

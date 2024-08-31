@@ -34,11 +34,12 @@
           <section class="flex items-center justify-between">
             <!-- LOGO -->
             <div class="logo">
-              <img
-                class="block h-[40px]"
-                src="@/public/assets/imgs/logofull.png"
-                alt="Logo"
-              />
+              <a href="#">
+                <img
+                  class="block max-h-[40px]"
+                  src="@/public/assets/imgs/logofull.png"
+                  alt="Logo"
+              /></a>
             </div>
           </section>
           <!--  -->
