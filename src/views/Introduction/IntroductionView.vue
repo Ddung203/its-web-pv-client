@@ -4,6 +4,7 @@
   import ScrollToTop from "@/components/Button/ScrollToTop.vue";
   import { useToast } from "primevue/usetoast";
   import showNotification from "../../utils/showNotification";
+  import HTTP from "../../helper/axiosInstance";
 
   const toast = useToast();
 
@@ -34,19 +35,60 @@
     return true;
   };
 
-  const submitFormHandler = () => {
+  const submitFormHandler = async () => {
     if (!isFormValid()) return;
 
-    let data = {
-      senderName: senderName.value,
-      senderEmail: senderEmail.value,
-      senderSubject: senderSubject.value,
-      senderMessage: senderMessage.value,
-    };
+    if (localStorage.getItem("nextTime")) {
+      const nextTime = localStorage.getItem("nextTime");
+      const currentTime = new Date().getTime();
+      if (currentTime < nextTime) {
+        showNotification(
+          toast,
+          "error",
+          "Lỗi",
+          "Bạn đã gửi quá số lượng email được cho phép. Thử lại sau 10 phút!",
+          1500
+        );
+        return;
+      } else {
+        localStorage.removeItem("nextTime");
+      }
+    }
 
-    console.log("data :>> ", data);
+    try {
+      let data = {
+        senderName: senderName.value,
+        senderEmail: senderEmail.value,
+        senderSubject: senderSubject.value,
+        senderMessage: senderMessage.value,
+      };
 
-    showNotification(toast, "success", "Thông báo", "Đã gửi", 1500);
+      const response = await HTTP.post("/email/feedback", data);
+
+      if (response.success) {
+        showNotification(toast, "success", "Thông báo", "Đã gửi", 1500);
+
+        senderName.value = "";
+        senderEmail.value = "";
+        senderSubject.value = "";
+        senderMessage.value = "";
+
+        // Lấy thời gian hiện tại
+        const now = new Date();
+        now.setMinutes(now.getMinutes() + 10);
+        const timestamp = now.getTime();
+
+        localStorage.setItem("nextTime", timestamp);
+      }
+    } catch (error) {
+      showNotification(
+        toast,
+        "error",
+        error,
+        "Xảy ra lỗi, vui lòng thử lại sau!",
+        1500
+      );
+    }
   };
 </script>
 
@@ -86,7 +128,11 @@
             <div
               class="w-[100%] lg:w-[150px] mt-16 lg:mt-6 py-2 px-7 rounded text-white bg-[#49b5e7] leading-6 font-medium hover:opacity-60 uppercase cursor-pointer tracking-tight transition-all ease duration-400 flex items-center justify-center"
             >
-              <button class="block text-center text-white">Tham gia</button>
+              <router-link to="previous-registration">
+                <button class="block text-center text-white">
+                  Tham gia
+                </button></router-link
+              >
             </div>
           </div>
 
@@ -141,7 +187,7 @@
                 <i class="fa-solid fa-gift"></i>
               </div>
               <div class="ml-[30px]">
-                <a href="#">BAN TRUYỀN THÔNG</a>
+                <p class="font-bold">BAN TRUYỀN THÔNG</p>
                 <p class="bottom">
                   Với mục đích truyền thông đến bạn các tin tức về công nghệ mới
                   nhất, các hoạt động, sự kiện của CLB
@@ -153,7 +199,7 @@
                 <i class="fa-solid fa-atom"></i>
               </div>
               <div class="ml-[30px]">
-                <a href="#">BAN TỔ CHỨC SỰ KIỆN</a>
+                <p class="font-bold">BAN TỔ CHỨC SỰ KIỆN</p>
                 <p class="bottom">
                   Ban TCSK với mục đích hậu cần, lên kế hoạch, sắp xếp các hoạt
                   động học tập cũng như vui chơi giải trí của câu lạc bộ, tổ
@@ -252,10 +298,16 @@
         <div class="slider__inner">
           <div class="slider__inner-top">
             <div class="person-img">
-              <img
-                src="../../public/assets/imgs/ChuNhiem.jpg"
-                alt="2"
-              />
+              <a
+                href="https://www.facebook.com/tieuuvuongg.dii"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  src="../../public/assets/imgs/ChuNhiem.jpg"
+                  alt="2"
+                />
+              </a>
             </div>
             <h3>Chị Vũ Thị Thái Hà</h3>
             <h4>Chủ nhiệm</h4>
@@ -303,7 +355,7 @@
                 >
                   <a
                     target="_blank"
-                    href="#"
+                    href="https://www.facebook.com/trinhhai.1208"
                   >
                     <i class="text-white fa-brands fa-facebook-f"></i>
                   </a>
@@ -332,7 +384,7 @@
                 >
                   <a
                     target="_blank"
-                    href="#"
+                    href="https://www.facebook.com/Kritsirious"
                   >
                     <i class="text-white fa-brands fa-facebook-f"></i>
                   </a>
@@ -360,7 +412,7 @@
                 >
                   <a
                     target="_blank"
-                    href="#"
+                    href="https://www.facebook.com/profile.php?id=100090678160830"
                   >
                     <i class="text-white fa-brands fa-facebook-f"></i>
                   </a>
@@ -389,7 +441,7 @@
                 >
                   <a
                     target="_blank"
-                    href="#"
+                    href="https://www.facebook.com/profile.php?id=100034244050065"
                   >
                     <i class="text-white fa-brands fa-facebook-f"></i>
                   </a>
@@ -811,8 +863,6 @@
   }
   .logo {
     max-width: 200px;
-  }
-  .logo img {
   }
   .header-right {
     flex-basis: 44%;
@@ -1259,8 +1309,6 @@
     max-width: 100%;
     display: block;
   }
-  .team-i4 {
-  }
   .team-i4 h3 {
     padding-top: 20px;
     padding-bottom: 5px;
@@ -1287,8 +1335,6 @@
     grid-template-columns: 1fr 2fr;
     margin-bottom: 60px;
     gap: 20px;
-  }
-  .cc-i4-left {
   }
   .cc-i4-left .desc .icon-desc {
     background-color: #ebf7fc;
@@ -1325,8 +1371,6 @@
   .cc-i4-left .title-desc a {
     font-size: 22px;
     font-weight: 700;
-  }
-  .cc-i4-right {
   }
   #form-send-mess {
     background-color: #fff;
@@ -1560,8 +1604,6 @@
 
   /*! MOBILE */
   @media only screen and (max-width: 739px) {
-    body {
-    }
     .inner {
       margin: 0;
     }
@@ -1591,8 +1633,7 @@
       margin-top: 20px;
       order: 2;
     }
-    .get__started-left h1 {
-    }
+
     .get__started-right {
       order: 1;
     }

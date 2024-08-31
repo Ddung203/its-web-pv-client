@@ -346,8 +346,8 @@
       >
         <template #body="slotProps">
           <Tag
-            :value="getStatusLabel(slotProps.data.status)"
-            :severity="getStatusSeverity(slotProps.data.status)"
+            :value="getStatusLabel(slotProps.data.isInterviewed)"
+            :severity="getStatusSeverity(slotProps.data.isInterviewed)"
           />
         </template>
       </Column>
