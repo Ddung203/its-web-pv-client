@@ -21,7 +21,9 @@ const useInterviewerStore = defineStore(
 
     async function getInterviewersHandle() {
       try {
-        const response = await HTTP.get("/user/role?role=interviewer");
+        const response = await HTTP.get(
+          '/user/list?limit=50&skip=0&filter={"role":"interviewer"}'
+        );
 
         if (response?.success) {
           interviewers.value = response?.payload?.users;

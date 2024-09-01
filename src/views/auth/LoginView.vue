@@ -45,10 +45,6 @@
       }, 1500);
     }
   };
-
-  const forgotPasswordHandle = () => {
-    console.log("Quên mật khẩu");
-  };
 </script>
 
 <template>
@@ -88,15 +84,6 @@
               />
               <label for="password">Mật khẩu</label>
             </FloatLabel>
-          </div>
-          <!-- Quên mật khẩu -->
-          <div class="flex justify-end">
-            <a
-              href="#"
-              @click.prevent="forgotPasswordHandle"
-              class="text-blue-500 hover:underline"
-              >Quên mật khẩu?</a
-            >
           </div>
           <!-- Button submit -->
           <div>

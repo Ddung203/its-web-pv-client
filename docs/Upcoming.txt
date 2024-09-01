@@ -1,12 +1,10 @@
 
 == Giao diện:
 
-- Giao diện đơn giới thiệu đội
 - giao diện đăng ký phỏng vấn trước + BE handle
 
 
 == USER:
-Giao diện Quên mật khẩu
 Giao diện Start
 Giao diện Làm bài test
 Giao diện Kết quả của bạn

@@ -1,1 +1,3 @@
 Log Thông báo khi call api không thành công/ ko có quyền
+
+nguoi phong van them user bi loi => hien chua bao loi

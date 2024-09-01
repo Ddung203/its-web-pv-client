@@ -29,6 +29,13 @@
     },
 
     {
+      label: "Tra cứu kết quả",
+      icon: "pi pi-search",
+      command: () => {
+        router.push("/find-result");
+      },
+    },
+    {
       label: "Đăng xuất",
       icon: "pi pi-sign-out",
       command: () => {
@@ -52,6 +59,20 @@
       icon: "pi pi-home",
       command: () => {
         router.push("/introduction");
+      },
+    },
+    {
+      label: "Đăng ký sớm",
+      icon: "pi pi-send",
+      command: () => {
+        router.push("/previous-registration");
+      },
+    },
+    {
+      label: "Tra cứu kết quả",
+      icon: "pi pi-search",
+      command: () => {
+        router.push("/find-result");
       },
     },
     {
@@ -127,24 +148,15 @@
         router.push("/interview");
       },
     },
+
     {
       label: "Upcoming",
       icon: "pi pi-hourglass",
       items: [
         {
-          label: "Đăng ký sớm",
-          icon: "pi pi-send",
-          route: "/previous-registration",
-        },
-        {
           label: "Gửi mail kết quả",
           icon: "pi pi-envelope",
           route: "/mail",
-        },
-        {
-          label: "Tra cứu kết quả",
-          icon: "pi pi-search",
-          route: "/find-result",
         },
       ],
     },

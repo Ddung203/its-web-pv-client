@@ -9,7 +9,9 @@ const useStudentStore = defineStore(
 
     async function getStudentsHandle() {
       try {
-        const response = await HTTP.get("/user/role?role=user");
+        const response = await HTTP.get(
+          '/user/list?limit=50&skip=0&filter={"role":"user"}'
+        );
 
         if (response?.success) {
           students.value = response?.payload?.users;

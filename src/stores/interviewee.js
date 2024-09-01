@@ -11,8 +11,8 @@ const useIntervieweeStore = defineStore(
       const students = [];
       interviewees.value.forEach((i) => {
         students.push({
-          name: `${i.userID.studentName} - ${i.userID.studentCode}`,
-          code: i.userID.studentCode,
+          name: `${i.studentName} - ${i.studentCode}`,
+          code: i.studentCode,
         });
       });
 
@@ -21,10 +21,12 @@ const useIntervieweeStore = defineStore(
 
     async function getIntervieweesHandle() {
       try {
-        const response = await HTTP.get("/play/status?interviewed=false");
+        const response = await HTTP.get(
+          '/user/list?limit=50&skip=0&filter={"role":"user","isTested":1,"isInterviewed":0}'
+        );
 
         if (response?.success) {
-          interviewees.value = response?.payload?.plays;
+          interviewees.value = response?.payload?.users;
         } else {
           console.error("Invalid response structure", response);
         }
