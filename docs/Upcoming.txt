@@ -1,10 +1,6 @@
 
 == Giao diện:
 
-- giao diện đăng ký phỏng vấn trước + BE handle
-
-
-== USER:
 Giao diện Start
 Giao diện Làm bài test
 Giao diện Kết quả của bạn
@@ -14,8 +10,6 @@ Giao diện Kết quả của bạn
 - Send mail 
 - Find Result
 
-recruitment
-"Previous registration"
 
 == color
 
