@@ -1,4 +1,3 @@
-
 == Giao diện:
 
 Giao diện Start
@@ -8,8 +7,6 @@ Giao diện Kết quả của bạn
 == More features
 
 - Send mail 
-- Find Result
-
 
 == color
 
