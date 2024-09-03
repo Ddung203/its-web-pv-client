@@ -24,7 +24,7 @@
       label: "Bài kiểm tra",
       icon: "pi pi-pencil",
       command: () => {
-        router.push("/test");
+        router.push("/start-test");
       },
     },
 
@@ -92,13 +92,6 @@
       icon: "pi pi-home",
       command: () => {
         router.push("/introduction");
-      },
-    },
-    {
-      label: "Bài kiểm tra",
-      icon: "pi pi-pencil",
-      command: () => {
-        router.push("/test");
       },
     },
     {

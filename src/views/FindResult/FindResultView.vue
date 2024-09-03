@@ -53,8 +53,8 @@
       <div class="h-1 bg-[#000] w-28"></div>
     </div>
 
-    <p class="pt-7 px-[20px] text-xl text-center font-bold text-[#000]">
-      Nhập thông tin của bạn (mã sinh viên) để xem kết quả
+    <p class="pt-7 px-[20px] text-xl text-center font-[400] text-[#000]">
+      Nhập thông tin của bạn (mã sinh viên) để xem kết quả 😘
     </p>
   </div>
 

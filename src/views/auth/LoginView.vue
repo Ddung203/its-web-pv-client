@@ -8,8 +8,8 @@
   const toast = useToast();
   const authStore = useAuthStore();
 
-  const studentCode = ref("2021602195");
-  const password = ref("admin");
+  const studentCode = ref("");
+  const password = ref("");
 
   const loginHandle = async () => {
     const loginData = {

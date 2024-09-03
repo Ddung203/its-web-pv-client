@@ -1,8 +1,7 @@
 == Giao diện:
 
-Giao diện Start
 Giao diện Làm bài test
-Giao diện Kết quả của bạn
+Giao diện Kết quả của bạn(Half)
 
 == More features
 
