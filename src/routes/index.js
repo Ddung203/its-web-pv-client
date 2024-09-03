@@ -185,7 +185,7 @@ router.beforeEach((to, from, next) => {
   }
 
   if (to.meta.requiredAuth && !authStore.getIsLoggedIn) {
-    next({ name: "login" });
+    next({ name: "introduction" });
     return;
   }
 
@@ -193,7 +193,7 @@ router.beforeEach((to, from, next) => {
     to.meta.requiredRole &&
     !to.meta.requiredRole.includes(authStore.getRole)
   ) {
-    next({ name: "login" });
+    next({ name: "introduction" });
     return;
   }
 

@@ -4,7 +4,7 @@
   import HeaderThird from "@/components/Header/HeaderThird.vue";
   import Loading from "../../components/Loading/Loading.vue";
   import { uploadImageHandle } from "../../helper/uploadImageHandle.js";
-  import showNotification from "../../utils/showNotification.js";
+  import { successNoti } from "../../utils/showNotification.js";
   import { useToast } from "primevue/usetoast";
   import checkFalsy from "../../utils/checkFalsyValue.js";
   import HTTP from "../../helper/axiosInstance.js";
@@ -44,12 +44,9 @@
       imageURL.value = result.url;
     } else {
       imageURL.value = "";
-      showNotification(
+      errorNoti(
         toast,
-        "error",
-        "Thông báo",
-        "Xảy ra lỗi khi tải ảnh lên server. Vui lòng thử lại sau ít phút!",
-        3000
+        "Xảy ra lỗi khi tải ảnh lên server. Vui lòng thử lại sau ít phút!"
       );
     }
     isLoading.value = false;
@@ -57,13 +54,7 @@
 
   const onSubmit = async () => {
     if (imageURL.value === "") {
-      showNotification(
-        toast,
-        "error",
-        "Thông báo",
-        "Vui lòng chọn lại ảnh!",
-        3000
-      );
+      errorNoti(toast, "Vui lòng chọn lại ảnh!");
       return;
     }
     const data = {
@@ -79,13 +70,7 @@
     };
 
     if (checkFalsy(data)) {
-      showNotification(
-        toast,
-        "error",
-        "Thông báo",
-        "Vui lòng điền đầy đủ thông tin cần thiết!",
-        2000
-      );
+      errorNoti(toast, "Vui lòng điền đầy đủ thông tin cần thiết!");
       return;
     }
 
@@ -98,40 +83,25 @@
 
         visible.value = true;
 
-        showNotification(
+        successNoti(
           toast,
-          "success",
-          "Thông báo",
-          "Đăng ký thành công! Hẹn gặp lại bạn tại buổi phỏng vấn!",
-          4000
+          "Đăng ký thành công! Hẹn gặp lại bạn tại buổi phỏng vấn!"
         );
       }
     } catch (e) {
       // console.error("Error during endInterviewHandle:", e);
 
       if (e.error.reason === "Conflict") {
-        showNotification(
-          toast,
-          "error",
-          "Thông báo",
-          "Thông tin mã sinh viên bị trùng!",
-          3000
-        );
+        errorNoti(toast, "Thông tin mã sinh viên bị trùng!");
         return;
       }
 
       if (e.error.name === "ValidationError") {
-        showNotification(toast, "error", "Thông báo", e.error.details, 3000);
+        errorNoti(toast, e.error.details);
         return;
       }
 
-      showNotification(
-        toast,
-        "error",
-        "Thông báo",
-        "Có lỗi xảy ra khi gửi dữ liệu phỏng vấn. Vui lòng thử lại sau!",
-        3000
-      );
+      errorNoti(toast, "Có lỗi xảy ra khi gửi dữ liệu. Vui lòng thử lại sau!");
     }
   };
 

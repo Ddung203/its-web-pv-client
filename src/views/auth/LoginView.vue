@@ -1,7 +1,7 @@
 <script setup>
   import { ref } from "vue";
   import useAuthStore from "../../stores/auth";
-  import showNotification from "../../utils/showNotification";
+  import { errorNoti, successNoti } from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
   import router from "../../routes";
 
@@ -20,25 +20,16 @@
       await authStore.login(loginData);
     } catch (error) {
       console.log(error);
-      showNotification(
+      errorNoti(
         toast,
-        "error",
-        "Thông báo",
-        error?.error?.message || "Tài khoản hoặc mật khẩu không đúng",
-        1500
+        error?.error?.message || "Tài khoản hoặc mật khẩu không đúng"
       );
 
       return;
     }
 
     if (authStore.isLoggedIn) {
-      showNotification(
-        toast,
-        "success",
-        "Thông báo",
-        "Đăng nhập thành công",
-        1500
-      );
+      successNoti(toast, "Đăng nhập thành công");
 
       setTimeout(() => {
         router.push("/introduction");
@@ -102,7 +93,7 @@
 <style scoped>
   .background-container {
     font-family: "Poppins", sans-serif;
-    background-image: url("../../public/assets/imgs/DDT00475.png");
+    background-image: url("../../public/assets/imgs/DDT00475_fixed.jpg");
     background-size: cover;
     background-position: center;
     width: 100%;

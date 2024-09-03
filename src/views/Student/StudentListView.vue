@@ -9,7 +9,7 @@
   import Loading from "../../components/Loading/Loading.vue";
   import useStudentStore from "../../stores/student.js";
   import Header from "../../components/Header/Header.vue";
-  import showNotification from "../../utils/showNotification.js";
+  import { errorNoti } from "../../utils/showNotification.js";
 
   const toast = useToast();
   const dt = ref();
@@ -29,13 +29,7 @@
       students.value = await studentStore.getStudentsHandle();
     } catch (error) {
       students.value = [];
-      showNotification(
-        toast,
-        "error",
-        "Thông báo",
-        "Xảy ra lỗi khi lấy dữ liệu. Vui lòng thử lại sau!",
-        3000
-      );
+      errorNoti(toast, "Xảy ra lỗi khi lấy dữ liệu. Vui lòng thử lại sau!");
     }
   };
 

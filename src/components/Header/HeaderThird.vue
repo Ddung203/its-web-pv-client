@@ -1,7 +1,6 @@
 <script setup>
   import useAuthStore from "@/stores/auth";
   import useUIStore from "../../stores/ui";
-  import showNotification from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
   import router from "../../routes";
   import NavBar from "../NavBar/NavBar.vue";

@@ -4,7 +4,7 @@
   import Footer from "@/components/Footer/Footer.vue";
   import { useToast } from "primevue/usetoast";
   import HTTP from "../../helper/axiosInstance";
-  import showNotification from "../../utils/showNotification";
+  import { errorNoti } from "../../utils/showNotification";
 
   const studentCode = ref("");
   const isPassed = ref("1");
@@ -17,13 +17,7 @@
   const onSubmitHandle = async () => {
     studentPassed.value = false;
     if (studentCode.value.trim() == "") {
-      showNotification(
-        toast,
-        "error",
-        "Thông báo",
-        "Mã sinh viên không được để trống!",
-        1500
-      );
+      errorNoti(toast, "Mã sinh viên không được để trống!");
       return;
     }
 

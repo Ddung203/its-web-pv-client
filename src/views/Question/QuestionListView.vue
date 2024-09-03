@@ -2,7 +2,7 @@
   import { onMounted, ref, watch } from "vue";
   import ScrollToTop from "@/components/Button/ScrollToTop.vue";
   import useQuestionStore from "../../stores/question";
-  import showNotification from "../../utils/showNotification";
+  import { errorNoti, successNoti } from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
   import QuestionList from "../../components/Question/QuestionList.vue";
   import { storeToRefs } from "pinia";
@@ -33,25 +33,13 @@
       totalRecords.value = questions.value.length;
 
       if (questions.value.length > 0) {
-        showNotification(
-          toast,
-          "info",
-          "Thông báo",
-          "Lấy danh sách câu hỏi thành công!",
-          1000
-        );
+        successNoti(toast, "Lấy danh sách câu hỏi thành công!");
       }
 
       loading.value = false;
     } catch (error) {
       loading.value = false;
-      showNotification(
-        toast,
-        "error",
-        "Thông báo",
-        "Xảy ra lỗi khi lấy danh sách câu hỏi!",
-        2000
-      );
+      errorNoti(toast, "Xảy ra lỗi khi lấy danh sách câu hỏi!");
       console.log("error :>> ", error);
       return;
     }

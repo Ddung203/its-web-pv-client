@@ -3,7 +3,7 @@
   import HeaderThird from "../../components/Header/HeaderThird.vue";
   import ScrollToTop from "@/components/Button/ScrollToTop.vue";
   import { useToast } from "primevue/usetoast";
-  import showNotification from "../../utils/showNotification";
+  import { errorNoti, successNoti } from "../../utils/showNotification";
   import HTTP from "../../helper/axiosInstance";
 
   const toast = useToast();
@@ -17,19 +17,19 @@
 
   const isFormValid = () => {
     if (!senderName.value.trim()) {
-      showNotification(toast, "error", "Lỗi", "Vui lòng nhập tên");
+      errorNoti(toast, "Vui lòng nhập tên");
       return false;
     }
     if (!senderEmail.value.trim()) {
-      showNotification(toast, "error", "Lỗi", "Vui lòng nhập email");
+      errorNoti(toast, "Vui lòng nhập email");
       return false;
     }
     if (!senderSubject.value.trim()) {
-      showNotification(toast, "error", "Lỗi", "Vui lòng nhập tiêu đề");
+      errorNoti(toast, "Vui lòng nhập tiêu đề");
       return false;
     }
     if (!senderMessage.value.trim()) {
-      showNotification(toast, "error", "Lỗi", "Vui lòng nhập tin nhắn");
+      errorNoti(toast, "Vui lòng nhập tin nhắn");
       return false;
     }
     return true;
@@ -42,7 +42,7 @@
       const nextTime = localStorage.getItem("nextTime");
       const currentTime = new Date().getTime();
       if (currentTime < nextTime) {
-        showNotification(
+        errorNoti(
           toast,
           "error",
           "Lỗi",
@@ -66,7 +66,7 @@
       const response = await HTTP.post("/email/feedback", data);
 
       if (response.success) {
-        showNotification(toast, "success", "Thông báo", "Đã gửi", 1500);
+        successNoti(toast, "Đã gửi");
 
         senderName.value = "";
         senderEmail.value = "";
@@ -81,13 +81,7 @@
         localStorage.setItem("nextTime", timestamp);
       }
     } catch (error) {
-      showNotification(
-        toast,
-        "error",
-        error,
-        "Xảy ra lỗi, vui lòng thử lại sau!",
-        1500
-      );
+      errorNoti(toast, "Xảy ra lỗi, vui lòng thử lại sau!");
     }
   };
 </script>
@@ -475,48 +469,48 @@
           <div class="gallery-img">
             <img
               src="../../public/assets/imgs/g2.jpg"
-              alt="gallery-1"
+              alt="gallery-2"
             />
           </div>
 
           <div class="gallery-img">
             <img
               src="../../public/assets/imgs/g3.jpg"
-              alt="gallery-1"
+              alt="gallery-3"
             />
           </div>
 
           <div class="gallery-img">
             <img
               src="../../public/assets/imgs/g4.jpg"
-              alt="gallery-1"
+              alt="gallery-4"
             />
           </div>
           <div class="gallery-img">
             <img
               src="../../public/assets/imgs/g9.jpg"
-              alt="gallery-1"
+              alt="gallery-5"
             />
           </div>
 
           <div class="gallery-img">
             <img
               src="../../public/assets/imgs/g6.jpg"
-              alt="gallery-1"
+              alt="gallery-6"
             />
           </div>
 
           <div class="gallery-img">
             <img
               src="../../public/assets/imgs/g7.jpg"
-              alt="gallery-1"
+              alt="gallery-7"
             />
           </div>
 
           <div class="gallery-img">
             <img
               src="../../public/assets/imgs/g8.jpg"
-              alt="gallery-1"
+              alt="gallery-8"
             />
           </div>
         </div>

@@ -10,7 +10,7 @@
   import useInterviewerStore from "../../stores/interviewer";
   import useStudentStore from "../../stores/student.js";
   import Header from "../../components/Header/Header.vue";
-  import showNotification from "../../utils/showNotification.js";
+  import { errorNoti } from "../../utils/showNotification.js";
 
   const toast = useToast();
   const dt = ref();
@@ -31,13 +31,7 @@
       students.value = await interviewerStore.getInterviewersHandle();
     } catch (error) {
       students.value = [];
-      showNotification(
-        toast,
-        "error",
-        "Thông báo",
-        "Lấy dữ liệu tài khoản phỏng vấn thất bại!",
-        3000
-      );
+      errorNoti(toast, "Lấy dữ liệu tài khoản phỏng vấn thất bại!");
     }
   };
 

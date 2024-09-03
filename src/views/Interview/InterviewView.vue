@@ -4,7 +4,7 @@
   import useIntervieweeStore from "../../stores/interviewee";
   import useInterviewerStore from "../../stores/interviewer";
   import HTTP from "../../helper/axiosInstance";
-  import showNotification from "../../utils/showNotification";
+  import { errorNoti, successNoti } from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
   import Header from "../../components/Header/Header.vue";
   import Footer from "../../components/Footer/Footer.vue";
@@ -52,17 +52,12 @@
       await intervieweeStore.getIntervieweesHandle();
       await interviewerStore.getInterviewersHandle();
     } catch (error) {
-      showNotification(
-        toast,
-        "error",
-        "Thông báo",
-        "Lấy dữ liệu thất bại!",
-        1500
-      );
+      errorNoti(toast, "Lấy dữ liệu thất bại!");
     }
   }
 
   const intervieweeInformation = ref({});
+  const intervieweeScore = ref(-1);
 
   const endInterviewHandle = async () => {
     const data = {
@@ -73,17 +68,11 @@
 
     try {
       const response = await HTTP.post(
-        `/play/interview/${intervieweeInformation.value.playID}`,
+        `/play/interview/${intervieweeInformation.value._id}`,
         data
       );
       if (response.success) {
-        showNotification(
-          toast,
-          "success",
-          "Thông báo",
-          "Lưu thông tin phỏng vấn thành công!",
-          2000
-        );
+        successNoti(toast, "Lưu thông tin phỏng vấn thành công!");
       }
 
       // Reset data to default
@@ -91,12 +80,9 @@
         await load();
       } catch (loadError) {
         console.error("Error loading data:", loadError);
-        showNotification(
+        errorNoti(
           toast,
-          "error",
-          "Thông báo",
-          "Có lỗi xảy ra khi lấy dữ liệu phỏng vấn. Vui lòng thử lại sau!",
-          3000
+          "Có lỗi xảy ra khi lấy dữ liệu phỏng vấn. Vui lòng thử lại sau!"
         );
       }
 
@@ -104,12 +90,9 @@
     } catch (error) {
       console.error("Error during endInterviewHandle:", error);
 
-      showNotification(
+      errorNoti(
         toast,
-        "error",
-        "Thông báo",
-        "Có lỗi xảy ra khi gửi dữ liệu phỏng vấn. Vui lòng thử lại sau!",
-        3000
+        "Có lỗi xảy ra khi gửi dữ liệu phỏng vấn. Vui lòng thử lại sau!"
       );
     }
   };
@@ -122,17 +105,7 @@
         );
 
         intervieweeInformation.value = response?.payload?.user;
-
-        const response2 = await HTTP.get(
-          `/play/user/${intervieweeInformation.value._id}`
-        );
-
-        intervieweeInformation.value = {
-          ...intervieweeInformation.value,
-          score: response2?.payload?.play?.score,
-          playID: response2?.payload?.play?._id,
-        };
-
+        intervieweeScore.value = response?.payload?.play?.score || -1;
         // console.log(intervieweeInformation.value);
       }
     } catch (error) {
@@ -261,9 +234,7 @@
             </div>
             <div class="flex flex-col right">
               <span class="text-lg">{{
-                intervieweeInformation?.score >= 0
-                  ? intervieweeInformation?.score
-                  : "None"
+                intervieweeScore >= 0 ? intervieweeScore : "None"
               }}</span>
               <span class="text-sm">Điểm bài test</span>
             </div>

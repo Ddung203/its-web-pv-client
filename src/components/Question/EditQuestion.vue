@@ -3,7 +3,7 @@
   import { uploadImageHandle } from "../../helper/uploadImageHandle";
   import HTTP from "../../helper/axiosInstance";
   import { useToast } from "primevue/usetoast";
-  import showNotification from "../../utils/showNotification";
+  import { errorNoti, successNoti } from "../../utils/showNotification";
 
   const props = defineProps({
     question: {
@@ -114,17 +114,11 @@
       );
       if (response.success) {
         emit("question-updated", response.payload?.question);
-        showNotification(
-          toast,
-          "success",
-          "Thông báo",
-          "Cập nhật thành công",
-          1500
-        );
+        successNoti(toast, "Cập nhật thành công");
       }
     } catch (error) {
       console.log("error :>> ", error);
-      showNotification(toast, "error", "Thông báo", "Cập nhật thất bại", 1500);
+      errorNoti(toast, "Cập nhật thất bại");
     }
 
     visible.value = false;

@@ -3,7 +3,7 @@
   import Leaderboard from "../../components/Leaderboard/Leaderboard.vue";
   import TitleBannerMini from "../../components/Banner/TitleBannerMini.vue";
   import useLeaderboardStore from "../../stores/leaderboard";
-  import showNotification from "../../utils/showNotification";
+  import { errorNoti } from "../../utils/showNotification";
   import Loading from "../../components/Loading/Loading.vue";
   import { useToast } from "primevue/usetoast";
   import Header from "../../components/Header/Header.vue";
@@ -18,12 +18,9 @@
     try {
       await leaderboardStore.getLeaderboardHandle();
     } catch (error) {
-      showNotification(
+      errorNoti(
         toast,
-        "error",
-        "Thông báo lỗi",
-        "Đã xảy ra lỗi máy chủ. Vui lòng tải lại trang hoặc thử lại sau ít phút!",
-        3000
+        "Đã xảy ra lỗi máy chủ. Vui lòng tải lại trang hoặc thử lại sau ít phút!"
       );
     }
     loading.value = false;

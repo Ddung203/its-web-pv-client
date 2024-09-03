@@ -5,8 +5,7 @@
   import QuestionCard from "@/components/Question/QuestionCard.vue";
   import BackToHome from "@/components/Button/BackToHome.vue";
   import ScrollToTop from "@/components/Button/ScrollToTop.vue";
-  import useAuthStore from "../../stores/auth";
-  import showNotification from "../../utils/showNotification";
+  import { successNoti } from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
   import Header from "../../components/Header/Header.vue";
   import Footer from "../../components/Footer/Footer.vue";
@@ -21,22 +20,13 @@
       const response = await HTTP.post("/question/insert", bodyData);
 
       if (response && response?.success) {
-        showNotification(
-          toast,
-          "success",
-          "Thông báo",
-          response?.message || "Nhập câu hỏi thành công!",
-          3000
-        );
+        successNoti(toast, response?.message || "Nhập câu hỏi thành công!");
         handleQuestionsReset();
       }
     } catch (error) {
-      showNotification(
+      errorNoti(
         toast,
-        "error",
-        "Thông báo lỗi",
-        error?.error?.message.slice(14) || "Hiện không thể lưu!",
-        3000
+        error?.error?.message.slice(14) || "Hiện không thể lưu!"
       );
       return;
     }
