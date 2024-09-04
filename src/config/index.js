@@ -18,7 +18,7 @@ const environmentConfig = {
   },
   production: {
     X_API_KEY: import.meta.env.VITE_X_API_KEY_SECRET || "ITS-DDung203",
-    API_URL: "https://web-pv-be.onrender.com/api/v1",
+    API_URL: "https://web-pv-api.onrender.com/api/v1",
     firebaseConfig: {
       apiKey: import.meta.env.VITE_API_KEY,
       authDomain: import.meta.env.VITE_AUTH_DOMAIN,
