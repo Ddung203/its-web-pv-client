@@ -2,10 +2,36 @@
   import { ref } from "vue";
   import Header from "../../components/Header/Header.vue";
   import router from "../../routes";
+  import { useToast } from "primevue/usetoast";
+  import usePlayStore from "../../stores/play";
+  import { errorNoti } from "../../utils/showNotification";
+  import { storeToRefs } from "pinia";
+
+  const toast = useToast();
+
+  const playStore = usePlayStore();
+  const { isTested } = storeToRefs(playStore);
+
+  const startBtnHandle = async () => {
+    try {
+      await playStore.startPlay();
+    } catch (e) {
+      if (e.error.statusCode === 409) {
+        errorNoti(toast, e.error.message);
+        return;
+      }
+
+      errorNoti(toast, "Lỗi máy chủ! Vui lòng thử lại sau!");
+    }
+
+    router.push("/test");
+  };
 </script>
 
 <template>
+  <Toast></Toast>
   <Header></Header>
+
   <div>
     <div class="w-full h-[300px] back"></div>
   </div>
@@ -44,7 +70,11 @@
   </div>
 
   <div class="lg:px-[200px] px-[20px] mt-10 mb-14 lg:mb-0">
-    <Button class="flex items-center justify-center w-full">Bắt đầu</Button>
+    <Button
+      class="flex items-center justify-center w-full"
+      @click="startBtnHandle"
+      >Bắt đầu</Button
+    >
   </div>
 </template>
 

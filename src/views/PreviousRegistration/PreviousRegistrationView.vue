@@ -4,7 +4,7 @@
   import HeaderThird from "@/components/Header/HeaderThird.vue";
   import Loading from "../../components/Loading/Loading.vue";
   import { uploadImageHandle } from "../../helper/uploadImageHandle.js";
-  import { successNoti } from "../../utils/showNotification.js";
+  import { errorNoti, successNoti } from "../../utils/showNotification.js";
   import { useToast } from "primevue/usetoast";
   import checkFalsy from "../../utils/checkFalsyValue.js";
   import HTTP from "../../helper/axiosInstance.js";

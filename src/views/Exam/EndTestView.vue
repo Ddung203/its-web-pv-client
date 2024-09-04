@@ -2,6 +2,11 @@
   import { ref } from "vue";
   import Header from "../../components/Header/Header.vue";
   import router from "../../routes";
+  import { useRoute } from "vue-router";
+
+  const $route = useRoute();
+  const remaining = $route.query.remaining;
+  const score = $route.query.score;
 </script>
 
 <template>
@@ -18,14 +23,14 @@
         class="pi pi-question-circle"
         style="font-size: 2rem"
       ></i>
-      <span class="pl-3 text-lg">Số lượng câu hỏi: 20</span>
+      <span class="pl-3 text-lg">Số lượng câu hỏi: {{ score / 5 }} /20</span>
     </div>
     <div class="flex items-center justify-center bs-1">
       <i
         class="pi pi-clock"
         style="font-size: 2rem"
       ></i>
-      <span class="pl-3 text-lg">Thời gian: 20 phút</span>
+      <span class="pl-3 text-lg">Thời gian còn lại: {{ remaining }}</span>
     </div>
     <div class="flex items-center justify-center lg:row-start-2 bs-1">
       <i
@@ -39,12 +44,16 @@
         class="pi pi-check-circle"
         style="font-size: 2rem"
       ></i>
-      <span class="pl-3 text-lg">Điểm tối đa: 100</span>
+      <span class="pl-3 text-lg">Điểm số: {{ score }}</span>
     </div>
   </div>
 
   <div class="lg:px-[200px] px-[20px] mt-10 mb-14 lg:mb-0">
-    <Button class="flex items-center justify-center w-full">Bắt đầu</Button>
+    <router-link to="/introduction">
+      <Button class="flex items-center justify-center w-full"
+        >Quay về Trang chủ</Button
+      >
+    </router-link>
   </div>
 </template>
 

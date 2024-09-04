@@ -1,37 +1,27 @@
 <script setup>
   import { ref } from "vue";
 
-  // const
-
-  // Danh sách câu hỏi và đáp án
-  const questions = ref([
-    {
-      id: 1,
-      text: "Agreement or contract between countries?",
-      image:
-        "https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/logos%2FLogo_bo%203%20goc.png?alt=media&token=aeb9dfc2-e57d-403a-a884-9ffd9ed2fb53",
-      options: [
-        {
-          id: "A",
-          text: "Option 1: or contract between countries",
-          isCorrect: true,
-        },
-        { id: "B", text: "Option 2", isCorrect: false },
-        { id: "C", text: "Option 3", isCorrect: false },
-        { id: "D", text: "Option 4", isCorrect: false },
-      ],
+  const props = defineProps({
+    question: {
+      type: Object,
+      required: true,
     },
-    // Thêm nhiều câu hỏi nếu cần
-  ]);
+    index: {
+      type: Number,
+    },
+    count: {
+      type: Number,
+    },
+  });
 
-  const currentQuestionIndex = ref(0);
+  const emit = defineEmits(["userSelected"]);
 
-  // Trạng thái của đáp án đã chọn
-  const selectedOption = ref(null);
+  const selectedOption = ref(props.question.userAnswer);
 
-  // Hàm xử lý khi người dùng chọn đáp án
-  const selectAnswer = (option) => {
-    selectedOption.value = option;
+  const selectAnswer = (userAnswer) => {
+    selectedOption.value = userAnswer;
+
+    emit("userSelected", { index: props.index, userAnswer: userAnswer });
   };
 </script>
 
@@ -43,13 +33,11 @@
       <!-- !header -->
       <div class="grid grid-cols-2 gap-0 mb-4 header">
         <div class="flex items-center justify-start font-semibold">
-          <span class="text-[#6366f1]"
-            >Câu hỏi {{ currentQuestionIndex + 1 }}</span
-          >
+          <span class="text-[#6366f1]">Câu hỏi {{ props.index + 1 }}</span>
         </div>
         <div class="flex items-center justify-end">
           <span class="text-[#939bb4]"
-            >{{ currentQuestionIndex + 1 }}/{{ questions.length }}</span
+            >{{ props.index + 1 }}/{{ props.count }}</span
           >
         </div>
       </div>
@@ -59,12 +47,12 @@
         <div class="h-[150px] flex justify-center">
           <img
             class="block h-[150px] object-contain"
-            :src="questions[currentQuestionIndex].image"
+            :src="question.imageURL"
             alt="Question Image"
             title="Click to zoom out"
           />
         </div>
-        <p>{{ questions[currentQuestionIndex].text }}</p>
+        <p>{{ question.content }}</p>
       </div>
 
       <!-- !answer -->
@@ -77,13 +65,15 @@
         <div class="flex flex-col gap-4">
           <div class="grid grid-cols-1 grid-rows-2 gap-4 md:grid-cols-2">
             <button
-              v-for="option in questions[currentQuestionIndex].options"
-              :key="option.id"
-              @click="selectAnswer(option)"
-              :class="{ 'selected-answer': selectedOption === option }"
+              v-for="option in props.question.options"
+              :key="option.numbering"
+              @click="selectAnswer(option.numbering)"
+              :class="{
+                'selected-answer': selectedOption === option.numbering,
+              }"
               class="answer-option"
             >
-              {{ option.text }}
+              {{ option.answer }}
             </button>
           </div>
         </div>

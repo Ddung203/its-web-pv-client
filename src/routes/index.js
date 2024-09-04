@@ -1,7 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 import LoginView from "../views/Auth/LoginView.vue";
 import NotFoundView from "../views/NotFound/NotFoundView.vue";
-import HomeView from "../views/Home/HomeView.vue";
 import ImportQuestionView from "../views/Question/ImportQuestionView.vue";
 import QuestionListView from "../views/Question/QuestionListView.vue";
 import IntroductionView from "../views/Introduction/IntroductionView.vue";
@@ -10,13 +9,13 @@ import InterviewView from "../views/Interview/InterviewView.vue";
 import TestView from "../views/Exam/TestView.vue";
 import StudentListView from "../views/Student/StudentListView.vue";
 import InterviewerListView from "../views/Student/InterviewerListView.vue";
-import SocketView from "../views/Socket/SocketView.vue";
 import useAuthStore from "../stores/auth";
 import SendMailView from "../views/Mail/SendMailView.vue";
 import FindResultView from "../views/FindResult/FindResultView.vue";
 import PreviousRegistrationView from "../views/PreviousRegistration/PreviousRegistrationView.vue";
 import StartTestView from "../views/Exam/StartTestView.vue";
 import EndTestView from "../views/Exam/EndTestView.vue";
+import usePlayStore from "../stores/play";
 
 const routes = [
   {
@@ -90,16 +89,6 @@ const routes = [
     },
   },
   {
-    path: "/test",
-    name: "test",
-    component: TestView,
-    meta: {
-      requiredAuth: true,
-      requiredRole: ["admin", "interviewer", "user"],
-      layout: true,
-    },
-  },
-  {
     path: "/students",
     name: "students",
     component: StudentListView,
@@ -116,16 +105,6 @@ const routes = [
     meta: {
       requiredAuth: true,
       requiredRole: ["admin", "interviewer"],
-      layout: true,
-    },
-  },
-  {
-    path: "/socket",
-    name: "socket",
-    component: SocketView,
-    meta: {
-      requiredAuth: false,
-      requiredRole: ["admin", "interviewer", "user", "guest"],
       layout: true,
     },
   },
@@ -165,17 +144,27 @@ const routes = [
     component: StartTestView,
     meta: {
       requiredAuth: false,
-      requiredRole: ["admin", "interviewer", "user"],
+      requiredRole: ["user"],
       layout: true,
     },
   },
   {
-    path: "/end-test",
-    name: "end-test",
+    path: "/test",
+    name: "test",
+    component: TestView,
+    meta: {
+      requiredAuth: true,
+      requiredRole: ["user"],
+      layout: true,
+    },
+  },
+  {
+    path: "/finish-test",
+    name: "finish-test",
     component: EndTestView,
     meta: {
       requiredAuth: false,
-      requiredRole: ["admin", "interviewer", "user"],
+      requiredRole: ["user"],
       layout: true,
     },
   },
@@ -189,8 +178,14 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
+  const playStore = usePlayStore();
 
   if (to.name === "login" && authStore.getIsLoggedIn) {
+    next({ name: "introduction" });
+    return;
+  }
+
+  if (to.name === "test" && playStore.getIsTested) {
     next({ name: "introduction" });
     return;
   }

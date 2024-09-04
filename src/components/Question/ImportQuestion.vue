@@ -46,8 +46,8 @@
     class="border border-[#ccc] min-h-[244px] flex flex-col items-center justify-center bg-c"
   >
     <div class="flex flex-col gap-3 px-5 banner">
-      <h2 class="">Nhập danh sách câu hỏi từ file Excel</h2>
-      <p class="text-base font-medium">
+      <h2 class="font-f">Nhập danh sách câu hỏi từ file Excel</h2>
+      <p class="text-base font-medium font-f">
         Tải xuống file mẫu 👉
         <a
           class="font-medium text-blue-700"
@@ -107,5 +107,9 @@
 
   .i-none {
     display: none;
+  }
+
+  .font-f {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   }
 </style>

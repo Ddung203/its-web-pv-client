@@ -6,11 +6,6 @@
       type: Object,
       required: true,
     },
-
-    role: {
-      type: String,
-      required: true,
-    },
   });
 
   const answers = ref([]);
@@ -28,7 +23,6 @@
   const selectAnswer = (answer) => {
     answers.value.forEach((ans) => (ans.selected = false));
 
-    if (props.role !== "user") return;
     answer.selected = true;
   };
 
