@@ -85,6 +85,13 @@
             >
           </div>
         </form>
+
+        <div class="pt-6 text-sm text-center text-black">
+          Bạn chưa có tài khoản?
+          <router-link to="/previous-registration"
+            ><span class="text-gray-100 underline"> Đăng ký</span></router-link
+          >
+        </div>
       </div>
     </div>
   </div>

@@ -7,9 +7,12 @@
   import usePlayStore from "../../stores/play";
   import countdownFunction from "../../utils/countdownFunction";
   import router from "../../routes";
+  import useAuthStore from "../../stores/auth";
 
   const playStore = usePlayStore();
-  const { questions, play, isTested } = storeToRefs(playStore);
+  const authStore = useAuthStore();
+  const { questions, play } = storeToRefs(playStore);
+  const { isTested } = storeToRefs(authStore);
 
   const countdown = ref(null);
   const remaining = ref(null);
@@ -30,20 +33,18 @@
   const endPlay = async () => {
     try {
       endFn.value();
-      isTested.value = true;
       const payload = await playStore.finishTest();
+
+      isTested.value = true;
 
       router.push({
         path: "/finish-test",
         query: { remaining: remaining.value, score: payload?.result?.score },
       });
     } catch (error) {
-      console.log("error :>> ", error);
-      // router.push("/introduction");
+      alert(error);
+      router.push("/introduction");
     }
-
-    // router.push("/finish-test");
-    // router.push("/introduction");
   };
 </script>
 

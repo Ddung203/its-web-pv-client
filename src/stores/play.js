@@ -7,11 +7,9 @@ const usePlayStore = defineStore(
   () => {
     const play = ref(null);
     const questions = ref([]);
-    const isTested = ref(false);
 
     const getPlay = computed(() => play.value);
     const getQuestions = computed(() => questions.value);
-    const getIsTested = computed(() => isTested.value);
 
     const startPlay = async () => {
       const response = await HTTP.get("/play/start");
@@ -35,10 +33,9 @@ const usePlayStore = defineStore(
     return {
       play,
       questions,
-      isTested,
+
       getPlay,
       getQuestions,
-      getIsTested,
       startPlay,
       updateOneQuestion,
       finishTest,

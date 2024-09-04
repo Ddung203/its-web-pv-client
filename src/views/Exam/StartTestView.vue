@@ -10,7 +10,6 @@
   const toast = useToast();
 
   const playStore = usePlayStore();
-  const { isTested } = storeToRefs(playStore);
 
   const startBtnHandle = async () => {
     try {

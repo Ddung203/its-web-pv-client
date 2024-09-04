@@ -178,14 +178,13 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
-  const playStore = usePlayStore();
 
   if (to.name === "login" && authStore.getIsLoggedIn) {
     next({ name: "introduction" });
     return;
   }
 
-  if (to.name === "test" && playStore.getIsTested) {
+  if (to.name === "test" && authStore.getIsTested) {
     next({ name: "introduction" });
     return;
   }
