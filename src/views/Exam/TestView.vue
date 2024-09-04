@@ -1,6 +1,5 @@
 <script setup>
   import { onMounted, ref } from "vue";
-  import HeaderSecond from "../../components/Header/HeaderSecond.vue";
   import NewCard from "../../components/Question/NewCard.vue";
   import { storeToRefs } from "pinia";
   import ScrollToTop from "../../components/Button/ScrollToTop.vue";
@@ -8,7 +7,9 @@
   import countdownFunction from "../../utils/countdownFunction";
   import router from "../../routes";
   import useAuthStore from "../../stores/auth";
+  import useUIStore from "../../stores/ui";
 
+  const UIStore = useUIStore();
   const playStore = usePlayStore();
   const authStore = useAuthStore();
   const { questions, play } = storeToRefs(playStore);
@@ -50,9 +51,50 @@
 
 <template>
   <div class="bg-[#f6f7fb]">
-    <HeaderSecond></HeaderSecond>
-    <p v-if="countdown">{{ countdown }}</p>
+    <header class="w-[100vw] h-[66px]">
+      <div class="">
+        <div class="fixed top-0 left-0 w-[100%] z-40 bg-white shadow-c">
+          <div
+            class="flex flex-row items-center justify-between md:grid md:grid-cols-3 md:grid-rows-1 md:gap-0 px-[20px] py-3"
+          >
+            <!-- Left -->
+            <section class="left">
+              <div class="flex gap-2 justify-content-center introduction-farm">
+                <Button
+                  icon="pi pi-align-justify"
+                  @click="UIStore.toggle"
+                  outlined
+                />
+              </div>
+            </section>
 
+            <!-- Middle -->
+            <section class="flex flex-col items-center justify-center">
+              <div class="hidden logo md:block">
+                <a href="#">
+                  <img
+                    class="block max-h-[40px]"
+                    src="@/public/assets/imgs/logofull.png"
+                    alt="Logo"
+                /></a>
+              </div>
+            </section>
+            <!-- Right -->
+            <section class="md:flex md:justify-end lg:flex-row right">
+              <Button
+                v-if="countdown"
+                class="uppercase"
+                :label="countdown == 'out' ? 'Hết thời gian' : countdown"
+                severity="secondary"
+                outlined
+              />
+            </section>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- !MAIN -->
     <div
       :class="{
         hidden: countdown == 'out',
@@ -80,7 +122,7 @@
         alt=""
       />
       <p class="text-center">
-        Tất cả đã xong! Bạn đã sẵn sàng gửi bài kiểm tra?
+        Tất cả đã xong? Bấm hoàn thành để gửi bài kiểm tra!
       </p>
       <Button
         label="Hoàn thành"
@@ -94,5 +136,7 @@
 </template>
 
 <style scoped>
-  /*  */
+  .shadow-c {
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px;
+  }
 </style>

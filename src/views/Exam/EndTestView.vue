@@ -30,7 +30,10 @@
         class="pi pi-clock"
         style="font-size: 2rem"
       ></i>
-      <span class="pl-3 text-lg">Thời gian còn lại: {{ remaining }}</span>
+      <span class="pl-3 text-lg"
+        >Thời gian còn lại:
+        {{ remaining === "out" ? "0 phút 0 giây" : remaining }}</span
+      >
     </div>
     <div class="flex items-center justify-center lg:row-start-2 bs-1">
       <i

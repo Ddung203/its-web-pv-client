@@ -26,14 +26,19 @@
 </script>
 
 <template>
-  <div class="container px-4 mx-auto">
+  <div
+    :id="`q-${props.index}`"
+    class="container px-4 mx-auto"
+  >
     <div
       class="max-w-[712px] min-h-[420px] flex flex-col py-8 px-6 bg-white c-box-shadow rounded-xl mx-auto my-10"
     >
       <!-- !header -->
       <div class="grid grid-cols-2 gap-0 mb-4 header">
         <div class="flex items-center justify-start font-semibold">
-          <span class="text-[#6366f1]">Câu hỏi {{ props.index + 1 }}</span>
+          <span class="text-[#6366f1] uppercase"
+            >Câu hỏi {{ props.index + 1 }} - {{ question.level }}</span
+          >
         </div>
         <div class="flex items-center justify-end">
           <span class="text-[#939bb4]"
@@ -45,12 +50,16 @@
       <!-- !content -->
       <div class="flex flex-col gap-5 pt-5 pb-[60px] content">
         <div class="h-[150px] flex justify-center">
-          <img
-            class="block h-[150px] object-contain"
-            :src="question.imageURL"
-            alt="Question Image"
-            title="Click to zoom out"
-          />
+          <a
+            :href="question.imageURL"
+            target="_blank"
+          >
+            <img
+              class="block h-[150px] object-contain"
+              :src="question.imageURL"
+              alt="Question Image"
+              title="Click to zoom out"
+          /></a>
         </div>
         <p>{{ question.content }}</p>
       </div>
@@ -59,7 +68,7 @@
       <div class="answer">
         <div class="pb-5">
           <span class="font-semibold text-[#586380]">
-            Chọn câu trả lời đúng nhất
+            Chọn một câu trả lời đúng nhất
           </span>
         </div>
         <div class="flex flex-col gap-4">
