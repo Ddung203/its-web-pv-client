@@ -15,7 +15,6 @@ import FindResultView from "../views/FindResult/FindResultView.vue";
 import PreviousRegistrationView from "../views/PreviousRegistration/PreviousRegistrationView.vue";
 import StartTestView from "../views/Exam/StartTestView.vue";
 import EndTestView from "../views/Exam/EndTestView.vue";
-import usePlayStore from "../stores/play";
 
 const routes = [
   {

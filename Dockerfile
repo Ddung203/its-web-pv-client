@@ -1,20 +1,22 @@
-FROM node:18-alpine
+FROM node:20-alpine AS builder
 
-# Set the working directory in the container
 WORKDIR /app
 
-# Copy package.json and yarn.lock to the working directory
-COPY package.json ./
-COPY yarn.lock ./
+COPY package.json yarn.lock ./
 
-# Install dependencies
-RUN yarn
+RUN yarn install --frozen-lockfile
 
-# Copy the rest of the application code to the working directory
 COPY . .
 
-# Expose the port the app runs on
-EXPOSE 5173
+RUN yarn build
 
-# Start the application
-CMD ["yarn", "dev"]
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/node_modules ./node_modules
+
+EXPOSE 4173
+CMD ["yarn", "preview"]
