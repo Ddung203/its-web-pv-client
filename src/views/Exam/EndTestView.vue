@@ -15,7 +15,7 @@
     <div class="w-full h-[300px] back"></div>
   </div>
 
-  <div
+  <!-- <div
     class="px-[20px] lg:px-[200px] pt-7 grid grid-cols-1 grid-rows-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 text-[#ffab32]"
   >
     <div class="flex items-center justify-center bs-1">
@@ -49,6 +49,12 @@
       ></i>
       <span class="pl-3 text-lg">Điểm số: {{ score }}</span>
     </div>
+  </div> -->
+
+  <div class="p-[20px]">
+    <p class="text-3xl text-[#ffab32] font-semibold text-center">
+      Chúc mừng bạn đã hoàn thành bài test
+    </p>
   </div>
 
   <div class="lg:px-[200px] px-[20px] mt-10 mb-14 lg:mb-0">

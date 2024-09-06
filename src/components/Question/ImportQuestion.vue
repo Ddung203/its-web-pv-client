@@ -5,6 +5,9 @@
   const questions = ref([]);
   const emit = defineEmits(["questions-updated"]);
 
+  const defaultImageURL =
+    "https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/logos%2FLogo_bo%203%20goc.png?alt=media&token=aeb9dfc2-e57d-403a-a884-9ffd9ed2fb53";
+
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -25,18 +28,19 @@
   };
 
   const transformData = (data) => {
+    console.log("data :>> ", data);
     return data.map((row) => ({
       code: Math.floor(100000 + Math.random() * 900000),
-      imageURL: row.imageURL || "",
-      content: row.content,
+      imageURL: row.imageURL || defaultImageURL,
+      content: row.content || "ERROR",
       options: [
-        { numbering: 1, answer: row.option1 },
-        { numbering: 2, answer: row.option2 },
-        { numbering: 3, answer: row.option3 },
-        { numbering: 4, answer: row.option4 },
+        { numbering: 1, answer: row.option1 || "ERROR" },
+        { numbering: 2, answer: row.option2 || "ERROR" },
+        { numbering: 3, answer: row.option3 || "ERROR" },
+        { numbering: 4, answer: row.option4 || "ERROR" },
       ],
       correctAnswer: row.correctAnswer.toString().toLowerCase(),
-      level: row.level.toString().toLowerCase() || "easy",
+      level: row?.level?.toString().toLowerCase() || "normal",
     }));
   };
 </script>
@@ -51,7 +55,7 @@
         Tải xuống file mẫu 👉
         <a
           class="font-medium text-blue-700"
-          href="https://firebasestorage.googleapis.com/v0/b/d4t-project.appspot.com/o/filesToDownload%2FQuestions%20Example.xlsx?alt=media&token=464c4b88-ef77-4bc6-9d7f-81325276cd00"
+          href="https://firebasestorage.googleapis.com/v0/b/d4t-project.appspot.com/o/filesToDownload%2FQuestions%20Example.xlsx?alt=media&token=bc1dd29c-7254-4ed0-a146-6ecc5f8515a4"
           >Questions Example.xlsx</a
         >👈
       </p>
@@ -84,7 +88,6 @@
 <style scoped>
   .banner {
     color: #fff;
-    font-family: Open Sans;
     font-size: 30px;
     font-weight: 700;
     line-height: 36px;
@@ -94,7 +97,6 @@
 
   .p-c {
     color: #fff;
-    font-family: Open Sans;
     font-size: 15px;
     line-height: 21.75px;
     margin: 0px 0px 15px;

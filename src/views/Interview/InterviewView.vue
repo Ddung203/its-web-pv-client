@@ -8,6 +8,7 @@
   import { useToast } from "primevue/usetoast";
   import Header from "../../components/Header/Header.vue";
   import Footer from "../../components/Footer/Footer.vue";
+  import Slider from "primevue/slider";
 
   const toast = useToast();
   const comment = ref("");
@@ -17,27 +18,6 @@
   const interviewScore = computed(() => {
     return interviewScorePart1.value + interviewScorePart2.value;
   });
-
-  function increaseValue1() {
-    if (interviewScorePart1.value < 50) {
-      interviewScorePart1.value += 5;
-    }
-  }
-  function decreaseValue1() {
-    if (interviewScorePart1.value > 0) {
-      interviewScorePart1.value -= 5;
-    }
-  }
-  function increaseValue2() {
-    if (interviewScorePart2.value < 50) {
-      interviewScorePart2.value += 5;
-    }
-  }
-  function decreaseValue2() {
-    if (interviewScorePart2.value > 0) {
-      interviewScorePart2.value -= 5;
-    }
-  }
 
   // Call API
   const intervieweeStore = useIntervieweeStore();
@@ -60,6 +40,11 @@
   const intervieweeScore = ref(-1);
 
   const endInterviewHandle = async () => {
+    if (interviewScorePart1.value > 100 || interviewScorePart2.value > 100) {
+      errorNoti(toast, "Điểm phỏng vấn không hợp lệ!");
+      return;
+    }
+
     const data = {
       interviewScore: interviewScore.value,
       comment: comment.value,
@@ -249,7 +234,7 @@
             <div class="mb-2">
               <span>Thái độ</span>
             </div>
-            <div class="progress-bar">
+            <!-- <div class="progress-bar">
               <div class="relative w-[330px] md:w-[380px] h-[20px]">
                 <div class="w-full h-full bg-gray-200 rounder-c">
                   <div
@@ -270,6 +255,24 @@
                   @click="increaseValue1"
                 ></div>
               </div>
+            </div> -->
+
+            <!-- Slider -->
+            <div class="flex justify-center w-full">
+              <div class="w-full">
+                <InputText
+                  v-model.number="interviewScorePart1"
+                  class="w-full mb-4"
+                  disabled
+                />
+                <Slider
+                  v-model="interviewScorePart1"
+                  :step="5"
+                  class="w-full h-5"
+                  :min="0"
+                  :max="100"
+                />
+              </div>
             </div>
           </div>
 
@@ -278,26 +281,20 @@
             <div class="mb-2">
               <span>Kiến thức</span>
             </div>
-            <div class="progress-bar">
-              <div class="relative w-[330px] md:w-[380px] h-[20px]">
-                <div class="w-full h-full bg-gray-200 rounder-c">
-                  <div
-                    class="h-full bg-[#f59e0b] rounder-c"
-                    :style="{ width: interviewScorePart2 * 2 + '%' }"
-                  >
-                    <p class="text-center text-white">
-                      {{ interviewScorePart2 }}
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="absolute top-0 left-0 w-2/5 h-full cursor-pointer"
-                  @click="decreaseValue2"
-                ></div>
-                <div
-                  class="absolute top-0 right-0 w-3/5 h-full cursor-pointer"
-                  @click="increaseValue2"
-                ></div>
+            <div class="flex justify-center w-full">
+              <div class="w-full">
+                <InputText
+                  v-model.number="interviewScorePart2"
+                  class="w-full mb-4"
+                  disabled
+                />
+                <Slider
+                  v-model="interviewScorePart2"
+                  :step="5"
+                  class="w-full h-5"
+                  :min="0"
+                  :max="100"
+                />
               </div>
             </div>
           </div>

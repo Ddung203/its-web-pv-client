@@ -59,7 +59,7 @@
     <div>
       <SingleSearch
         v-model="nameSearch"
-        placeholder="Tìm tên"
+        placeholder="Tìm theo tên"
       />
     </div>
 

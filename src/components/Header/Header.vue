@@ -35,7 +35,7 @@
               <router-link to="/introduction">
                 <img
                   class="block h-[40px]"
-                  src="@/public/assets/imgs/logofull.png"
+                  src="@/public/assets/logos/logofull.png"
                   alt="Logo"
                 />
               </router-link>

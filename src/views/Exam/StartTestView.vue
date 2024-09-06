@@ -12,6 +12,11 @@
   const playStore = usePlayStore();
 
   const startBtnHandle = async () => {
+    if (!localStorage.getItem("isAccessed")) {
+      errorNoti(toast, "Bài thi không khả dụng trên thiết bị này!");
+      return;
+    }
+
     try {
       await playStore.startPlay();
     } catch (e) {

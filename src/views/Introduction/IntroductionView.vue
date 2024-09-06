@@ -44,10 +44,7 @@
       if (currentTime < nextTime) {
         errorNoti(
           toast,
-          "error",
-          "Lỗi",
-          "Bạn đã gửi quá số lượng email được cho phép. Thử lại sau 10 phút!",
-          1500
+          "Bạn đã gửi quá số lượng email được cho phép. Thử lại sau 10 phút!"
         );
         return;
       } else {
@@ -103,15 +100,13 @@
           class="lg:flex lg:justify-between gap-[60px] lg:items-center w-[100%] h-[530px] mt-[40px] lg:my-[40px] lg:mx-[80px]"
         >
           <div class="px-6 lg:px-0 lg:w-1/2">
-            <p
-              class="text-[#0f394c] font-bold text-4xl leading-[50px] uppercase"
-            >
+            <p class="text-[#fff] font-bold text-4xl leading-[50px] uppercase">
               Câu lạc bộ Hỗ trợ kỹ thuật <br />
               IT Supporter – HaUI
             </p>
 
             <p
-              class="text-[#1c698c] mt-4 text-center lg:text-start font-medium text-lg"
+              class="text-[#fff] mt-4 text-center lg:text-start font-medium text-lg"
             >
               Được thành lập vào ngày <strong>29/08/2014</strong>, qua
               <span class="">10</span> năm hình thành và phát triển CLB Hỗ trợ
@@ -133,11 +128,11 @@
           <div
             class="hidden lg:w-1/2 lg:flex lg:justify-end lg:items-center col50"
           >
-            <img
-              class="block max-w-[400px]"
-              src="../../public/assets/imgs/logo10.png"
+            <!-- <img
+              class="block max-w-[400px] rounded-2xl"
+              src="../../public/assets/imgs/g4.jpg"
               alt="Logo kỉ niệm 10 năm"
-            />
+            /> -->
           </div>
         </div>
       </div>
@@ -153,11 +148,11 @@
           </div>
           <div class="flex flex-col items-start justify-start lg:w-3/5">
             <p
-              class="text-[#0f394c] font-dosis text-[32px] font-bold leading-[38.4px] mb-5 text-center uppercase"
+              class="text-[#0f394c] text-[32px] font-bold leading-[38.4px] mb-5 text-center uppercase"
             >
               Các ban hoạt động
             </p>
-            <p>Câu lạc bộ có 3 ban phụ trách hoạt động</p>
+
             <div class="w-full mt-10 grid grid-cols-[66px_auto]">
               <div class="icon-desc">
                 <i class="fa-solid fa-fingerprint"></i>
@@ -168,11 +163,12 @@
                 <p class="font-bold">BAN KỸ THUẬT</p>
                 <p class="text-[#0f394c] text-base">
                   Ban kỹ thuật với mục đích hỗ trợ kỹ thuật nói chung và giúp đỡ
-                  các bạn sinh viên vấn đề liên quan đến máy tính nói riêng như:
-                  🧰Cài đặt phần mềm 💻Tư vấn máy tính, laptop 🧹Vệ sinh, nâng
-                  cấp, bảo trì máy tính 🔧Hỗ trợ bảo trì, cài đặt phòng máy của
-                  khoa 📡Hỗ trợ kỹ thuật trong các chương trình, sự kiện của
-                  khoa CNTT
+                  các bạn sinh viên vấn đề liên quan đến máy tính nói riêng
+                  như:<br />
+                  🧰 Cài đặt phần mềm <br />💻 Tư vấn máy tính, laptop <br />🧹
+                  Vệ sinh, nâng cấp, bảo trì máy tính <br />🔧 Hỗ trợ bảo trì,
+                  cài đặt phòng máy của khoa <br />📡 Hỗ trợ kỹ thuật trong các
+                  chương trình, sự kiện của khoa CNTT
                 </p>
               </div>
             </div>
@@ -182,9 +178,14 @@
               </div>
               <div class="ml-[30px]">
                 <p class="font-bold">BAN TRUYỀN THÔNG</p>
-                <p class="bottom">
-                  Với mục đích truyền thông đến bạn các tin tức về công nghệ mới
-                  nhất, các hoạt động, sự kiện của CLB
+                <p class="text-[#0f394c] text-base">
+                  Ban truyền thông: Với mục đích truyền thông đến bạn các tin
+                  tức về công nghệ mới nhất, các hoạt động, sự kiện của CLB Hoạt
+                  động thường niên: <br />📡Mỗi tuần: bài news theo hình thức
+                  video ngắn <br />🔥Trong tuần: theo dõi, cập nhật tình hình
+                  trong ngày để lên hot new <br />💡Trong tháng: Chia sẻ kiến
+                  thức, kinh nghiệm về phần cứng, kiến thức về công nghệ, code
+                  <br />🥳Bài sinh nhật thành viên
                 </p>
               </div>
             </div>
@@ -194,12 +195,16 @@
               </div>
               <div class="ml-[30px]">
                 <p class="font-bold">BAN TỔ CHỨC SỰ KIỆN</p>
-                <p class="bottom">
+                <p class="text-[#0f394c] text-base">
                   Ban TCSK với mục đích hậu cần, lên kế hoạch, sắp xếp các hoạt
                   động học tập cũng như vui chơi giải trí của câu lạc bộ, tổ
-                  chức các sự kiện, các chương trình. Ngoài ra tại đây các bạn
-                  cũng sẽ được học các kỹ năng trong việc bảo trì hệ thống máy
-                  tính.
+                  chức các sự kiện, các chương trình. Hoạt động thường niên:
+                  <br />🎂Tổ chức sinh nhật thường niên cho các thành viên
+                  <br />⚽️Hoạt động vui chơi giải trí (bóng rổ, bóng đá, cầu
+                  lông) <br />✏️Lên kế hoạch cho hoạt động học tập<br />
+                  🛠️Chuẩn bị hậu cần các sự kiện <br />🖥️Theo dõi và hướng dẫn
+                  các bạn tham dự các cuộc thi phần cứng (Expert Challenges, IT
+                  Festival)
                 </p>
               </div>
             </div>
@@ -226,7 +231,7 @@
           <ul class="services__inner-list">
             <li class="services__inner-item">
               <div class="right">
-                <a href="#">Tech Support</a>
+                <span>Tech Support</span>
                 <p class="bottom">
                   Tech Support thường niên với nhiều hạng mục nhằm hỗ trợ những
                   vấn đề về máy tính cho giảng viên sinh viên trong toàn trường
@@ -235,7 +240,7 @@
             </li>
             <li class="services__inner-item">
               <div class="right">
-                <a href="#">Bảo trì, cài đặt phòng máy ở khoa CNTT</a>
+                <span>Bảo trì, cài đặt phòng máy ở khoa CNTT</span>
                 <p class="bottom">
                   Giúp cho những phòng máy cập nhật kịp thời những phần mềm mới
                   nhất, hoạt động mượt mà nhất cho những giờ thực hành trên lớp.
@@ -244,7 +249,7 @@
             </li>
             <li class="services__inner-item">
               <div class="right">
-                <a href="#">Tech news</a>
+                <span>Tech news</span>
                 <p class="bottom">
                   Giúp tất cả mọi người đều được cập nhật những thông tin công
                   nghệ nóng hổi, giúp bạn nắm bắt được xu thế công nghệ hiện
@@ -254,7 +259,7 @@
             </li>
             <li class="services__inner-item">
               <div class="right">
-                <a href="#">Họp đội hàng tuần, tổ chức sự kiện hàng năm,...</a>
+                <span>Họp đội hàng tuần, tổ chức sự kiện hàng năm,...</span>
                 <p class="bottom">
                   Các hoạt động giúp gắn kết các thành viên, cộng tác viên trong
                   câu lạc bộ
@@ -263,7 +268,7 @@
             </li>
             <li class="services__inner-item">
               <div class="right">
-                <a href="#">Tổ chức các lớp học, nhóm học tập</a>
+                <span>Tổ chức các lớp học, nhóm học tập</span>
                 <p class="bottom">
                   Giúp các thành viên, cộng tác viên của CLB trau dồi kỹ năng
                   của bản thân, trao đổi tài liệu học tập,...
@@ -271,8 +276,8 @@
               </div>
             </li>
             <li class="services__inner-item">
-              <div class="right">
-                <a href="#">Tuyển cộng tác viên khóa mới</a>
+              <div class="p-6 right">
+                <span>Tuyển cộng tác viên khóa mới</span>
                 <p class="bottom">
                   Đây là hoạt động hàng năm của CLB, tổ chức tại cả 2 cơ sở,
                   dành cho <strong>tất cả</strong> sinh viên HaUI có đam mê
@@ -311,7 +316,8 @@
             <p>
               <!-- <i class="bx bxs-quote-alt-left kep1"></i> -->
               <span
-                >"IT Supporter - Phát huy trách nghiệm phát triển kỹ năng"</span
+                >"ĐỪNG CHỈ LÀM VIỆC VÌ TRÁCH NHIỆM, HÃY LÀM VIỆC BẰNG CẢ SỰ ĐAM
+                MÊ"</span
               >
               <!-- <i class="bx bxs-quote-alt-right kep2"></i> -->
             </p>
@@ -645,7 +651,7 @@
           <!-- <h3>IT Supporter</h3> -->
           <img
             class="block h-[40px] mb-2"
-            src="/src/public/assets/imgs/logofull.png"
+            src="/src/public/assets/logos/logofull.png"
             alt="Logo"
           />
           <p>
@@ -662,23 +668,23 @@
           <ul>
             <li>
               <i class="fa-solid fa-angle-right"></i>
-              <a href="#">Home</a>
+              <a href="#"> Home</a>
             </li>
             <li>
               <i class="fa-solid fa-angle-right"></i>
-              <a href="#services">Hoạt động</a>
+              <a href="#services"> Hoạt động</a>
             </li>
             <li>
               <i class="fa-solid fa-angle-right"></i>
-              <a href="#slider">Ban phụ trách</a>
+              <a href="#slider"> Ban phụ trách</a>
             </li>
             <li>
               <i class="fa-solid fa-angle-right"></i>
-              <a href="#gallery">Thư viện ảnh</a>
+              <a href="#gallery"> Thư viện ảnh</a>
             </li>
             <li>
               <i class="fa-solid fa-angle-right"></i>
-              <a href="#contact">Liên hệ</a>
+              <a href="#contact"> Liên hệ</a>
             </li>
           </ul>
         </div>
@@ -687,27 +693,27 @@
           <ul>
             <li>
               <i class="fa-solid fa-angle-right"></i>
-              <a href="#">Tech Support</a>
+              <span> Tech Support</span>
             </li>
             <li>
               <i class="fa-solid fa-angle-right"></i>
-              <a href="#">Bảo trì, cài đặt phòng máy ở khoa CNTT</a>
+              <span> Bảo trì, cài đặt phòng máy ở khoa CNTT</span>
             </li>
             <li>
               <i class="fa-solid fa-angle-right"></i>
-              <a href="#"> Tech news</a>
+              <span> Tech news</span>
             </li>
             <li>
               <i class="fa-solid fa-angle-right"></i>
-              <a href="#">Họp đội</a>
+              <span> Họp đội</span>
             </li>
             <li>
               <i class="fa-solid fa-angle-right"></i>
-              <a href="#">Tổ chức lớp học</a>
+              <span> Tổ chức lớp học</span>
             </li>
             <li>
               <i class="fa-solid fa-angle-right"></i>
-              <a href="#">Tuyển cộng tác viên</a>
+              <span> Tuyển cộng tác viên</span>
             </li>
           </ul>
         </div>
@@ -758,13 +764,9 @@
 </template>
 
 <style scoped>
-  @import url("https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+  /* @import url("https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"); */
   /* ! Reset CSS */
-  p,
-  a,
-  span {
-    font-family: "Dosis", sans-serif !important;
-  }
+
   body {
     width: 100%;
     min-height: 100vh;
@@ -798,7 +800,6 @@
   }
   .layout-top h2 {
     color: #0f394c;
-    font-family: Dosis;
     font-size: 32px;
     font-weight: 700;
     line-height: 38.4px;
@@ -808,7 +809,6 @@
   }
   .layout-top p {
     color: #444444;
-    font-family: Open Sans;
     line-height: 24px;
     text-align: center;
   }
@@ -921,11 +921,26 @@
     min-height: 1000px;
   }
 
-  .get__started {
+  /* .get__started {
     display: flex;
     width: 100%;
     background-color: #f9f9f9;
+    background-image: url("../../public/assets/imgs/anh_nen.png");
+    background-size: cover;
+    background-attachment: fixed;
+   
+  } */
+
+  .get__started {
+    display: flex;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Màu nền tối */
+    background-image: url("../../public/assets/imgs/anh_nen.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: darken; /* Trộn màu nền với ảnh nền */
   }
+
   .get__started-right {
     display: flex;
     justify-content: center;
@@ -937,7 +952,6 @@
 
   .t2 {
     color: #0f394c;
-    font-family: Dosis;
     font-size: 40px;
     font-weight: 700;
     line-height: 56px;
@@ -1003,7 +1017,6 @@
     margin-bottom: 10px;
     display: block;
     color: #343a40;
-    font-family: Dosis;
     font-size: 18px;
     font-weight: 700;
     line-height: 21.6px;
@@ -1014,7 +1027,6 @@
   }
   .title-desc p {
     color: #444444;
-    font-family: Open Sans;
     font-size: 14px;
     line-height: 24px;
     margin-bottom: 16px;
@@ -1056,7 +1068,6 @@
   .achieved__top-title-desc {
     text-align: center;
     color: #0f394c;
-    font-family: Open Sans;
     line-height: 24px;
   }
   .achieved__statistical-content .n {
@@ -1147,12 +1158,19 @@
     color: #ff689b;
   }
   .services__inner-item .right {
-    margin-left: 30px;
+    margin-left: 0px;
+    padding: 1.5rem;
   }
+  .services__inner-item .right span {
+    font-weight: 700;
+    font-size: 18px;
+    padding-bottom: 20px;
+  }
+
   .services__inner-item .right a {
     color: #0f394c;
     display: inline-block;
-    font-family: Dosis;
+
     padding: 19px 0;
     font-size: 18px;
     font-weight: 700;
@@ -1284,7 +1302,6 @@
   }
   .quote p span {
     color: #fff;
-    font-family: Open Sans;
     line-height: 24px;
   }
   .team {
@@ -1394,7 +1411,7 @@
     line-height: 21px;
     border: rgba(206, 212, 218, 0.5) 1px solid;
     margin-bottom: 20px;
-    font-family: "Open Sans", sans-serif !important;
+
     font-size: 14px;
   }
   #form-send-mess .i4 input {
@@ -1406,7 +1423,6 @@
     outline: none;
     border-radius: 4px;
     margin-bottom: 20px;
-    font-family: "Open Sans", sans-serif !important;
   }
 
   #form-send-mess .subject input {
@@ -1417,10 +1433,8 @@
     outline: none;
     border-radius: 4px;
     margin-bottom: 20px;
-    font-family: "Open Sans", sans-serif !important;
   }
   #form-send-mess .message input {
-    font-family: "Open Sans", sans-serif !important;
     height: 108px;
     font-size: 14px;
     line-height: 21px;
@@ -1436,7 +1450,6 @@
     border-radius: 4px;
     color: #fff;
     display: block;
-    font-family: Open Sans;
     font-size: 16px;
     line-height: 24px;
     padding: 10px 24px;
@@ -1547,15 +1560,12 @@
     margin: -4px 10px 0;
   }
   .copyright .copyright-left > p {
-    font-family: "Open Sans", sans-serif;
     font-size: 15px;
   }
   .copyright .copyright-right > span {
-    font-family: "Open Sans", sans-serif;
     font-size: 15px;
   }
   .copyright .copyright-right > a {
-    font-family: "Open Sans", sans-serif;
     font-size: 15px;
   }
 

@@ -74,7 +74,7 @@
                 <a href="#">
                   <img
                     class="block max-h-[40px]"
-                    src="@/public/assets/imgs/logofull.png"
+                    src="@/public/assets/logos/logofull.png"
                     alt="Logo"
                 /></a>
               </div>

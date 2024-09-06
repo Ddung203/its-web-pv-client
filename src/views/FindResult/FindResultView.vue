@@ -43,17 +43,17 @@
   <Header></Header>
 
   <div class="top-content">
-    <p class="pt-11 text-4xl text-center font-bold text-[#000] uppercase">
+    <p class="pt-11 text-4xl text-center font-bold text-[#ff9800] uppercase">
       Tra cứu kết quả chính thức
     </p>
 
     <div class="flex items-center justify-center gap-[30px] mt-5">
-      <div class="h-1 bg-[#000] w-28"></div>
-      <div class="text-[#000]"><i class="text-4xl pi pi-star-fill"></i></div>
-      <div class="h-1 bg-[#000] w-28"></div>
+      <div class="h-1 bg-[#ff9800] w-28"></div>
+      <div class="text-[#ff9800]"><i class="text-4xl pi pi-star-fill"></i></div>
+      <div class="h-1 bg-[#ff9800] w-28"></div>
     </div>
 
-    <p class="pt-7 px-[20px] text-xl text-center font-[400] text-[#000]">
+    <p class="pt-7 px-[20px] text-xl text-center font-[400] text-[#ff9800]">
       Nhập thông tin của bạn (mã sinh viên) để xem kết quả 😘
     </p>
   </div>

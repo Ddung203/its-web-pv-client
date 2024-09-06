@@ -71,6 +71,7 @@
               <Password
                 id="password"
                 v-model="password"
+                :feedback="false"
                 toggleMask
               />
               <label for="password">Mật khẩu</label>

@@ -199,10 +199,13 @@
         Đăng ký tham gia tuyển cộng tác viên CLB Hỗ trợ kỹ thuật IT Supporter
       </p>
 
-      <div class="flex items-center justify-center m-5 demo-img">
+      <div
+        class="flex items-center justify-center m-5 overflow-hidden demo-img"
+      >
         <img
+          class="block rounded-xl"
           width="250"
-          src="../../public/assets/imgs/ChuNhiem.jpg"
+          src="../../public/assets/imgs/Hà-new.jpg"
           alt="Demo Image"
         />
       </div>
@@ -216,6 +219,7 @@
       <div class="flex items-center justify-center m-5 demo-img">
         <img
           width="250"
+          class="block rounded-xl"
           src="../../public/assets/imgs/luu-y.png"
           alt="Demo Image"
         />
@@ -407,12 +411,18 @@
             <div
               class="flex items-center justify-center lg:absolute lg:top-0 lg:right-0"
             >
-              <img
-                v-if="imageURL"
-                class="max-h-[150px]"
-                :src="imageURL"
-                alt="Preview Image"
-              />
+              <a
+                :href="imageURL"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <img
+                  v-if="imageURL"
+                  class="max-h-[150px]"
+                  :src="imageURL"
+                  alt="Preview Image"
+                />
+              </a>
             </div>
           </div>
         </div>

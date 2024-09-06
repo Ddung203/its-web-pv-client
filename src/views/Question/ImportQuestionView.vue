@@ -5,7 +5,7 @@
   import QuestionCard from "@/components/Question/QuestionCard.vue";
   import BackToHome from "@/components/Button/BackToHome.vue";
   import ScrollToTop from "@/components/Button/ScrollToTop.vue";
-  import { successNoti } from "../../utils/showNotification";
+  import { successNoti, errorNoti } from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
   import Header from "../../components/Header/Header.vue";
   import Footer from "../../components/Footer/Footer.vue";

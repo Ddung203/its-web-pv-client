@@ -24,7 +24,6 @@
 <style scoped>
   .banner {
     color: #fff;
-    font-family: Open Sans;
     font-size: 30px;
     font-weight: 700;
     line-height: 36px;
@@ -34,7 +33,6 @@
 
   .p-c {
     color: #fff;
-    font-family: Open Sans;
     font-size: 15px;
     line-height: 21.75px;
     margin: 0px 0px 15px;

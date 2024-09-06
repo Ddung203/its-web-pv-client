@@ -199,6 +199,18 @@
       <QuestionList :currentData="currentData"></QuestionList>
     </div>
 
+    <!--  -->
+    <div class="card">
+      <Paginator
+        :rows="rowsPerPage"
+        :totalRecords="totalRecords"
+        :first="first"
+        @page="onPageChange"
+        template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+      />
+    </div>
+
     <!-- ScrollToTop -->
     <ScrollToTop></ScrollToTop>
     <Footer></Footer>

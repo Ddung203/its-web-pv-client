@@ -9,9 +9,7 @@
 
 <template>
   <div>
-    <div
-      class="border border-[#ccc] min-h-[60px] flex flex-col items-center justify-center bg-c"
-    >
+    <div class="min-h-[60px] flex flex-col items-center justify-center bg-c">
       <div class="flex flex-col px-5 banner">
         <h2 class="">{{ props.title }}</h2>
       </div>
@@ -24,7 +22,6 @@
 <style scoped>
   .banner {
     color: #fff;
-    font-family: Open Sans;
     font-size: 30px;
     font-weight: 700;
     line-height: 36px;
@@ -34,7 +31,6 @@
 
   .p-c {
     color: #fff;
-    font-family: Open Sans;
     font-size: 15px;
     line-height: 21.75px;
     margin: 0px 0px 15px;
@@ -42,7 +38,7 @@
   }
 
   .bg-c {
-    background-image: linear-gradient(to left, #e9ff97, #ffa38f);
+    background-image: linear-gradient(to left, #fdd359, #f5945d);
   }
 
   .i-none {

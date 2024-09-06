@@ -2,4 +2,4 @@ feat: Log Thông báo khi call api không thành công/ ko có quyền
 
 feat: nguoi phong van them user bi loi => hien chua bao loi
 
-bug: api Ket thuc phong van bi loi
+bug: Không thêm được câu hỏi trên điện thoại

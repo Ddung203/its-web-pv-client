@@ -1,8 +1,3 @@
-== Giao diện:
-
-Giao diện Làm bài test
-Giao diện Kết quả của bạn(Half)
-
 == More features
 
 - Send mail 
@@ -21,3 +16,4 @@ easy #00b8a3
 gold #f0c01e
 hard #ff2e36
 
+linear-gradient(to right,#fdd359,#f5945d)
