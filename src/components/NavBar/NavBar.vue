@@ -147,11 +147,23 @@
       icon: "pi pi-hourglass",
       items: [
         {
+          label: "Duyệt danh sách phỏng vấn",
+          icon: "pi pi-list-check",
+          route: "/review",
+        },
+        {
           label: "Gửi mail kết quả",
           icon: "pi pi-envelope",
           route: "/mail",
         },
       ],
+    },
+    {
+      label: "Danh sách thống kê",
+      icon: "pi pi-sort",
+      command: () => {
+        router.push("/stat");
+      },
     },
     {
       label: "Đăng xuất",

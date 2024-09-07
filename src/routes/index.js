@@ -15,6 +15,8 @@ import FindResultView from "../views/FindResult/FindResultView.vue";
 import PreviousRegistrationView from "../views/PreviousRegistration/PreviousRegistrationView.vue";
 import StartTestView from "../views/Exam/StartTestView.vue";
 import EndTestView from "../views/Exam/EndTestView.vue";
+import StatView from "../views/Stat/StatView.vue";
+import ReviewView from "../views/Review/ReviewView.vue";
 
 const routes = [
   {
@@ -111,6 +113,26 @@ const routes = [
     path: "/mail",
     name: "mail",
     component: SendMailView,
+    meta: {
+      requiredAuth: true,
+      requiredRole: ["admin"],
+      layout: true,
+    },
+  },
+  {
+    path: "/review",
+    name: "review",
+    component: ReviewView,
+    meta: {
+      requiredAuth: true,
+      requiredRole: ["admin"],
+      layout: true,
+    },
+  },
+  {
+    path: "/stat",
+    name: "stat",
+    component: StatView,
     meta: {
       requiredAuth: true,
       requiredRole: ["admin"],

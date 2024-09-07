@@ -10,6 +10,7 @@ import "primeicons/primeicons.css";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
 //! Import PrimeVue Components
+import AnimateOnScroll from "primevue/animateonscroll";
 import ProgressBar from "primevue/progressbar";
 import ToastService from "primevue/toastservice";
 import ConfirmationService from "primevue/confirmationservice";
@@ -48,6 +49,7 @@ app.use(ConfirmationService);
 
 //! Register PrimeVue Components
 app.directive("ripple", Ripple);
+app.directive("animateonscroll", AnimateOnScroll);
 app.component("ProgressBar", ProgressBar);
 app.component("ScrollTop", ScrollTop);
 app.component("Paginator", Paginator);

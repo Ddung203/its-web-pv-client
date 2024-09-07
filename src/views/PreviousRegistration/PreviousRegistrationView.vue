@@ -1,5 +1,5 @@
 <script setup>
-  import { ref } from "vue";
+  import { onMounted, ref } from "vue";
   import FileUpload from "primevue/fileupload";
   import HeaderThird from "@/components/Header/HeaderThird.vue";
   import Loading from "../../components/Loading/Loading.vue";
@@ -27,6 +27,9 @@
 
   const userCode = ref("1");
   const userPassword = ref("2");
+
+  const selectedHometown = ref({});
+  const hometownList = ref([]);
 
   const onUpload = async () => {
     isLoading.value = true;
@@ -62,7 +65,7 @@
       studentName: studentName.value.trim(),
       studentClass: studentClass.value.trim(),
       studentPhone: studentPhone.value.trim(),
-      studentHometown: studentHometown.value.trim(),
+      studentHometown: selectedHometown.value.name,
       studentEmail: studentEmail.value.trim(),
       studentFacebook: studentFacebook.value.trim(),
       image: imageURL.value.trim(),
@@ -127,6 +130,14 @@
       console.error("Lỗi khi sao chép:", error);
     }
   };
+
+  const getProvinces = async () => {
+    const response = await HTTP.get("provinces");
+
+    hometownList.value = response?.payload?.provinces;
+  };
+
+  onMounted(getProvinces);
 </script>
 
 <template>
@@ -357,12 +368,19 @@
 
           <!--  -->
           <div class="mb-5">
-            <InputText
-              class="w-full"
-              type="text"
-              placeholder="Bắc Giang"
-              v-model="studentHometown"
-            />
+            <!-- ! -->
+            <div class="flex justify-center card">
+              <FloatLabel class="w-full md:w-14rem">
+                <Dropdown
+                  v-model="selectedHometown"
+                  inputId="dd-city"
+                  :options="hometownList"
+                  optionLabel="name"
+                  class="w-full"
+                  filter
+                />
+              </FloatLabel>
+            </div>
           </div>
         </div>
 

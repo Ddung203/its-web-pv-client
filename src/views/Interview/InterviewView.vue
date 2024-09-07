@@ -9,6 +9,8 @@
   import Header from "../../components/Header/Header.vue";
   import Footer from "../../components/Footer/Footer.vue";
   import Slider from "primevue/slider";
+  import checkFalsy from "../../utils/checkFalsyValue";
+  import getLocalTime from "../../utils/getLocalTime";
 
   const toast = useToast();
   const comment = ref("");
@@ -25,7 +27,7 @@
 
   const selectedStudent = ref(null);
 
-  const selectedInterviewer = ref({ name: "Phong van 1", code: "2021602111" });
+  const selectedInterviewer = ref();
 
   async function load() {
     try {
@@ -48,10 +50,16 @@
     const data = {
       interviewScore: interviewScore.value,
       comment: comment.value,
-      interviewer: selectedInterviewer.name,
+      interviewer: selectedInterviewer.value?.name?.split(" - ")[0],
+      endTime: getLocalTime(),
     };
 
     try {
+      if (checkFalsy(data)) {
+        errorNoti(toast, "Vui lòng chọn/điền đầy đủ thông tin phỏng vấn!");
+        return;
+      }
+
       const response = await HTTP.post(
         `/play/interview/${intervieweeInformation.value._id}`,
         data
@@ -124,6 +132,7 @@
               :options="intervieweeStore.getStudents"
               optionLabel="name"
               class="w-full"
+              filter
             />
             <label for="dd-city">Sinh viên</label>
           </FloatLabel>
@@ -315,6 +324,7 @@
               :options="interviewerStore.getInterviewers"
               optionLabel="name"
               class="w-full"
+              filter
             />
             <label for="dd-city">Người phỏng vấn</label>
           </FloatLabel>
