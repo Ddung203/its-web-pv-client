@@ -13,6 +13,7 @@
 
   const isLoading = ref(false);
   const visible = ref(false);
+  const show = ref(false);
 
   const fileupload = ref(null);
   const imageURL = ref("");
@@ -132,8 +133,9 @@
   };
 
   const getProvinces = async () => {
-    const response = await HTTP.get("provinces");
+    show.value = true;
 
+    const response = await HTTP.get("provinces");
     hometownList.value = response?.payload?.provinces;
   };
 
@@ -201,262 +203,271 @@
     </Dialog>
   </div>
 
-  <!-- Main conent -->
-  <div
-    class="grid grid-cols-1 lg:grid-cols-2 min-h-[100vh] grid-rows-1 gap-2 overflow-hidden"
-  >
-    <div class="p-10 lg:p-20 layout-left">
-      <p class="text-3xl font-semibold leading-normal">
-        Đăng ký tham gia tuyển cộng tác viên CLB Hỗ trợ kỹ thuật IT Supporter
-      </p>
+  <div>
+    <!-- Main conent -->
+    <div
+      class="grid grid-cols-1 lg:grid-cols-2 min-h-[100vh] grid-rows-1 gap-2 overflow-hidden"
+    >
+      <div class="p-10 lg:p-20 layout-left">
+        <p class="text-3xl font-semibold leading-normal">
+          Đăng ký tham gia tuyển cộng tác viên CLB Hỗ trợ kỹ thuật IT Supporter
+        </p>
+
+        <div
+          class="flex items-center justify-center m-5 overflow-hidden demo-img"
+        >
+          <img
+            class="block rounded-xl"
+            width="250"
+            src="../../public/assets/imgs/Hà-new.jpg"
+            alt="Demo Image"
+          />
+        </div>
+
+        <p class="text-lg font-medium note">
+          Lưu ý 1: Chọn một bức ảnh của bản thân mà bạn cảm thấy tự tin, ưng ý
+          nhất. Nhưng lưu ý phải đủ rõ ràng và có duy nhất một khuôn mặt trong
+          khung hình nhé!
+        </p>
+
+        <div class="flex items-center justify-center m-5 demo-img">
+          <img
+            width="250"
+            class="block rounded-xl"
+            src="../../public/assets/imgs/luu-y.png"
+            alt="Demo Image"
+          />
+        </div>
+
+        <p class="text-lg font-medium note">
+          Lưu ý 2: Lưu lại Thông tin tài khoản của bạn trước khi thoát!
+        </p>
+      </div>
 
       <div
-        class="flex items-center justify-center m-5 overflow-hidden demo-img"
+        class="relative layout-right min-h-[100vh] bg-[#fefefe] py-[40px] px-[30px] lg:px-[80px]"
       >
-        <img
-          class="block rounded-xl"
-          width="250"
-          src="../../public/assets/imgs/Hà-new.jpg"
-          alt="Demo Image"
-        />
-      </div>
-
-      <p class="text-lg font-medium note">
-        Lưu ý 1: Chọn một bức ảnh của bản thân mà bạn cảm thấy tự tin, ưng ý
-        nhất. Nhưng lưu ý phải đủ rõ ràng và có duy nhất một khuôn mặt trong
-        khung hình nhé!
-      </p>
-
-      <div class="flex items-center justify-center m-5 demo-img">
-        <img
-          width="250"
-          class="block rounded-xl"
-          src="../../public/assets/imgs/luu-y.png"
-          alt="Demo Image"
-        />
-      </div>
-
-      <p class="text-lg font-medium note">
-        Lưu ý 2: Lưu lại Thông tin tài khoản của bạn trước khi thoát!
-      </p>
-    </div>
-
-    <div
-      class="relative layout-right min-h-[100vh] bg-[#fefefe] py-[40px] px-[30px] lg:px-[80px]"
-    >
-      <div class="absolute hidden lg:block top-0 left-[-150px] cloud">
-        <img
-          class="block object-contain h-full"
-          src="../../public/assets/imgs/cloud.png"
-          alt="cloud image"
-        />
-      </div>
-
-      <!-- ! FORM -->
-      <form
-        autocomplete="off"
-        @submit.prevent="onSubmit"
-      >
-        <div class="form-group">
-          <div class="flex items-start gap-1 mb-2">
-            <span class="font-medium">Mã sinh viên</span>
-            <i
-              class="text-red-600 pi pi-asterisk"
-              style="font-size: 0.56rem"
-            ></i>
-          </div>
-
-          <!--  -->
-          <div class="mb-5">
-            <InputText
-              class="w-full"
-              type="text"
-              placeholder="2021602195"
-              v-model="studentCode"
-            />
-          </div>
+        <div class="absolute hidden lg:block top-0 left-[-150px] cloud">
+          <img
+            class="block object-contain h-full"
+            src="../../public/assets/imgs/cloud.png"
+            alt="cloud image"
+          />
         </div>
 
-        <div class="form-group">
-          <div class="flex items-start gap-1 mb-2">
-            <span class="font-medium">Họ và tên</span>
-            <i
-              class="text-red-600 pi pi-asterisk"
-              style="font-size: 0.56rem"
-            ></i>
-          </div>
-
-          <!--  -->
-          <div class="mb-5">
-            <InputText
-              class="w-full"
-              type="text"
-              placeholder="Dương Văn Dũng"
-              v-model="studentName"
-            />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="flex items-start gap-1 mb-2">
-            <span class="font-medium">Lớp - Khóa</span>
-            <i
-              class="text-red-600 pi pi-asterisk"
-              style="font-size: 0.56rem"
-            ></i>
-          </div>
-
-          <!--  -->
-          <div class="mb-5">
-            <InputText
-              class="w-full"
-              type="text"
-              placeholder="KTPM02 - K16"
-              v-model="studentClass"
-            />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="flex items-start gap-1 mb-2">
-            <span class="font-medium">Email</span>
-            <i
-              class="text-red-600 pi pi-asterisk"
-              style="font-size: 0.56rem"
-            ></i>
-          </div>
-
-          <!--  -->
-          <div class="mb-5">
-            <InputText
-              class="w-full"
-              type="text"
-              placeholder="cuoicuoi1000@gmail.com"
-              v-model="studentEmail"
-            />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="flex items-start gap-1 mb-2">
-            <span class="font-medium">Số điện thoại</span>
-            <i
-              class="text-red-600 pi pi-asterisk"
-              style="font-size: 0.56rem"
-            ></i>
-          </div>
-
-          <!--  -->
-          <div class="mb-5">
-            <InputText
-              class="w-full"
-              type="text"
-              placeholder="0383420623"
-              v-model="studentPhone"
-            />
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="flex items-start gap-1 mb-2">
-            <span class="font-medium">Quê quán</span>
-            <i
-              class="text-red-600 pi pi-asterisk"
-              style="font-size: 0.56rem"
-            ></i>
-          </div>
-
-          <!--  -->
-          <div class="mb-5">
-            <!-- ! -->
-            <div class="flex justify-center card">
-              <FloatLabel class="w-full md:w-14rem">
-                <Dropdown
-                  v-model="selectedHometown"
-                  inputId="dd-city"
-                  :options="hometownList"
-                  optionLabel="name"
-                  class="w-full"
-                  filter
-                />
-              </FloatLabel>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="flex items-start gap-1 mb-2">
-            <span class="font-medium">Link Facebook</span>
-            <i
-              class="text-red-600 pi pi-asterisk"
-              style="font-size: 0.56rem"
-            ></i>
-          </div>
-
-          <!--  -->
-          <div class="mb-5">
-            <InputText
-              class="w-full"
-              type="text"
-              placeholder="https://www.facebook.com/ddung203"
-              v-model="studentFacebook"
-            />
-          </div>
-        </div>
-
-        <div class="mb-10 form-group">
-          <div class="flex items-start gap-1 mb-2">
-            <span class="font-medium">Checkin bằng ảnh</span>
-            <i
-              class="text-red-600 pi pi-asterisk"
-              style="font-size: 0.56rem"
-            ></i>
-          </div>
-
-          <!-- studentImage -->
-          <div
-            class="flex flex-col items-center justify-start gap-4 mb-5 lg:flex-row lg:relative"
-          >
-            <FileUpload
-              ref="fileupload"
-              mode="basic"
-              name="demo[]"
-              accept="image/*"
-              :maxFileSize="30000000"
-              :customUpload="true"
-              @change="onUpload"
-            />
-            <div
-              class="flex items-center justify-center lg:absolute lg:top-0 lg:right-0"
-            >
-              <a
-                :href="imageURL"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  v-if="imageURL"
-                  class="max-h-[150px]"
-                  :src="imageURL"
-                  alt="Preview Image"
-                />
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ! -->
-        <div
-          class="flex items-center justify-center w-full lg:mt-28 form-group"
+        <!-- ! FORM -->
+        <transition
+          enter-active-class="animate__animated animate__fadeInRight"
+          leave-active-class="animate__animated animate__fadeOut"
         >
-          <Button
-            type="submit"
-            class="flex items-center justify-center w-full"
-          >
-            Đăng ký
-          </Button>
-        </div>
-      </form>
+          <div v-if="show">
+            <form
+              autocomplete="off"
+              @submit.prevent="onSubmit"
+            >
+              <div class="form-group">
+                <div class="flex items-start gap-1 mb-2">
+                  <span class="font-medium">Mã sinh viên</span>
+                  <i
+                    class="text-red-600 pi pi-asterisk"
+                    style="font-size: 0.56rem"
+                  ></i>
+                </div>
+
+                <!--  -->
+                <div class="mb-5">
+                  <InputText
+                    class="w-full"
+                    type="text"
+                    placeholder="2021602195"
+                    v-model="studentCode"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="flex items-start gap-1 mb-2">
+                  <span class="font-medium">Họ và tên</span>
+                  <i
+                    class="text-red-600 pi pi-asterisk"
+                    style="font-size: 0.56rem"
+                  ></i>
+                </div>
+
+                <!--  -->
+                <div class="mb-5">
+                  <InputText
+                    class="w-full"
+                    type="text"
+                    placeholder="Dương Văn Dũng"
+                    v-model="studentName"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="flex items-start gap-1 mb-2">
+                  <span class="font-medium">Lớp - Khóa</span>
+                  <i
+                    class="text-red-600 pi pi-asterisk"
+                    style="font-size: 0.56rem"
+                  ></i>
+                </div>
+
+                <!--  -->
+                <div class="mb-5">
+                  <InputText
+                    class="w-full"
+                    type="text"
+                    placeholder="KTPM02 - K16"
+                    v-model="studentClass"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="flex items-start gap-1 mb-2">
+                  <span class="font-medium">Email</span>
+                  <i
+                    class="text-red-600 pi pi-asterisk"
+                    style="font-size: 0.56rem"
+                  ></i>
+                </div>
+
+                <!--  -->
+                <div class="mb-5">
+                  <InputText
+                    class="w-full"
+                    type="text"
+                    placeholder="cuoicuoi1000@gmail.com"
+                    v-model="studentEmail"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="flex items-start gap-1 mb-2">
+                  <span class="font-medium">Số điện thoại</span>
+                  <i
+                    class="text-red-600 pi pi-asterisk"
+                    style="font-size: 0.56rem"
+                  ></i>
+                </div>
+
+                <!--  -->
+                <div class="mb-5">
+                  <InputText
+                    class="w-full"
+                    type="text"
+                    placeholder="0383420623"
+                    v-model="studentPhone"
+                  />
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="flex items-start gap-1 mb-2">
+                  <span class="font-medium">Quê quán</span>
+                  <i
+                    class="text-red-600 pi pi-asterisk"
+                    style="font-size: 0.56rem"
+                  ></i>
+                </div>
+
+                <!--  -->
+                <div class="mb-5">
+                  <!-- ! -->
+                  <div class="flex justify-center card">
+                    <FloatLabel class="w-full md:w-14rem">
+                      <Dropdown
+                        v-model="selectedHometown"
+                        inputId="dd-city"
+                        :options="hometownList"
+                        optionLabel="name"
+                        class="w-full"
+                        filter
+                      />
+                    </FloatLabel>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="flex items-start gap-1 mb-2">
+                  <span class="font-medium">Link Facebook</span>
+                  <i
+                    class="text-red-600 pi pi-asterisk"
+                    style="font-size: 0.56rem"
+                  ></i>
+                </div>
+
+                <!--  -->
+                <div class="mb-5">
+                  <InputText
+                    class="w-full"
+                    type="text"
+                    placeholder="https://www.facebook.com/ddung203"
+                    v-model="studentFacebook"
+                  />
+                </div>
+              </div>
+
+              <div class="mb-10 form-group">
+                <div class="flex items-start gap-1 mb-2">
+                  <span class="font-medium">Checkin bằng ảnh</span>
+                  <i
+                    class="text-red-600 pi pi-asterisk"
+                    style="font-size: 0.56rem"
+                  ></i>
+                </div>
+
+                <!-- studentImage -->
+                <div
+                  class="flex flex-col items-center justify-start gap-4 mb-5 lg:flex-row lg:relative"
+                >
+                  <FileUpload
+                    ref="fileupload"
+                    mode="basic"
+                    name="demo[]"
+                    accept="image/*"
+                    :maxFileSize="30000000"
+                    :customUpload="true"
+                    @change="onUpload"
+                  />
+                  <div
+                    class="flex items-center justify-center lg:absolute lg:top-0 lg:right-0"
+                  >
+                    <a
+                      :href="imageURL"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        v-if="imageURL"
+                        class="max-h-[150px]"
+                        :src="imageURL"
+                        alt="Preview Image"
+                      />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ! -->
+              <div
+                class="flex items-center justify-center w-full lg:mt-28 form-group"
+              >
+                <Button
+                  type="submit"
+                  class="flex items-center justify-center w-full"
+                >
+                  Đăng ký
+                </Button>
+              </div>
+            </form>
+          </div>
+        </transition>
+      </div>
     </div>
   </div>
 </template>

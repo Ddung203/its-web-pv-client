@@ -1,5 +1,5 @@
 <script setup>
-  import { ref } from "vue";
+  import { onMounted, ref } from "vue";
   import useAuthStore from "../../stores/auth";
   import { errorNoti, successNoti } from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
@@ -7,6 +7,8 @@
 
   const toast = useToast();
   const authStore = useAuthStore();
+
+  const show = ref(false);
 
   const studentCode = ref("");
   const password = ref("");
@@ -36,6 +38,10 @@
       }, 1500);
     }
   };
+
+  onMounted(() => {
+    show.value = true;
+  });
 </script>
 
 <template>
@@ -44,56 +50,66 @@
   <div class="fontP">
     <div class="background-container"></div>
     <div class="flex items-center justify-center min-h-screen">
-      <!-- <div class="p-6 bg-white bg-opacity-75 rounded-md shadow-lg"> -->
-      <div class="p-6 form-custom">
-        <form
-          @submit.prevent="loginHandle"
-          autocomplete="off"
-          class="flex flex-col max-w-[300px] gap-6"
+      <!-- Animate -->
+      <transition
+        enter-active-class="animate__animated animate__fadeInDown"
+        leave-active-class="animate__animated animate__fadeOut"
+      >
+        <div
+          v-if="show"
+          class="p-6 form-custom"
         >
-          <span class="mb-4 text-3xl font-bold text-center text-[#fff]">
-            Đăng nhập
-          </span>
-          <!-- Username -->
-          <div>
-            <FloatLabel>
-              <InputText
-                id="studentCode"
-                class="outline-1 outline-[#ffcd94] w-full"
-                v-model="studentCode"
-              />
-              <label for="studentCode">Mã sinh viên</label>
-            </FloatLabel>
-          </div>
-          <!-- Password -->
-          <div class="pt-4">
-            <FloatLabel>
-              <Password
-                id="password"
-                v-model="password"
-                :feedback="false"
-                toggleMask
-              />
-              <label for="password">Mật khẩu</label>
-            </FloatLabel>
-          </div>
-          <!-- Button submit -->
-          <div>
-            <Button
-              class="flex items-center justify-center w-full"
-              type="submit"
-              >Đăng nhập</Button
+          <form
+            @submit.prevent="loginHandle"
+            autocomplete="off"
+            class="flex flex-col max-w-[300px] gap-6"
+          >
+            <span class="mb-4 text-3xl font-bold text-center text-[#fff]">
+              Đăng nhập
+            </span>
+            <!-- Username -->
+            <div>
+              <FloatLabel>
+                <InputText
+                  id="studentCode"
+                  class="outline-1 outline-[#ffcd94] w-full"
+                  v-model="studentCode"
+                />
+                <label for="studentCode">Mã sinh viên</label>
+              </FloatLabel>
+            </div>
+            <!-- Password -->
+            <div class="pt-4">
+              <FloatLabel>
+                <Password
+                  id="password"
+                  v-model="password"
+                  :feedback="false"
+                  toggleMask
+                />
+                <label for="password">Mật khẩu</label>
+              </FloatLabel>
+            </div>
+            <!-- Button submit -->
+            <div>
+              <Button
+                class="flex items-center justify-center w-full"
+                type="submit"
+                >Đăng nhập</Button
+              >
+            </div>
+          </form>
+
+          <div class="pt-6 text-sm text-center text-black">
+            Bạn chưa có tài khoản?
+            <router-link to="/previous-registration"
+              ><span class="text-gray-100 underline">
+                Đăng ký</span
+              ></router-link
             >
           </div>
-        </form>
-
-        <div class="pt-6 text-sm text-center text-black">
-          Bạn chưa có tài khoản?
-          <router-link to="/previous-registration"
-            ><span class="text-gray-100 underline"> Đăng ký</span></router-link
-          >
         </div>
-      </div>
+      </transition>
     </div>
   </div>
 </template>
