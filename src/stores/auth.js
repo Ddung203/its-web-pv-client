@@ -34,10 +34,6 @@ const useAuthStore = defineStore(
             "accessToken",
             JSON.stringify(response.payload.accessToken)
           );
-          // localStorage.setItem(
-          //   "refreshToken",
-          //   JSON.stringify(response.payload.refreshToken)
-          // );
 
           return response;
         }
@@ -47,9 +43,11 @@ const useAuthStore = defineStore(
     };
 
     const logout = () => {
-      // console.log("BYE");
       resetStore();
-      localStorage.clear();
+      if (localStorage.getItem("isAccessed")) {
+        localStorage.clear();
+        localStorage.setItem("isAccessed", true);
+      } else localStorage.clear();
     };
 
     const resetStore = () => {

@@ -23,5 +23,14 @@ const errorNoti = (toast, detail) => {
   });
 };
 
-export { successNoti, errorNoti };
+const infoNoti = (toast, detail) => {
+  toast.add({
+    severity: "info",
+    summary: "Thông báo",
+    detail,
+    life: 3000,
+  });
+};
+
+export { successNoti, errorNoti, infoNoti };
 export default showNotification;

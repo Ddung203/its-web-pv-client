@@ -39,16 +39,10 @@
       label: "Đăng xuất",
       icon: "pi pi-sign-out",
       command: () => {
-        toast.add({
-          severity: "info",
-          summary: "Thông báo",
-          detail: "Tạm biệt!",
-          life: 1000,
-        });
         authStore.logout();
         setTimeout(() => {
           router.push("/introduction");
-        }, 1000);
+        }, 100);
       },
     },
   ];
@@ -169,16 +163,10 @@
       label: "Đăng xuất",
       icon: "pi pi-sign-out",
       command: () => {
-        toast.add({
-          severity: "info",
-          summary: "Thông báo",
-          detail: "Tạm biệt!",
-          life: 1000,
-        });
         authStore.logout();
         setTimeout(() => {
           router.push("/introduction");
-        }, 1000);
+        }, 100);
       },
     },
   ];

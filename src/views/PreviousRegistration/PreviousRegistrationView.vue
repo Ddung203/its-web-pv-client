@@ -97,11 +97,14 @@
 
       if (e.error.reason === "Conflict") {
         errorNoti(toast, "Thông tin mã sinh viên bị trùng!");
+        alert(
+          "Nếu bạn cho rằng mã sinh viên của bạn bị sử dụng trái phép. Hãy liên hệ với chúng mình qua fanpage facebook.com/itsupporter.haui"
+        );
         return;
       }
 
       if (e.error.name === "ValidationError") {
-        errorNoti(toast, e.error.details);
+        errorNoti(toast, "Thông tin không hợp lệ!");
         return;
       }
 

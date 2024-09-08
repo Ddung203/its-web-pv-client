@@ -634,12 +634,17 @@
               <input
                 class="input-hidden"
                 type="text"
-                value="Link đăng ký ..."
+                value="https://its.ddung203.id.vn/previous-registration"
                 readonly
               />
             </div>
             <div class="search-box">
-              <span>Đăng ký</span>
+              <a
+                target="_blank"
+                href="https://its.ddung203.id.vn/previous-registration"
+              >
+                <span>Đăng ký</span></a
+              >
             </div>
           </div>
         </div>

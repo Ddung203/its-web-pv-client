@@ -4,6 +4,7 @@
   import ConfirmPopup from "primevue/confirmpopup";
   import { useToast } from "primevue/usetoast";
   import { useConfirm } from "primevue/useconfirm";
+  import { infoNoti } from "../../utils/showNotification";
 
   const props = defineProps({
     idObject: {
@@ -32,12 +33,8 @@
       acceptLabel: "Delete",
       accept: async () => {
         deleteQuestion();
-        toast.add({
-          severity: "info",
-          summary: "Confirmed",
-          detail: "Record deleted",
-          life: 1500,
-        });
+
+        infoNoti(toast, "Record deleted");
       },
       reject: () => {},
     });

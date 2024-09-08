@@ -25,24 +25,6 @@
 
     answer.selected = true;
   };
-
-  // onMounted(() => {
-  //   document.addEventListener("contextmenu", function (event) {
-  //     event.preventDefault();
-  //   });
-
-  //   document.addEventListener("keydown", function (event) {
-  //     if (event.key === "F12" || event.keyCode === 123) {
-  //       event.preventDefault();
-  //     }
-  //   });
-
-  //   window.addEventListener("beforeunload", function (event) {
-  //     event.preventDefault();
-  //     event.returnValue = "";
-  //     return "Bạn có chắc chắn muốn rời khỏi trang này?";
-  //   });
-  // });
 </script>
 
 <template>

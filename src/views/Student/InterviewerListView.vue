@@ -10,7 +10,7 @@
   import useInterviewerStore from "../../stores/interviewer";
   import useStudentStore from "../../stores/student.js";
   import Header from "../../components/Header/Header.vue";
-  import { errorNoti } from "../../utils/showNotification.js";
+  import { errorNoti, successNoti } from "../../utils/showNotification.js";
 
   const toast = useToast();
   const dt = ref();
@@ -85,12 +85,7 @@
             try {
               await studentStore.signupHandle(student.value);
               await callAPI();
-              toast.add({
-                severity: "success",
-                summary: "Thành công",
-                detail: "Đã thêm sinh viên mới",
-                life: 3000,
-              });
+              successNoti(toast, "Thêm tài khoản mới thành công!");
             } catch (error) {
               console.log(error);
             }
@@ -112,12 +107,7 @@
               await studentStore.updateHandle(student.value);
               await callAPI();
 
-              toast.add({
-                severity: "success",
-                summary: "Thành công",
-                detail: "Sửa thông tin sinh viên thành công!",
-                life: 3000,
-              });
+              successNoti(toast, "Sửa thông tin thành công!");
             } catch (error) {
               console.log(error);
             }
@@ -143,35 +133,11 @@
     await callAPI();
     deleteStudentDialog.value = false;
 
-    toast.add({
-      severity: "success",
-      summary: "Thành công",
-      detail: "Đã xóa sinh viên",
-      life: 2000,
-    });
+    successNoti(toast, `Đã xóa tài khoản ${code}!`);
   };
 
   const confirmDeleteSelected = () => {
     deleteStudentsDialog.value = true;
-  };
-
-  const deleteSelectedStudents = () => {
-    // students.value = students.value.filter(
-    //   (s) => !selectedStudents.value.includes(s)
-    // );
-    // TODO: Call API here
-    deleteStudentsDialog.value = false;
-    selectedStudents.value = null;
-    toast.add({
-      severity: "success",
-      summary: "Thành công",
-      detail: "Đã xóa các sinh viên được chọn",
-      life: 3000,
-    });
-  };
-
-  const createId = () => {
-    return Math.floor(Math.random() * 10000).toString();
   };
 
   const getRoleLabel = (role) => {
@@ -194,7 +160,6 @@
 
   onMounted(async () => {
     await callAPI();
-    // students.value = studentsData;
   });
 </script>
 

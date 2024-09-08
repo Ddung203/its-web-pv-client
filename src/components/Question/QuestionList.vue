@@ -32,12 +32,7 @@
       acceptLabel: "Xác nhận",
       accept: async () => {
         await questionStore.deleteOneQuestionHandle(id);
-        toast.add({
-          severity: "info",
-          summary: "Thông báo",
-          detail: "Đã xóa 1 câu hỏi",
-          life: 1500,
-        });
+        successNoti(toast, "Đã xóa 1 câu hỏi!");
       },
       reject: () => {
         console.log("Rejecting");

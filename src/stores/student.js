@@ -38,7 +38,6 @@ const useStudentStore = defineStore(
           console.error("Invalid response structure", response);
         }
       } catch (error) {
-        console.log("error :>> ", error);
         throw error;
       }
     }

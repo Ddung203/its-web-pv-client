@@ -1,6 +1,5 @@
 <script setup>
   import { computed, onMounted, ref, watch } from "vue";
-  import OnlineStatus from "@/components/OnlineStatus/OnlineStatus.vue";
   import useIntervieweeStore from "../../stores/interviewee";
   import useInterviewerStore from "../../stores/interviewer";
   import HTTP from "../../helper/axiosInstance";
@@ -112,7 +111,6 @@
 <template>
   <div>
     <Toast />
-    <OnlineStatus></OnlineStatus>
     <Header></Header>
   </div>
   <div class="pt-8 px-[30px] bg-[#f6f7fb]">

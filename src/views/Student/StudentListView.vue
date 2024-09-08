@@ -9,7 +9,7 @@
   import Loading from "../../components/Loading/Loading.vue";
   import useStudentStore from "../../stores/student.js";
   import Header from "../../components/Header/Header.vue";
-  import { errorNoti } from "../../utils/showNotification.js";
+  import { errorNoti, successNoti } from "../../utils/showNotification.js";
 
   const toast = useToast();
   const dt = ref();
@@ -83,13 +83,9 @@
             try {
               students.value = await studentStore.signupHandle(student.value);
 
-              toast.add({
-                severity: "success",
-                summary: "Thành công",
-                detail: "Đã thêm sinh viên mới",
-                life: 3000,
-              });
+              successNoti(toast, "Đã thêm sinh viên mới!");
             } catch (error) {
+              successNoti(toast, "Thêm sinh viên mới không thành công!");
               console.log(error);
             }
 
@@ -109,12 +105,7 @@
               console.log("UPDATING");
               students.value = await studentStore.updateHandle(student.value);
 
-              toast.add({
-                severity: "success",
-                summary: "Thành công",
-                detail: "Sửa thông tin sinh viên thành công!",
-                life: 3000,
-              });
+              successNoti(toast, "Sửa thông tin sinh viên thành công!");
             } catch (error) {
               console.log(error);
             }
@@ -136,41 +127,18 @@
   };
 
   const deleteStudent = async (code) => {
-    console.log("123");
+    try {
+      students.value = await studentStore.deleteStudentsHandle(code);
 
-    students.value = await studentStore.deleteStudentsHandle(code);
-
-    deleteStudentDialog.value = false;
-
-    toast.add({
-      severity: "success",
-      summary: "Thành công",
-      detail: "Đã xóa sinh viên",
-      life: 2000,
-    });
+      deleteStudentDialog.value = false;
+      successNoti(toast, "Đã xóa sinh viên thành công!");
+    } catch (error) {
+      errorNoti(toast, "Xóa sinh viên thất bại!");
+    }
   };
 
   const confirmDeleteSelected = () => {
     deleteStudentsDialog.value = true;
-  };
-
-  const deleteSelectedStudents = () => {
-    // students.value = students.value.filter(
-    //   (s) => !selectedStudents.value.includes(s)
-    // );
-    // TODO: Call API here
-    deleteStudentsDialog.value = false;
-    selectedStudents.value = null;
-    toast.add({
-      severity: "success",
-      summary: "Thành công",
-      detail: "Đã xóa các sinh viên được chọn",
-      life: 3000,
-    });
-  };
-
-  const createId = () => {
-    return Math.floor(Math.random() * 10000).toString();
   };
 
   const getRoleLabel = (role) => {
