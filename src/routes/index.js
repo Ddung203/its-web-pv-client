@@ -1,4 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
+import useAuthStore from "../stores/auth";
 import LoginView from "../views/Login/LoginView.vue";
 import NotFoundView from "../views/NotFound/NotFoundView.vue";
 import ImportQuestionView from "../views/Question/ImportQuestionView.vue";
@@ -9,8 +10,6 @@ import InterviewView from "../views/Interview/InterviewView.vue";
 import TestView from "../views/Exam/TestView.vue";
 import StudentListView from "../views/Student/StudentListView.vue";
 import InterviewerListView from "../views/Student/InterviewerListView.vue";
-import useAuthStore from "../stores/auth";
-import SendMailView from "../views/Mail/SendMailView.vue";
 import FindResultView from "../views/FindResult/FindResultView.vue";
 import PreviousRegistrationView from "../views/PreviousRegistration/PreviousRegistrationView.vue";
 import StartTestView from "../views/Exam/StartTestView.vue";
@@ -106,16 +105,6 @@ const routes = [
     meta: {
       requiredAuth: true,
       requiredRole: ["admin", "interviewer"],
-      layout: true,
-    },
-  },
-  {
-    path: "/mail",
-    name: "mail",
-    component: SendMailView,
-    meta: {
-      requiredAuth: true,
-      requiredRole: ["admin"],
       layout: true,
     },
   },

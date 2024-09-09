@@ -141,14 +141,9 @@
       icon: "pi pi-hourglass",
       items: [
         {
-          label: "Duyệt danh sách phỏng vấn",
-          icon: "pi pi-list-check",
-          route: "/review",
-        },
-        {
-          label: "Gửi mail kết quả",
+          label: "Duyệt DS phỏng vấn",
           icon: "pi pi-envelope",
-          route: "/mail",
+          route: "/review",
         },
       ],
     },
@@ -170,14 +165,82 @@
       },
     },
   ];
+  const interviewerArray = [
+    {
+      label: "IT SUPPORTER",
+      icon: "pi pi-home",
+      command: () => {
+        router.push("/introduction");
+      },
+    },
+    {
+      label: "Bảng xếp hạng",
+      icon: "pi pi-chart-bar",
+      command: () => {
+        router.push("/leaderboard");
+      },
+    },
+    {
+      label: "Tài khoản",
+      icon: "pi pi-users",
+      items: [
+        {
+          label: "Sinh viên",
+          icon: "pi pi-user",
+          route: "/students",
+        },
+        {
+          label: "Phỏng vấn",
+          icon: "pi pi-user-edit",
+          route: "/interviewers",
+        },
+      ],
+    },
+
+    {
+      label: "Câu hỏi",
+      icon: "pi pi-question-circle",
+      items: [
+        {
+          label: "Danh sách câu hỏi",
+          icon: "pi pi-list",
+          route: "/questions",
+        },
+        {
+          label: "Thêm câu hỏi",
+          icon: "pi pi-plus",
+          route: "/import-questions",
+        },
+      ],
+    },
+    {
+      label: "Phỏng vấn",
+      icon: "pi pi-file-edit",
+      command: () => {
+        router.push("/interview");
+      },
+    },
+    {
+      label: "Đăng xuất",
+      icon: "pi pi-sign-out",
+      command: () => {
+        authStore.logout();
+        setTimeout(() => {
+          router.push("/introduction");
+        }, 100);
+      },
+    },
+  ];
 
   const items = computed(() => {
     header.value = authStore.isLoggedIn
       ? `Welcome, ${authStore.getStudentName}`
       : "Welcome to IT Supporter";
 
-    if (authStore.getRole === "admin" || authStore.getRole === "interviewer") {
+    if (authStore.getRole === "admin") {
       return adminItemArray;
+    } else if (authStore.getRole === "interviewer") {
+      return interviewerArray;
     } else if (authStore.getRole === "user") {
       return userItemArray;
     } else if (authStore.getRole === "guest") {

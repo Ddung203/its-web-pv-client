@@ -8,6 +8,7 @@
   import { useToast } from "primevue/usetoast";
   import checkFalsy from "../../utils/checkFalsyValue.js";
   import HTTP from "../../helper/axiosInstance.js";
+  import { exportPrivateKey } from "../../utils/exportFile.js";
 
   const toast = useToast();
 
@@ -120,16 +121,19 @@
           `Thiết bị không hỗ trợ. Mã sinh viên: ${userCode.value}. Mật khẩu: ${userPassword.value}`
         );
         return;
-      }
-      if (true) {
+      } else {
         await navigator.clipboard.writeText(
           `${userCode.value}/${userPassword.value}`
         );
-        alert(
-          `Mã sinh viên: ${userCode.value}. Mật khẩu: ${userPassword.value}`
-        );
-      } else {
+        // alert(
+        //   `Mã sinh viên: ${userCode.value}. Mật khẩu: ${userPassword.value}`
+        // );
       }
+
+      await exportPrivateKey(
+        userCode.value,
+        `${userCode.value}/${userPassword.value}`
+      );
     } catch (error) {
       console.error("Lỗi khi sao chép:", error);
     }
@@ -199,7 +203,7 @@
         ></Button>
         <Button
           type="button"
-          label="Sao chép vào bộ nhớ tạm"
+          label="Lưu lại"
           @click="copyToClipboard"
         ></Button>
       </div>

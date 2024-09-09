@@ -7,10 +7,12 @@
   import UpdateQuestionButton from "../Button/UpdateQuestionButton.vue";
   import useQuestionStore from "../../stores/question";
   import { storeToRefs } from "pinia";
+  import useAuthStore from "../../stores/auth";
 
   const toast = useToast();
   const confirm = useConfirm();
   const questionStore = useQuestionStore();
+  const authStore = useAuthStore();
   const { questions } = storeToRefs(questionStore);
 
   const props = defineProps({
@@ -105,7 +107,10 @@
       </div>
 
       <!-- !EDIT -->
-      <div class="flex justify-end gap-4 p-8">
+      <div
+        v-if="authStore.getRole === `admin`"
+        class="flex justify-end gap-4 p-8"
+      >
         <!-- ! DELETE -->
         <Toast />
         <ConfirmPopup></ConfirmPopup>

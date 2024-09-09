@@ -7,9 +7,14 @@
   import Card from "primevue/card";
   import Toolbar from "primevue/toolbar";
   import HTTP from "../../helper/axiosInstance";
-  import { errorNoti } from "../../utils/showNotification";
+  import { errorNoti, successNoti } from "../../utils/showNotification";
   import Tag from "primevue/tag";
   import ScrollToTop from "../../components/Button/ScrollToTop.vue";
+  import { useToast } from "primevue/usetoast";
+  import Loading from "../../components/Loading/Loading.vue";
+
+  const toast = useToast();
+  const isLoading = ref(false);
 
   const columns = ref([
     { field: "studentName", header: "Họ tên" },
@@ -31,7 +36,7 @@
 
   const fetchUsers = async () => {
     const response = await HTTP.get(
-      `user/list?limit=500&filter={"role":"user","isInterviewed":"1"}`
+      `user/list?limit=500&filter={"role":"user","isInterviewed":"1"}&sort={"isPassed":-1}`
     );
 
     users.value = response?.payload?.users || [];
@@ -76,12 +81,51 @@
     }
   };
 
+  const sendMailHandle = async (
+    studentCode,
+    studentName,
+    studentClass,
+    studentEmail,
+    studentPhone,
+    studentHometown
+  ) => {
+    const data = {
+      senderSubject: "Thông báo kết quả xét tuyển Cộng tác viên năm 2024",
+      recipients: [
+        {
+          studentCode,
+          studentName,
+          studentClass,
+          studentEmail: "duongvandung2k3@gmail.com",
+          studentPhone,
+          studentHometown,
+        },
+      ],
+    };
+    try {
+      isLoading.value = true;
+      const response = await HTTP.post(`email/sendEmails`, data);
+
+      if (response.success) {
+        successNoti(toast, `Đã gửi mail đến ${studentName}`);
+      }
+      isLoading.value = false;
+    } catch (error) {
+      isLoading.value = false;
+      errorNoti(toast, `Gửi mail đến ${studentName} thất bại!`);
+    }
+
+    await fetchUsers();
+  };
+
   onMounted(() => {
     fetchUsers();
   });
 </script>
 
 <template>
+  <Loading v-if="isLoading"></Loading>
+  <Toast></Toast>
   <Header></Header>
   <div class="flex flex-wrap items-center justify-center p-5 lg:py-8 lg:px-20">
     <h1 class="text-2xl font-bold uppercase">
@@ -168,6 +212,9 @@
           <p class="m-0 mb-1">
             Quê quán: <strong>{{ user.studentHometown }}</strong>
           </p>
+          <p class="m-0 mb-1">
+            Email: <strong>{{ user.studentEmail }}</strong>
+          </p>
           <div v-if="user.isPassed">
             <span>Xếp loại: </span>
             <Tag
@@ -190,9 +237,33 @@
         <template #footer>
           <div class="flex gap-4 mt-1">
             <Button
-              label="Xem kết quả"
+              label="Thông tin phỏng vấn"
               class="w-full"
               @click="showStudentResult(user._id)"
+            />
+            <Button
+              v-if="!user.isReceivedMail"
+              :disabled="!user.isPassed"
+              severity="info"
+              label="Gửi mail"
+              class="w-full"
+              @click="
+                sendMailHandle(
+                  user.studentCode,
+                  user.studentName,
+                  user.studentClass,
+                  user.studentEmail,
+                  user.studentPhone,
+                  user.studentHometown
+                )
+              "
+            />
+            <Button
+              v-if="user.isReceivedMail"
+              severity="secondary"
+              label="Đã gửi mail"
+              disabled
+              class="w-full"
             />
           </div>
         </template>

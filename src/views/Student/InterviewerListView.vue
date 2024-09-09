@@ -87,6 +87,10 @@
               await callAPI();
               successNoti(toast, "Thêm tài khoản mới thành công!");
             } catch (error) {
+              if (error?.error?.statusCode === 401)
+                errorNoti(toast, "Bạn không có quyền thêm tài khoản!");
+              else errorNoti(toast, "Hiện không thể thêm tài khoản!");
+
               console.log(error);
             }
 
@@ -241,11 +245,6 @@
         </div>
       </template>
 
-      <!-- <Column
-        selectionMode="multiple"
-        style="width: 3rem"
-        :exportable="false"
-      ></Column> -->
       <Column
         field="studentCode"
         header="Mã sinh viên"
