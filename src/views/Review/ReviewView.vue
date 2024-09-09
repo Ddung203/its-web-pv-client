@@ -96,7 +96,7 @@
           studentCode,
           studentName,
           studentClass,
-          studentEmail: "duongvandung2k3@gmail.com",
+          studentEmail,
           studentPhone,
           studentHometown,
         },
