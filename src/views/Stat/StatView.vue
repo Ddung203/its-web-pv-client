@@ -2,15 +2,36 @@
   import { onMounted, ref } from "vue";
   import Header from "@/components/Header/Header.vue";
   import StatCard from "../../components/Stat/StatCard.vue";
+  import Loading from "../../components/Loading/Loading.vue";
+  import HTTP from "../../helper/axiosInstance";
 
   const show = ref(false);
 
-  onMounted(() => {
+  const isLoading = ref(false);
+  const statObject = ref(null);
+
+  const callAPI = async () => {
     show.value = true;
-  });
+    isLoading.value = true;
+
+    try {
+      isLoading.value = true;
+
+      const response = await HTTP.get(`stat/info`);
+      statObject.value = response?.payload || null;
+
+      isLoading.value = false;
+    } catch (error) {
+      isLoading.value = false;
+    }
+  };
+
+  onMounted(callAPI);
 </script>
 
 <template>
+  <Loading v-if="isLoading"></Loading>
+
   <Header></Header>
 
   <p class="px-5 pt-5 text-2xl font-bold lg:px-16 bg-[#fefefe]">Thông tin</p>
@@ -36,7 +57,9 @@
             >
           </div>
           <div class="grid w-full grid-cols-2">
-            <div><span class="text-base">100</span></div>
+            <div>
+              <span class="text-base">{{ statObject.websiteViews }}</span>
+            </div>
             <div class="flex items-center justify-end text-green-500">
               <i class="pi pi-angle-up" />
               <span> 15%</span>
@@ -46,25 +69,27 @@
       </div>
       <StatCard
         :title="'Tài khoản sinh viên'"
-        :count="10"
+        :count="statObject.countUser"
       ></StatCard>
       <StatCard
         :title="'Sinh viên tham gia bài test'"
-        :count="10"
+        :count="statObject.countUserTested"
       ></StatCard>
       <StatCard
         :title="'Sinh viên tham gia phỏng vấn'"
-        :count="10"
+        :count="statObject.countUserInterviewed"
       ></StatCard>
       <StatCard
         :title="'Cộng tác viên mới'"
-        :count="10"
+        :count="statObject.countUserPassed || 0"
       ></StatCard>
     </div>
   </transition>
 
   <!-- ! Chart -->
-  <p class="px-5 pt-0 text-2xl font-bold lg:px-16 bg-[#fefefe]">Thông tin</p>
+  <p class="px-5 pt-0 text-2xl font-bold lg:px-16 bg-[#fefefe]">
+    Xuất danh sách
+  </p>
   <transition
     enter-active-class="animate__animated animate__fadeIn"
     leave-active-class="animate__animated animate__fadeOut"

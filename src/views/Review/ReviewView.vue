@@ -8,6 +8,8 @@
   import Toolbar from "primevue/toolbar";
   import HTTP from "../../helper/axiosInstance";
   import { errorNoti } from "../../utils/showNotification";
+  import Tag from "primevue/tag";
+  import ScrollToTop from "../../components/Button/ScrollToTop.vue";
 
   const columns = ref([
     { field: "studentName", header: "Họ tên" },
@@ -160,20 +162,30 @@
         <template #title>{{ user.studentName }}</template>
         <template #subtitle>{{ user.studentCode }}</template>
         <template #content>
-          <p class="m-0">Lớp: {{ user.studentClass }}</p>
-          <p class="m-0">Quê quán: {{ user.studentHometown }}</p>
-          <p
-            v-if="user.isPassed"
-            class="m-0"
-          >
-            Xếp loại: <span class="text-green-500">Cộng tác viên</span>
+          <p class="m-0 mb-1">
+            Lớp: <strong>{{ user.studentClass }}</strong>
           </p>
-          <p
-            v-else
-            class="m-0"
-          >
-            Xếp loại: <span class="text-red-500">Không trúng tuyển</span>
+          <p class="m-0 mb-1">
+            Quê quán: <strong>{{ user.studentHometown }}</strong>
           </p>
+          <div v-if="user.isPassed">
+            <span>Xếp loại: </span>
+            <Tag
+              class="uppercase"
+              icon="pi pi-check"
+              severity="success"
+              value="Cộng tác viên"
+            ></Tag>
+          </div>
+          <div v-else>
+            <span>Xếp loại: </span>
+            <Tag
+              class="uppercase"
+              icon="pi pi-times"
+              severity="danger"
+              value="Bị loại"
+            ></Tag>
+          </div>
         </template>
         <template #footer>
           <div class="flex gap-4 mt-1">
@@ -200,22 +212,36 @@
       maximizable
     >
       <!-- TT -->
-      <div>
-        <p>
-          Người phỏng vấn: <strong>{{ play.interviewer }}</strong>
-        </p>
-        <p>
-          Thời gian kết thúc: <strong>{{ play.endTime }}</strong>
-        </p>
-        <p>
-          Điểm bài test: <strong>{{ play.score }}</strong>
-        </p>
-        <p>
-          Điểm phỏng vấn: <strong>{{ play.interviewScore }}</strong>
-        </p>
-        <p>
-          Nhận xét: <strong>{{ play.comment }}</strong>
-        </p>
+      <div class="flex flex-col items-center justify-center">
+        <div class="mb-5">
+          <a
+            :href="play.userID.image"
+            target="_blank"
+          >
+            <img
+              class="max-h-[200px]"
+              :src="play.userID.image"
+              alt="User"
+            />
+          </a>
+        </div>
+        <div>
+          <p>
+            Người phỏng vấn: <strong>{{ play.interviewer }}</strong>
+          </p>
+          <p>
+            Thời gian kết thúc: <strong>{{ play.endTime }}</strong>
+          </p>
+          <p>
+            Điểm bài test: <strong>{{ play.score }}</strong>
+          </p>
+          <p>
+            Điểm phỏng vấn: <strong>{{ play.interviewScore }}</strong>
+          </p>
+          <p>
+            Nhận xét: <strong>{{ play.comment }}</strong>
+          </p>
+        </div>
       </div>
       <!--  -->
       <div class="flex justify-end gap-5 mt-11">
@@ -240,6 +266,8 @@
       </div>
     </Dialog>
   </div>
+
+  <ScrollToTop></ScrollToTop>
 </template>
 
 <style scoped>
