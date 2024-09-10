@@ -24,7 +24,7 @@
     }
   }
 
-  // setInterval(checkNetwork, 3000);
+  setInterval(checkNetwork, 3000);
 
   watch(onlineStatus, (newStatus) => {
     if (newStatus !== previousStatus.value) {
@@ -38,21 +38,21 @@
 
   onMounted(async () => {
     try {
-      // document.addEventListener("keydown", function (event) {
-      //   if (event.key === "F12" || event.keyCode === 123) {
-      //     event.preventDefault();
-      //   }
-      // });
+      document.addEventListener("keydown", function (event) {
+        if (event.key === "F12" || event.keyCode === 123) {
+          event.preventDefault();
+        }
+      });
 
-      // document.addEventListener("contextmenu", function (event) {
-      //   event.preventDefault();
-      // });
+      document.addEventListener("contextmenu", function (event) {
+        event.preventDefault();
+      });
 
-      // window.addEventListener("beforeunload", function (event) {
-      //   event.preventDefault();
-      //   event.returnValue = "";
-      //   return "Bạn có chắc chắn muốn rời khỏi trang này?";
-      // });
+      window.addEventListener("beforeunload", function (event) {
+        event.preventDefault();
+        event.returnValue = "";
+        return "Bạn có chắc chắn muốn rời khỏi trang này?";
+      });
 
       await HTTP.get("stat/visit");
     } catch (error) {}
