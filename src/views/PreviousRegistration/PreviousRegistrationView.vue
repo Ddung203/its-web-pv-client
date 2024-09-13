@@ -8,7 +8,7 @@
   import { useToast } from "primevue/usetoast";
   import checkFalsy from "../../utils/checkFalsyValue.js";
   import HTTP from "../../helper/axiosInstance.js";
-  import { exportPrivateKey } from "../../utils/exportFile.js";
+  import router from "../../routes/index.js";
 
   const toast = useToast();
 
@@ -27,8 +27,8 @@
   const studentEmail = ref("");
   const studentFacebook = ref("");
 
-  const userCode = ref("1");
-  const userPassword = ref("2");
+  const userCode = ref("Lỗi");
+  const userPassword = ref("Lỗi");
 
   const selectedHometown = ref({});
   const hometownList = ref([]);
@@ -115,7 +115,6 @@
 
   const copyToClipboard = async () => {
     try {
-      // Kiểm tra nếu có văn bản để sao chép
       if (!navigator.clipboard) {
         alert(
           `Thiết bị không hỗ trợ. Mã sinh viên: ${userCode.value}. Mật khẩu: ${userPassword.value}`
@@ -125,17 +124,9 @@
         await navigator.clipboard.writeText(
           `${userCode.value}/${userPassword.value}`
         );
-        // alert(
-        //   `Mã sinh viên: ${userCode.value}. Mật khẩu: ${userPassword.value}`
-        // );
       }
-
-      await exportPrivateKey(
-        userCode.value,
-        `${userCode.value}/${userPassword.value}`
-      );
     } catch (error) {
-      console.error("Lỗi khi sao chép:", error);
+      errorNoti(toast, "Lỗi khi sao chép vào bộ nhớ tạm!");
     }
   };
 
@@ -144,6 +135,10 @@
 
     const response = await HTTP.get("provinces");
     hometownList.value = response?.payload?.provinces;
+  };
+
+  const exitHandle = () => {
+    router.push("/introduction");
   };
 
   onMounted(getProvinces);
@@ -159,12 +154,12 @@
     <Dialog
       v-model:visible="visible"
       modal
-      header="Thông tin tài khoản"
+      header="ĐĂNG KÝ THÀNH CÔNG"
       :style="{ width: '25rem' }"
     >
-      <p class="block p-text-secondary">Thông tin đăng nhập để làm bài test.</p>
+      <p class="block p-text-secondary">Đây là tài khoản của bạn</p>
       <p class="mt-2 mb-5 font-bold text-red-500 uppercase">
-        Vui lòng lưu lại trước khi đóng
+        Vui lòng lưu lại trước khi thoát
       </p>
       <div class="flex flex-col gap-3 mb-3 lg:flex-row align-items-center">
         <label
@@ -199,11 +194,11 @@
           type="button"
           label="Thoát"
           severity="secondary"
-          @click="visible = false"
+          @click="exitHandle"
         ></Button>
         <Button
           type="button"
-          label="Lưu lại"
+          label="Lưu vào bộ nhớ tạm"
           @click="copyToClipboard"
         ></Button>
       </div>
@@ -217,7 +212,8 @@
     >
       <div class="p-10 lg:p-20 layout-left">
         <p class="text-3xl font-semibold leading-normal">
-          Đăng ký tham gia tuyển cộng tác viên CLB Hỗ trợ kỹ thuật IT Supporter
+          Đăng ký tham gia tuyển cộng tác viên <br />
+          CLB Hỗ trợ kỹ thuật IT Supporter
         </p>
 
         <div
