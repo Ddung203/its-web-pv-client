@@ -32,13 +32,11 @@
           <section class="lg:flex lg:items-center lg:justify-between">
             <!-- LOGO -->
             <div class="logo">
-              <router-link to="/introduction">
-                <img
-                  class="block h-[40px]"
-                  src="@/public/assets/logos/logofull.png"
-                  alt="Logo"
-                />
-              </router-link>
+              <img
+                class="block h-[40px]"
+                src="@/public/assets/logos/logofull.png"
+                alt="Logo"
+              />
             </div>
           </section>
           <!--  -->

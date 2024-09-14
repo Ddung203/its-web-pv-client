@@ -59,7 +59,7 @@
       },
     },
     {
-      label: "Đăng ký sớm",
+      label: "Đăng ký CTV",
       icon: "pi pi-send",
       command: () => {
         UIStore.visibleLeft = false;

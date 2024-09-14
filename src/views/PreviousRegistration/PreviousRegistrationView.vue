@@ -211,8 +211,10 @@
       class="grid grid-cols-1 lg:grid-cols-2 min-h-[100vh] grid-rows-1 gap-2 overflow-hidden"
     >
       <div class="p-10 lg:p-20 layout-left">
+        <p class="text-3xl font-semibold leading-normal uppercase">
+          Đăng ký tham gia
+        </p>
         <p class="text-3xl font-semibold leading-normal">
-          Đăng ký tham gia tuyển cộng tác viên <br />
           CLB Hỗ trợ kỹ thuật IT Supporter
         </p>
 
@@ -282,7 +284,7 @@
                   <InputText
                     class="w-full"
                     type="text"
-                    placeholder="2021602195"
+                    placeholder="2024000001"
                     v-model="studentCode"
                   />
                 </div>
@@ -302,7 +304,7 @@
                   <InputText
                     class="w-full"
                     type="text"
-                    placeholder="Dương Văn Dũng"
+                    placeholder="Dương Văn A"
                     v-model="studentName"
                   />
                 </div>
@@ -322,7 +324,7 @@
                   <InputText
                     class="w-full"
                     type="text"
-                    placeholder="KTPM02 - K16"
+                    placeholder="KTPM02 - K19"
                     v-model="studentClass"
                   />
                 </div>
@@ -342,7 +344,7 @@
                   <InputText
                     class="w-full"
                     type="text"
-                    placeholder="cuoicuoi1000@gmail.com"
+                    placeholder="your-email@gmail.com"
                     v-model="studentEmail"
                   />
                 </div>
@@ -362,7 +364,7 @@
                   <InputText
                     class="w-full"
                     type="text"
-                    placeholder="0383420623"
+                    placeholder="0123456789"
                     v-model="studentPhone"
                   />
                 </div>
@@ -409,7 +411,7 @@
                   <InputText
                     class="w-full"
                     type="text"
-                    placeholder="https://www.facebook.com/ddung203"
+                    placeholder="https://www.facebook.com/itsupporter.haui"
                     v-model="studentFacebook"
                   />
                 </div>

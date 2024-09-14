@@ -33,16 +33,22 @@
   <div>
     <Header></Header>
     <Loading v-if="loading"></Loading>
-    <div class="p-5">
+    <div class="py-5">
       <TitleBannerMini :title="'Bảng xếp hạng'"></TitleBannerMini>
       <div v-if="leaderboardStore.getPlays.length !== 0">
         <Leaderboard :playsData="leaderboardStore.getPlays"></Leaderboard>
       </div>
+      <p
+        v-else
+        class="pt-5 text-lg font-normal text-center"
+      >
+        Hiện chưa có dữ liệu
+      </p>
     </div>
     <Footer
       :class="{
         hidden:
-          leaderboardStore.getPlays.length > 0 &&
+          leaderboardStore.getPlays.length >= 0 &&
           leaderboardStore.getPlays.length <= 10,
       }"
     ></Footer>

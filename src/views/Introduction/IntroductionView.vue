@@ -93,7 +93,10 @@
   />
   <HeaderThird></HeaderThird>
   <Toast />
-  <div class="wrapper">
+  <div
+    v-once
+    class="wrapper"
+  >
     <div class="main">
       <div class="get__started">
         <div
@@ -106,7 +109,7 @@
             </p>
 
             <p
-              class="text-[#fff] mt-4 text-center lg:text-start font-medium text-lg"
+              class="text-[#fff] mt-4 text-justify lg:text-start font-medium text-lg"
             >
               Được thành lập vào ngày <strong>29/08/2014</strong>, qua
               <span class="">10</span> năm hình thành và phát triển CLB Hỗ trợ
@@ -115,7 +118,7 @@
               những vấn đề liên quan đến kỹ thuật khoa CNTT.
             </p>
             <div
-              class="w-[100%] lg:w-[150px] mt-16 lg:mt-6 py-2 px-7 rounded text-white bg-[#49b5e7] leading-6 font-medium hover:opacity-60 uppercase cursor-pointer tracking-tight transition-all ease duration-400 flex items-center justify-center"
+              class="w-[100%] lg:w-[150px] mt-5 md:mt-16 lg:mt-6 py-2 px-7 rounded text-white bg-[#49b5e7] leading-6 font-medium hover:opacity-60 uppercase cursor-pointer tracking-tight transition-all ease duration-400 flex items-center justify-center"
             >
               <router-link to="previous-registration">
                 <button class="block text-center text-white">
@@ -139,7 +142,7 @@
 
       <!--  -->
       <div class="pb-16 lg:py-16">
-        <div class="flex lg:gap-36 flex-col lg:flex-row px-[10px] lg:px-20">
+        <div class="flex lg:gap-36 flex-col lg:flex-row px-[25px] lg:px-20">
           <div class="flex flex-col items-center justify-start lg:w-2/5">
             <img
               src="../../public/assets/imgs/b1.jpg"
@@ -149,7 +152,7 @@
           </div>
           <div class="flex flex-col items-start justify-start lg:w-3/5">
             <p
-              class="text-[#0f394c] text-[32px] font-bold leading-[38.4px] mb-5 text-center uppercase"
+              class="text-[#0f394c] text-[30px] md:text-[32px] font-bold leading-[38.4px] mb-5 text-center uppercase"
             >
               Các ban hoạt động
             </p>
@@ -160,8 +163,8 @@
               </div>
               <!-- !LOOP -->
 
-              <div class="ml-[30px]">
-                <p class="font-bold">BAN KỸ THUẬT</p>
+              <div class="lg:ml-[30px] ml-[15px]">
+                <p class="text-xl font-bold">BAN KỸ THUẬT</p>
                 <p class="text-[#0f394c] text-base">
                   Ban kỹ thuật với mục đích hỗ trợ kỹ thuật nói chung và giúp đỡ
                   các bạn sinh viên vấn đề liên quan đến máy tính nói riêng
@@ -177,8 +180,8 @@
               <div class="icon-desc">
                 <i class="fa-solid fa-gift"></i>
               </div>
-              <div class="ml-[30px]">
-                <p class="font-bold">BAN TRUYỀN THÔNG</p>
+              <div class="lg:ml-[30px] ml-[15px]">
+                <p class="text-xl font-bold">BAN TRUYỀN THÔNG</p>
                 <p class="text-[#0f394c] text-base">
                   Ban truyền thông: Với mục đích truyền thông đến bạn các tin
                   tức về công nghệ mới nhất, các hoạt động, sự kiện của CLB Hoạt
@@ -194,8 +197,8 @@
               <div class="icon-desc">
                 <i class="fa-solid fa-atom"></i>
               </div>
-              <div class="ml-[30px]">
-                <p class="font-bold">BAN TỔ CHỨC SỰ KIỆN</p>
+              <div class="lg:ml-[30px] ml-[15px]">
+                <p class="text-xl font-bold">BAN TỔ CHỨC SỰ KIỆN</p>
                 <p class="text-[#0f394c] text-base">
                   Ban TCSK với mục đích hậu cần, lên kế hoạch, sắp xếp các hoạt
                   động học tập cũng như vui chơi giải trí của câu lạc bộ, tổ
@@ -222,7 +225,7 @@
       >
         <div class="services-top layout-top">
           <h2>Hoạt động chính</h2>
-          <p class="px-3">
+          <p class="px-[20px] text-justify">
             CLB Hỗ trợ kỹ thuật IT Supporter có nhiều hoạt động nhằm thúc đẩy sự
             phát triển kỹ năng của các thành viên và đem đến cho tất cả các bạn
             sinh viên một địa chỉ tin cậy để giao phó sự tin tưởng của mình
@@ -231,7 +234,9 @@
         <div class="services__inner px-[80px] lg:pb-[60px]">
           <ul class="services__inner-list">
             <li class="services__inner-item">
-              <div class="right">
+              <div
+                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
+              >
                 <span>Tech Support</span>
                 <p class="bottom">
                   Tech Support thường niên với nhiều hạng mục nhằm hỗ trợ những
@@ -240,7 +245,9 @@
               </div>
             </li>
             <li class="services__inner-item">
-              <div class="right">
+              <div
+                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
+              >
                 <span>Bảo trì, cài đặt phòng máy ở khoa CNTT</span>
                 <p class="bottom">
                   Giúp cho những phòng máy cập nhật kịp thời những phần mềm mới
@@ -249,7 +256,9 @@
               </div>
             </li>
             <li class="services__inner-item">
-              <div class="right">
+              <div
+                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
+              >
                 <span>Tech news</span>
                 <p class="bottom">
                   Giúp tất cả mọi người đều được cập nhật những thông tin công
@@ -259,7 +268,9 @@
               </div>
             </li>
             <li class="services__inner-item">
-              <div class="right">
+              <div
+                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
+              >
                 <span>Họp đội hàng tuần, tổ chức sự kiện hàng năm,...</span>
                 <p class="bottom">
                   Các hoạt động giúp gắn kết các thành viên, cộng tác viên trong
@@ -268,7 +279,9 @@
               </div>
             </li>
             <li class="services__inner-item">
-              <div class="right">
+              <div
+                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
+              >
                 <span>Tổ chức các lớp học, nhóm học tập</span>
                 <p class="bottom">
                   Giúp các thành viên, cộng tác viên của CLB trau dồi kỹ năng
@@ -277,7 +290,9 @@
               </div>
             </li>
             <li class="services__inner-item">
-              <div class="p-6 right">
+              <div
+                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
+              >
                 <span>Tuyển cộng tác viên khóa mới</span>
                 <p class="bottom">
                   Đây là hoạt động hàng năm của CLB, tổ chức tại cả 2 cơ sở,
@@ -335,7 +350,7 @@
 
         <!-- BPT -->
         <div
-          class="team__content2 max-w-full px-[10px] lg:px-20 grid grid-cols-1 lg:grid-cols-[1fr_25px_1fr_25px_1fr_25px_1fr]"
+          class="team__content2 max-w-full px-[25px] lg:px-20 grid grid-cols-1 lg:grid-cols-[1fr_25px_1fr_25px_1fr_25px_1fr]"
         >
           <div class="bg-white team__content-item group">
             <img
@@ -468,7 +483,7 @@
         </div>
 
         <div
-          class="grid grid-cols-1 gap-3 px-4 lg:gap-3 lg:px-0 lg:grid-cols-4 lg:grid-rows-2"
+          class="grid grid-cols-1 gap-3 px-[25px] lg:gap-3 lg:px-0 lg:grid-cols-4 lg:grid-rows-2"
         >
           <div class="gallery-img">
             <img
@@ -544,7 +559,11 @@
           <h2>Liên hệ</h2>
           <p>Để lại lời nhắn cho chúng mình!</p>
         </div>
-        <div class="contact-content">
+
+        <!-- .contact-content {
+    padding: 30px 80px 0;
+  } -->
+        <div class="pt-[30px] pb-0 px-[25px] lg:px-[80px]">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.470791359761!2d105.7324846750253!3d21.053850786916833!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345457e292d5bf%3A0x20ac91c94d74439a!2zVHLGsOG7nW5nIMSQ4bqhaSBo4buNYyBDw7RuZyBuZ2hp4buHcCBIw6AgTuG7mWk!5e0!3m2!1svi!2s!4v1725046736642!5m2!1svi!2s"
             width="1296"
@@ -562,7 +581,7 @@
                   <!-- <i class="bx bx-current-location"></i> -->
                   <i class="fa-solid fa-location-dot"></i>
                 </div>
-                <div class="ml-[30px]">
+                <div class="lg:ml-[30px] ml-[15px]">
                   <a href="#">Địa chỉ:</a>
                   <p class="bottom">
                     Văn phòng Đoàn Thanh Niên, Tầng 8, nhà A1, trường Đại Học
@@ -574,7 +593,7 @@
                 <div class="icon-desc">
                   <i class="fa-solid fa-envelope"></i>
                 </div>
-                <div class="ml-[30px]">
+                <div class="lg:ml-[30px] ml-[15px]">
                   <a href="#">Email:</a>
                   <p class="bottom">it.supporter@fit-haui.edu.vn</p>
                 </div>
@@ -583,7 +602,7 @@
                 <div class="icon-desc">
                   <i class="fa-solid fa-phone"></i>
                 </div>
-                <div class="ml-[30px]">
+                <div class="lg:ml-[30px] ml-[15px]">
                   <a href="#">Hotline:</a>
                   <p class="bottom">0965 530 897</p>
                 </div>
@@ -642,10 +661,12 @@
       </div>
       <div class="newsletter">
         <div class="newsletter__inner">
-          <h2 class="font-semibolds">Tham gia cùng chúng mình</h2>
+          <h2 class="text-3xl text-[#0f394c] font-bold uppercase">
+            Tham gia cùng chúng mình
+          </h2>
           <p>Đăng ký trở thành cộng tác viên</p>
           <div class="newsletter__inner-search">
-            <div class="newsletter__inner-input">
+            <div class="overflow-hidden newsletter__inner-input">
               <input
                 class="input-hidden"
                 type="text"
@@ -831,7 +852,6 @@
   .layout-top p {
     color: #444444;
     line-height: 24px;
-    text-align: center;
   }
 
   .img-black-and-white {
@@ -949,7 +969,7 @@
     background-image: url("../../public/assets/imgs/anh_nen.png");
     background-size: cover;
     background-attachment: fixed;
-   
+
   } */
 
   .get__started {
@@ -1152,19 +1172,16 @@
 
   .services__inner-item {
     max-width: 396px;
-    height: 169px;
+
     margin: 0 10px 40px;
     background-color: #fff;
     border-radius: 10px;
     display: flex;
-    overflow: hidden;
+    /* overflow: hidden; */
     box-shadow: 0 10px 29px 0 rgb(68 88 144 / 10%);
     transition: all 0.3s ease-in-out;
   }
-  .services__inner-item:hover {
-    width: 110%;
-    padding-bottom: 15px;
-  }
+
   .services__inner-item .left {
     flex-basis: 20%;
     height: 100%;
@@ -1178,14 +1195,10 @@
     line-height: 64px;
     color: #ff689b;
   }
-  .services__inner-item .right {
-    margin-left: 0px;
-    padding: 1.5rem;
-  }
+
   .services__inner-item .right span {
     font-weight: 700;
     font-size: 18px;
-    padding-bottom: 20px;
   }
 
   .services__inner-item .right a {
@@ -1508,7 +1521,7 @@
   }
   .newsletter__inner-input input {
     border: none;
-    padding: 4px 8px;
+    padding: 4px 18px;
     width: calc(525px - 10px);
     height: 35px;
     margin: 5px 0 5px 10px;

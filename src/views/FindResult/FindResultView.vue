@@ -1,6 +1,6 @@
 <script setup>
   import { onMounted, ref } from "vue";
-  import Header from "@/components/Header/Header.vue";
+  import HeaderThird from "@/components/Header/HeaderThird.vue";
   import Footer from "@/components/Footer/Footer.vue";
   import { useToast } from "primevue/usetoast";
   import HTTP from "../../helper/axiosInstance";
@@ -46,7 +46,7 @@
 </script>
 
 <template>
-  <Header></Header>
+  <HeaderThird></HeaderThird>
 
   <div class="bg-[#fefefe]">
     <div class="top-content">
