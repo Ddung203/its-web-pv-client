@@ -142,8 +142,9 @@
         <div class="flex lg:gap-36 flex-col lg:flex-row px-[10px] lg:px-20">
           <div class="flex flex-col items-center justify-start lg:w-2/5">
             <img
-              src="../../public/assets/imgs/b1.png"
+              src="../../public/assets/imgs/b1.jpg"
               alt=""
+              loading="lazy"
             />
           </div>
           <div class="flex flex-col items-start justify-start lg:w-3/5">
@@ -304,7 +305,8 @@
               >
                 <img
                   src="../../public/assets/imgs/ChuNhiem.jpg"
-                  alt="2"
+                  alt="ChuNhiem"
+                  loading="lazy"
                 />
               </a>
             </div>
@@ -340,6 +342,7 @@
               src="../../public/assets/imgs/TrinhNgocHai.jpg"
               alt=""
               height="305.65"
+              loading="lazy"
             />
             <div class="team-i4">
               <h3>Anh Trịnh Ngọc Hải</h3>
@@ -369,6 +372,7 @@
             <img
               src="../../public/assets/imgs/HoangDung.jpg"
               alt=""
+              loading="lazy"
             />
             <div class="team-i4">
               <h3>Anh Hoàng Trung Dũng</h3>
@@ -397,6 +401,7 @@
             <img
               src="../../public/assets/imgs/PhuongNu.jpg"
               alt=""
+              loading="lazy"
             />
             <div class="team-i4">
               <h3>Chị Trần Thu Phương</h3>
@@ -425,6 +430,7 @@
             <img
               src="../../public/assets/imgs/DoPhuong.jpg"
               alt=""
+              loading="lazy"
             />
             <div class="team-i4">
               <h3>Anh Đỗ Triệu Đức Phương</h3>
@@ -469,6 +475,7 @@
               class="block max-w-full"
               src="../../public/assets/imgs/g1.jpg"
               alt="gallery-1"
+              loading="lazy"
             />
           </div>
 
@@ -476,6 +483,7 @@
             <img
               src="../../public/assets/imgs/g2.jpg"
               alt="gallery-2"
+              loading="lazy"
             />
           </div>
 
@@ -483,6 +491,7 @@
             <img
               src="../../public/assets/imgs/g3.jpg"
               alt="gallery-3"
+              loading="lazy"
             />
           </div>
 
@@ -490,12 +499,14 @@
             <img
               src="../../public/assets/imgs/g4.jpg"
               alt="gallery-4"
+              loading="lazy"
             />
           </div>
           <div class="gallery-img">
             <img
               src="../../public/assets/imgs/g9.jpg"
               alt="gallery-5"
+              loading="lazy"
             />
           </div>
 
@@ -503,13 +514,15 @@
             <img
               src="../../public/assets/imgs/g6.jpg"
               alt="gallery-6"
+              loading="lazy"
             />
           </div>
 
           <div class="gallery-img">
             <img
-              src="../../public/assets/imgs/g7.jpg"
+              src="../../public/assets/imgs/g7.webp"
               alt="gallery-7"
+              loading="lazy"
             />
           </div>
 
@@ -517,6 +530,7 @@
             <img
               src="../../public/assets/imgs/g8.jpg"
               alt="gallery-8"
+              loading="lazy"
             />
           </div>
         </div>
@@ -537,6 +551,7 @@
             height="270"
             style="border: 0"
             allowfullscreen=""
+            title="Iframe Map"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
@@ -658,6 +673,7 @@
             class="block h-[40px] mb-2"
             src="/src/public/assets/logos/logofull.png"
             alt="Logo"
+            loading="lazy"
           />
           <p>
             Văn phòng Đoàn Thanh Niên, <br />Tầng 8, nhà A1, trường Đại Học Công

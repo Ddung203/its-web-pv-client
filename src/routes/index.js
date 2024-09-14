@@ -1,21 +1,5 @@
 import { createWebHistory, createRouter } from "vue-router";
 import useAuthStore from "../stores/auth";
-import LoginView from "../views/Login/LoginView.vue";
-import NotFoundView from "../views/NotFound/NotFoundView.vue";
-import ImportQuestionView from "../views/Question/ImportQuestionView.vue";
-import QuestionListView from "../views/Question/QuestionListView.vue";
-import IntroductionView from "../views/Introduction/IntroductionView.vue";
-import LeaderboardView from "../views/Leaderboard/LeaderboardView.vue";
-import InterviewView from "../views/Interview/InterviewView.vue";
-import TestView from "../views/Exam/TestView.vue";
-import StudentListView from "../views/Student/StudentListView.vue";
-import InterviewerListView from "../views/Student/InterviewerListView.vue";
-import FindResultView from "../views/FindResult/FindResultView.vue";
-import PreviousRegistrationView from "../views/PreviousRegistration/PreviousRegistrationView.vue";
-import StartTestView from "../views/Exam/StartTestView.vue";
-import EndTestView from "../views/Exam/EndTestView.vue";
-import StatView from "../views/Stat/StatView.vue";
-import ReviewView from "../views/Review/ReviewView.vue";
 
 const routes = [
   {
@@ -31,7 +15,7 @@ const routes = [
   {
     path: "/login",
     name: "login",
-    component: LoginView,
+    component: () => import("../views/Login/LoginView.vue"),
     meta: {
       requiredAuth: false,
       requiredRole: ["admin", "interviewer", "user", "guest"],
@@ -41,7 +25,7 @@ const routes = [
   {
     path: "/import-questions",
     name: "importQuestions",
-    component: ImportQuestionView,
+    component: () => import("../views/Question/ImportQuestionView.vue"),
     meta: {
       requiredAuth: true,
       requiredRole: ["admin", "interviewer"],
@@ -51,7 +35,7 @@ const routes = [
   {
     path: "/questions",
     name: "questions",
-    component: QuestionListView,
+    component: () => import("../views/Question/QuestionListView.vue"),
     meta: {
       requiredAuth: true,
       requiredRole: ["admin", "interviewer"],
@@ -61,7 +45,7 @@ const routes = [
   {
     path: "/introduction",
     name: "introduction",
-    component: IntroductionView,
+    component: () => import("../views/Introduction/IntroductionView.vue"),
     meta: {
       requiredAuth: false,
       requiredRole: ["admin", "interviewer", "user", "guest"],
@@ -71,7 +55,7 @@ const routes = [
   {
     path: "/leaderboard",
     name: "leaderboard",
-    component: LeaderboardView,
+    component: () => import("../views/Leaderboard/LeaderboardView.vue"),
     meta: {
       requiredAuth: true,
       requiredRole: ["admin", "interviewer"],
@@ -81,7 +65,7 @@ const routes = [
   {
     path: "/interview",
     name: "interview",
-    component: InterviewView,
+    component: () => import("../views/Interview/InterviewView.vue"),
     meta: {
       requiredAuth: true,
       requiredRole: ["admin", "interviewer"],
@@ -91,7 +75,7 @@ const routes = [
   {
     path: "/students",
     name: "students",
-    component: StudentListView,
+    component: () => import("../views/Student/StudentListView.vue"),
     meta: {
       requiredAuth: true,
       requiredRole: ["admin", "interviewer"],
@@ -101,7 +85,7 @@ const routes = [
   {
     path: "/interviewers",
     name: "interviewers",
-    component: InterviewerListView,
+    component: () => import("../views/Student/InterviewerListView.vue"),
     meta: {
       requiredAuth: true,
       requiredRole: ["admin", "interviewer"],
@@ -111,7 +95,7 @@ const routes = [
   {
     path: "/review",
     name: "review",
-    component: ReviewView,
+    component: () => import("../views/Review/ReviewView.vue"),
     meta: {
       requiredAuth: true,
       requiredRole: ["admin"],
@@ -121,7 +105,7 @@ const routes = [
   {
     path: "/stat",
     name: "stat",
-    component: StatView,
+    component: () => import("../views/Stat/StatView.vue"),
     meta: {
       requiredAuth: true,
       requiredRole: ["admin"],
@@ -131,7 +115,7 @@ const routes = [
   {
     path: "/find-result",
     name: "find-result",
-    component: FindResultView,
+    component: () => import("../views/FindResult/FindResultView.vue"),
     meta: {
       requiredAuth: false,
       requiredRole: ["admin", "interviewer", "user", "guest"],
@@ -141,7 +125,8 @@ const routes = [
   {
     path: "/previous-registration",
     name: "previous-registration",
-    component: PreviousRegistrationView,
+    component: () =>
+      import("../views/PreviousRegistration/PreviousRegistrationView.vue"),
     meta: {
       requiredAuth: false,
       requiredRole: ["admin", "interviewer", "user", "guest"],
@@ -151,7 +136,7 @@ const routes = [
   {
     path: "/start-test",
     name: "start-test",
-    component: StartTestView,
+    component: () => import("../views/Exam/StartTestView.vue"),
     meta: {
       requiredAuth: false,
       requiredRole: ["user"],
@@ -161,7 +146,7 @@ const routes = [
   {
     path: "/test",
     name: "test",
-    component: TestView,
+    component: () => import("../views/Exam/TestView.vue"),
     meta: {
       requiredAuth: true,
       requiredRole: ["user"],
@@ -171,14 +156,17 @@ const routes = [
   {
     path: "/finish-test",
     name: "finish-test",
-    component: EndTestView,
+    component: () => import("../views/Exam/EndTestView.vue"),
     meta: {
       requiredAuth: false,
       requiredRole: ["user"],
       layout: true,
     },
   },
-  { path: "/:catchAll(.*)", component: NotFoundView },
+  {
+    path: "/:catchAll(.*)",
+    component: () => import("../views/NotFound/NotFoundView.vue"),
+  },
 ];
 
 const router = createRouter({
