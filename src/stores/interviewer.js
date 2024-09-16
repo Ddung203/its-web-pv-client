@@ -22,7 +22,7 @@ const useInterviewerStore = defineStore(
     async function getInterviewersHandle() {
       try {
         const response = await HTTP.get(
-          '/user/list?limit=50&skip=0&filter={"role":"interviewer"}'
+          '/user/list?limit=500&skip=0&filter={"role":"interviewer"}'
         );
 
         if (response?.success) {

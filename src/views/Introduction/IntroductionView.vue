@@ -117,15 +117,13 @@
               trưởng thành của mình. CLB được thành lập với mục đích hỗ trợ
               những vấn đề liên quan đến kỹ thuật khoa CNTT.
             </p>
-            <div
-              class="w-[100%] lg:w-[150px] mt-5 md:mt-16 lg:mt-6 py-2 px-7 rounded text-white bg-[#49b5e7] leading-6 font-medium hover:opacity-60 uppercase cursor-pointer tracking-tight transition-all ease duration-400 flex items-center justify-center"
-            >
-              <router-link to="previous-registration">
-                <button class="block text-center text-white">
-                  Tham gia
-                </button></router-link
+            <router-link to="previous-registration">
+              <div
+                class="w-[100%] lg:w-[150px] mt-5 md:mt-16 lg:mt-6 py-2 px-7 rounded text-white bg-[#49b5e7] leading-6 font-medium hover:opacity-60 uppercase cursor-pointer tracking-tight transition-all ease duration-400 flex items-center justify-center"
               >
-            </div>
+                <button class="block text-center text-white">Tham gia</button>
+              </div>
+            </router-link>
           </div>
 
           <div

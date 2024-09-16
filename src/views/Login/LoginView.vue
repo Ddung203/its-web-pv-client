@@ -4,7 +4,10 @@
   import { errorNoti, successNoti } from "../../utils/showNotification";
   import { useToast } from "primevue/usetoast";
   import router from "../../routes";
+  import Loading from "../../components/Loading/Loading.vue";
+  import checkFalsy from "../../utils/checkFalsyValue";
 
+  const loading = ref(false);
   const toast = useToast();
   const authStore = useAuthStore();
 
@@ -19,23 +22,24 @@
       password: password.value,
     };
     try {
+      loading.value = true;
+
+      if (checkFalsy(loginData)) {
+        throw new Error();
+      }
+
       await authStore.login(loginData);
     } catch (error) {
-      console.log(error);
-      errorNoti(
-        toast,
-        error?.error?.message || "Tài khoản hoặc mật khẩu không đúng"
-      );
+      errorNoti(toast, "Tài khoản hoặc mật khẩu không đúng");
 
       return;
+    } finally {
+      loading.value = false;
     }
 
     if (authStore.isLoggedIn) {
       successNoti(toast, "Đăng nhập thành công");
-
-      setTimeout(() => {
-        router.push("/introduction");
-      }, 1500);
+      router.push("/introduction");
     }
   };
 
@@ -46,6 +50,7 @@
 
 <template>
   <Toast />
+  <Loading v-if="loading"></Loading>
 
   <div class="fontP">
     <div class="background-container"></div>
@@ -93,6 +98,7 @@
             <!-- Button submit -->
             <div>
               <Button
+                :disabled="loading"
                 class="flex items-center justify-center w-full"
                 type="submit"
                 >Đăng nhập</Button

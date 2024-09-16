@@ -10,7 +10,7 @@ const useStudentStore = defineStore(
     async function getStudentsHandle() {
       try {
         const response = await HTTP.get(
-          '/user/list?limit=50&skip=0&filter={"role":"user"}'
+          '/user/list?limit=500&skip=0&filter={"role":"user"}'
         );
 
         if (response?.success) {

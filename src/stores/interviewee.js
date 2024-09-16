@@ -22,7 +22,7 @@ const useIntervieweeStore = defineStore(
     async function getIntervieweesHandle() {
       try {
         const response = await HTTP.get(
-          '/user/list?limit=50&skip=0&filter={"role":"user","isTested":1,"isInterviewed":0}'
+          '/user/list?limit=500&skip=0&filter={"role":"user","isTested":1,"isInterviewed":0}'
         );
 
         if (response?.success) {
