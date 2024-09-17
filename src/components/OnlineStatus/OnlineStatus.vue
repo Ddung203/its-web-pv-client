@@ -24,7 +24,7 @@
     }
   }
 
-  setInterval(checkNetwork, 2000);
+  // setInterval(checkNetwork, 4000);
 
   watch(onlineStatus, (newStatus) => {
     if (newStatus !== previousStatus.value) {

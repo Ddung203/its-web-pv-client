@@ -154,8 +154,12 @@
     }
   };
 
-  const getStatusLabel = (status) => {
-    return status === 1 ? "Đã phỏng vấn" : "Chưa phỏng vấn";
+  const getStatusLabel = (
+    status,
+    successMessage = "Đã phỏng vấn",
+    errMessage = "Chưa phỏng vấn"
+  ) => {
+    return status === 1 ? successMessage : errMessage;
   };
 
   const getStatusSeverity = (status) => {
@@ -190,14 +194,14 @@
           @click="openNew"
         />
         <!-- Button Xóa nhiều -->
-        <Button
+        <!-- <Button
           label="Xóa"
           icon="pi pi-trash"
           severity="danger"
           disabled
           @click="confirmDeleteSelected"
           :disabled="!selectedStudents || !selectedStudents.length"
-        />
+        /> -->
       </template>
       <template #end>
         <div class="pr-5">
@@ -207,13 +211,6 @@
             @click="toggleLoading"
           />
         </div>
-        <Button
-          label="Export"
-          icon="pi pi-upload"
-          severity="help"
-          disabled
-          @click="exportCSV($event)"
-        />
       </template>
     </Toolbar>
 
@@ -226,7 +223,7 @@
       v-model:selection="selectedStudents"
       dataKey="id"
       :paginator="true"
-      :rows="10"
+      :rows="5"
       :filters="filters"
       paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
       :rowsPerPageOptions="[5, 10, 25]"
@@ -245,7 +242,7 @@
               </InputIcon>
               <InputText
                 v-model="filters['global'].value"
-                placeholder="Tìm kiếm..."
+                placeholder="Tìm tên..."
               />
             </IconField>
           </div>
@@ -287,7 +284,7 @@
         sortable
         style="min-width: 12rem"
       ></Column>
-      <Column
+      <!-- <Column
         field="role"
         header="Vai trò"
         sortable
@@ -297,6 +294,21 @@
           <Tag
             :value="slotProps.data.role"
             :severity="getRoleLabel(slotProps.data.role)"
+          />
+        </template>
+      </Column> -->
+      <Column
+        field="status"
+        header="Bài test"
+        sortable
+        style="min-width: 12rem"
+      >
+        <template #body="slotProps">
+          <Tag
+            :value="
+              getStatusLabel(slotProps.data.isTested, `Đã làm`, `Chưa làm`)
+            "
+            :severity="getStatusSeverity(slotProps.data.isTested)"
           />
         </template>
       </Column>
@@ -313,6 +325,8 @@
           />
         </template>
       </Column>
+
+      <!-- Action -->
       <Column
         :exportable="false"
         style="min-width: 8rem"

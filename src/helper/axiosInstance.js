@@ -23,10 +23,17 @@ http.interceptors.request.use(addTokenToRequest);
 
 http.interceptors.response.use(
   (response) => response.data,
-  (error) => {
-    // console.log("HTTP Interceptor error: ", error);
-    // console.log("HTTP Interceptor error response: ", error.response.data);
-    return Promise.reject(error?.response?.data);
+  (err) => {
+    // console.log("HTTP Interceptor error: ", err);
+    // console.log("HTTP Interceptor error response: ", err.response.data);
+
+    if (err.response.data.error.name === "TokenExpiredError") {
+      if (localStorage.getItem("isAccessed")) {
+        localStorage.clear();
+        localStorage.setItem("isAccessed", true);
+      } else localStorage.clear();
+    }
+    return Promise.reject(err?.response?.data);
   }
 );
 

@@ -1,6 +1,7 @@
 import { computed, ref } from "vue";
 import { defineStore } from "pinia";
 import HTTP from "../helper/axiosInstance";
+import checkFalsy from "../utils/checkFalsyValue";
 
 const useStudentStore = defineStore(
   "student",
@@ -67,22 +68,29 @@ const useStudentStore = defineStore(
           studentClass,
           studentPhone,
           studentHometown,
+          password,
           role,
         } = data;
 
-        console.log({
-          studentName,
-          studentClass,
-          studentPhone,
-          studentHometown,
-          role,
-        });
+        if (
+          checkFalsy({
+            studentName,
+            studentClass,
+            studentPhone,
+            password,
+            studentHometown,
+            role,
+          })
+        ) {
+          throw new Error("Please fill in all required fields");
+        }
 
         const response = await HTTP.put(`/user/update/${data.studentCode}`, {
           studentName,
           studentClass,
           studentPhone,
           studentHometown,
+          password,
           role,
         });
 
@@ -95,7 +103,6 @@ const useStudentStore = defineStore(
           console.error("Invalid response structure", response);
         }
       } catch (error) {
-        console.log("error :>> ", error);
         throw error;
       }
     }

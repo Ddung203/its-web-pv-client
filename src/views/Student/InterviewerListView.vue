@@ -17,7 +17,6 @@
   const students = ref([]);
   const studentDialog = ref(false);
   const deleteStudentDialog = ref(false);
-  const deleteStudentsDialog = ref(false);
   const student = ref({});
   const selectedStudents = ref([]);
   const submitted = ref(false);
@@ -91,7 +90,7 @@
                 errorNoti(toast, "Bạn không có quyền thêm tài khoản!");
               else errorNoti(toast, "Hiện không thể thêm tài khoản!");
 
-              console.log(error);
+              // console.log(error);
             }
 
             studentDialog.value = false;
@@ -107,13 +106,14 @@
               : student.value.role;
 
             try {
-              console.log("UPDATING");
               await studentStore.updateHandle(student.value);
+
               await callAPI();
 
               successNoti(toast, "Sửa thông tin thành công!");
             } catch (error) {
-              console.log(error);
+              errorNoti(toast, "Sửa thông tin không thành công!");
+              // console.log(error);
             }
 
             studentDialog.value = false;
@@ -140,10 +140,6 @@
     successNoti(toast, `Đã xóa tài khoản ${code}!`);
   };
 
-  const confirmDeleteSelected = () => {
-    deleteStudentsDialog.value = true;
-  };
-
   const getRoleLabel = (role) => {
     switch (role) {
       case "admin":
@@ -155,11 +151,6 @@
       default:
         return null;
     }
-  };
-
-  const exportCSV = () => {
-    // TODO: Handle if needed
-    // dt.value.exportCSV();
   };
 
   onMounted(async () => {
@@ -183,14 +174,6 @@
           @click="openNew"
         />
         <!-- Button Xóa nhiều -->
-        <Button
-          label="Xóa"
-          icon="pi pi-trash"
-          severity="danger"
-          disabled
-          @click="confirmDeleteSelected"
-          :disabled="!selectedStudents || !selectedStudents.length"
-        />
       </template>
       <template #end>
         <div class="pr-5">
@@ -200,13 +183,6 @@
             @click="toggleLoading"
           />
         </div>
-        <Button
-          label="Export"
-          icon="pi pi-upload"
-          severity="help"
-          disabled
-          @click="exportCSV($event)"
-        />
       </template>
     </Toolbar>
 
@@ -238,7 +214,7 @@
               </InputIcon>
               <InputText
                 v-model="filters['global'].value"
-                placeholder="Tìm kiếm..."
+                placeholder="Tìm tên..."
               />
             </IconField>
           </div>
@@ -399,6 +375,20 @@
         <small
           class="p-error"
           v-if="submitted && !student.studentHometown"
+          >Trường này không được để trống.</small
+        >
+      </div>
+      <div class="field">
+        <label for="password">Mật khẩu</label>
+        <InputText
+          id="password"
+          v-model.trim="student.password"
+          required
+          :invalid="submitted && !student.password"
+        />
+        <small
+          class="p-error"
+          v-if="submitted && !student.password"
           >Trường này không được để trống.</small
         >
       </div>

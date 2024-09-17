@@ -29,8 +29,8 @@
           <span class="text-base">{{ props.count }}</span>
         </div>
         <div class="flex items-center justify-end text-green-500">
-          <i class="pi pi-angle-up" />
-          <span> 15%</span>
+          <!-- <i class="pi pi-angle-up" /> -->
+          <!-- <span> 15%</span> -->
         </div>
       </div>
     </div>
