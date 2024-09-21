@@ -44,10 +44,7 @@ const useAuthStore = defineStore(
 
     const logout = () => {
       resetStore();
-      if (localStorage.getItem("isAccessed")) {
-        localStorage.clear();
-        localStorage.setItem("isAccessed", true);
-      } else localStorage.clear();
+      localStorage.clear();
     };
 
     const resetStore = () => {

@@ -6,6 +6,7 @@ const environmentConfig = {
   development: {
     X_API_KEY: import.meta.env.VITE_X_API_KEY_SECRET || "ITS-DDung203",
     API_URL: import.meta.env.VITE_API_URL,
+    VITE_2FA_KEY: import.meta.env.VITE_2FA_KEY,
     firebaseConfig: {
       apiKey: import.meta.env.VITE_API_KEY,
       authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -19,6 +20,7 @@ const environmentConfig = {
   production: {
     X_API_KEY: import.meta.env.VITE_X_API_KEY_SECRET,
     API_URL: import.meta.env.VITE_API_URL,
+    VITE_2FA_KEY: import.meta.env.VITE_2FA_KEY,
     firebaseConfig: {
       apiKey: import.meta.env.VITE_API_KEY,
       authDomain: import.meta.env.VITE_AUTH_DOMAIN,
@@ -42,4 +44,4 @@ const configs = {
   ...environmentConfig[currentEnvironment],
 };
 
-export const { X_API_KEY, API_URL, firebaseConfig } = configs;
+export const { X_API_KEY, API_URL, firebaseConfig, VITE_2FA_KEY } = configs;

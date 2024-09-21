@@ -121,6 +121,14 @@
             router.push("/interviewers");
           },
         },
+        {
+          label: "Authenticator",
+          icon: "pi pi-qrcode",
+          command: () => {
+            UIStore.visibleLeft = false;
+            router.push("/Authenticator");
+          },
+        },
       ],
     },
 
@@ -224,6 +232,14 @@
           command: () => {
             UIStore.visibleLeft = false;
             router.push("/interviewers");
+          },
+        },
+        {
+          label: "Authenticator",
+          icon: "pi pi-qrcode",
+          command: () => {
+            UIStore.visibleLeft = false;
+            router.push("/Authenticator");
           },
         },
       ],

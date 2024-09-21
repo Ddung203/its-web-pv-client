@@ -28,10 +28,7 @@ http.interceptors.response.use(
     // console.log("HTTP Interceptor error response: ", err.response.data);
 
     if (err.response.data.error.name === "TokenExpiredError") {
-      if (localStorage.getItem("isAccessed")) {
-        localStorage.clear();
-        localStorage.setItem("isAccessed", true);
-      } else localStorage.clear();
+      localStorage.clear();
     }
     return Promise.reject(err?.response?.data);
   }

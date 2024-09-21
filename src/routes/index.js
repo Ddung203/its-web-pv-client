@@ -163,6 +163,18 @@ const routes = [
       layout: true,
     },
   },
+
+  {
+    path: "/authenticator",
+    name: "authenticator",
+    component: () => import("../views/AuthApp/AuthAppView.vue"),
+    meta: {
+      requiredAuth: true,
+      requiredRole: ["admin", "interviewer"],
+      layout: true,
+    },
+  },
+
   {
     path: "/:catchAll(.*)",
     component: () => import("../views/NotFound/NotFoundView.vue"),

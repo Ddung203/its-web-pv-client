@@ -6,14 +6,19 @@
   import usePlayStore from "../../stores/play";
   import { errorNoti } from "../../utils/showNotification";
   import { storeToRefs } from "pinia";
+  import verifyOTP from "../../utils/verifyOTP.js";
 
   const toast = useToast();
 
   const playStore = usePlayStore();
 
+  const token = ref("");
+
   const startBtnHandle = async () => {
-    if (!localStorage.getItem("isAccessed")) {
-      errorNoti(toast, "Bài thi không khả dụng trên thiết bị này!");
+    const verifyResult = await verifyOTP(token.value);
+
+    if (!verifyResult) {
+      errorNoti(toast, "Bài thi không khả dụng!");
       return;
     }
 
@@ -21,7 +26,7 @@
       await playStore.startPlay();
     } catch (e) {
       if (e.error.statusCode === 409) {
-        errorNoti(toast, e.error.message);
+        errorNoti(toast, "Bạn chỉ được thực hiện bài test 1 lần!");
         return;
       }
 
@@ -41,7 +46,7 @@
   </div>
 
   <div
-    class="px-[20px] lg:px-[200px] pt-7 grid grid-cols-1 grid-rows-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 text-[#ffab32]"
+    class="px-[20px] lg:px-[200px] pt-7 lg:pt-0 grid grid-cols-1 grid-rows-1 lg:grid-cols-2 lg:grid-rows-2 gap-4 text-[#ffab32]"
   >
     <div class="flex items-center justify-center bs-1">
       <i
@@ -73,13 +78,26 @@
     </div>
   </div>
 
-  <div class="lg:px-[200px] px-[20px] mt-10 mb-14 lg:mb-0">
+  <form
+    class="lg:px-[200px] px-[20px] mt-10 mb-14 lg:mb-0"
+    @submit.prevent="startBtnHandle"
+    autocomplete="off"
+  >
+    <div class="flex justify-center pb-5 card">
+      <FloatLabel>
+        <InputText
+          id="token"
+          v-model="token"
+        />
+        <label for="token">OTP code</label>
+      </FloatLabel>
+    </div>
     <Button
+      type="submit"
       class="flex items-center justify-center w-full"
-      @click="startBtnHandle"
       >Bắt đầu</Button
     >
-  </div>
+  </form>
 </template>
 
 <style scoped>
