@@ -127,13 +127,14 @@
   <Loading v-if="isLoading"></Loading>
   <Toast></Toast>
   <Header></Header>
-  <div class="flex flex-wrap items-center justify-center p-5 lg:py-8 lg:px-20">
-    <h1 class="text-2xl font-bold uppercase">
-      Danh sách sinh viên đã được phỏng vấn
-    </h1>
-  </div>
+
   <!-- ! -->
-  <Toolbar class="mb-6">
+  <Toolbar class="px-[25px] lg:px-10 mb-6">
+    <template #start>
+      <h1 class="text-2xl font-bold uppercase">
+        Danh sách sinh viên đã được phỏng vấn
+      </h1>
+    </template>
     <template #end>
       <div class="flex flex-wrap gap-3">
         <Button
@@ -187,7 +188,7 @@
 
   <!-- ! -->
   <div
-    class="flex flex-wrap items-center justify-center gap-6 px-5 pb-8 lg:px-20"
+    class="flex flex-wrap items-center justify-center gap-6 px-5 pb-8 md:justify-start lg:px-20"
   >
     <template
       v-for="(user, index) in users"

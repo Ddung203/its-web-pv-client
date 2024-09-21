@@ -26,11 +26,13 @@
 
   const callAPI = async () => {
     try {
+      loading.value = true;
       students.value = await studentStore.getStudentsHandle();
     } catch (error) {
       students.value = [];
       errorNoti(toast, "Xảy ra lỗi khi lấy dữ liệu. Vui lòng thử lại sau!");
     }
+    loading.value = false;
   };
 
   const toggleLoading = async () => {
@@ -166,11 +168,6 @@
     return status === 1 ? "success" : "warning";
   };
 
-  const exportCSV = () => {
-    // TODO: Handle if needed
-    // dt.value.exportCSV();
-  };
-
   onMounted(async () => {
     await callAPI();
     // students.value = studentsData;
@@ -181,35 +178,27 @@
   <Header></Header>
 
   <Loading v-if="loading"></Loading>
-  <div class="card">
+  <div class="card px-[2rem]">
     <!-- ! ACTIONS -->
-    <Toolbar class="mb-4">
+    <Toolbar class="mt-4">
       <template #start>
-        <!-- Button Thêm mới -->
-        <Button
-          label="Thêm"
-          icon="pi pi-plus"
-          severity="success"
-          class="mr-2"
-          @click="openNew"
-        />
-        <!-- Button Xóa nhiều -->
-        <!-- <Button
-          label="Xóa"
-          icon="pi pi-trash"
-          severity="danger"
-          disabled
-          @click="confirmDeleteSelected"
-          :disabled="!selectedStudents || !selectedStudents.length"
-        /> -->
+        <p class="pl-[20px] text-2xl font-semibold text-center uppercase">
+          Tài khoản sinh viên
+        </p>
       </template>
       <template #end>
-        <div class="pr-5">
-          <Button
-            :disabled="loading"
-            :icon="loading ? 'pi pi-refresh pi-spin' : 'pi pi-refresh'"
-            @click="toggleLoading"
-          />
+        <div class="flex flex-wrap justify-end w-full gap-2 align-center">
+          <div>
+            <IconField iconPosition="left">
+              <InputIcon>
+                <i class="pi pi-search" />
+              </InputIcon>
+              <InputText
+                v-model="filters['global'].value"
+                placeholder="Tìm kiếm..."
+              />
+            </IconField>
+          </div>
         </div>
       </template>
     </Toolbar>
@@ -230,30 +219,8 @@
       currentPageReportTemplate="{first} - {last} / {totalRecords} sinh viên"
     >
       <!-- ! HEADER DATA TABLE -->
-      <template #header>
-        <div class="flex flex-wrap justify-between gap-2 align-center">
-          <div class="flex items-center justify-center text-2xl uppercase">
-            <span>Tài khoản sinh viên</span>
-          </div>
-          <div>
-            <IconField iconPosition="left">
-              <InputIcon>
-                <i class="pi pi-search" />
-              </InputIcon>
-              <InputText
-                v-model="filters['global'].value"
-                placeholder="Tìm tên..."
-              />
-            </IconField>
-          </div>
-        </div>
-      </template>
+      <template #header> </template>
 
-      <!-- <Column
-        selectionMode="multiple"
-        style="width: 3rem"
-        :exportable="false"
-      ></Column> -->
       <Column
         field="studentCode"
         header="Mã sinh viên"
@@ -528,10 +495,6 @@
 </template>
 
 <style scoped>
-  .card {
-    padding: 2rem;
-  }
-
   .p-fluid .field label {
     font-weight: bold;
   }

@@ -99,7 +99,7 @@
             <div class="hidden overflow-hidden rounded-md lg:block">
               <img
                 class="block max-w-full"
-                src="../../public/assets/imgs/2v2.png"
+                src="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2F2v2.png?alt=media&token=77413380-dedf-45da-9ccb-7d98c88e526d"
                 alt="It's you and me"
               />
             </div>

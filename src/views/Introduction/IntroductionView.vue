@@ -128,13 +128,7 @@
 
           <div
             class="hidden lg:w-1/2 lg:flex lg:justify-end lg:items-center col50"
-          >
-            <!-- <img
-              class="block max-w-[400px] rounded-2xl"
-              src="../../public/assets/imgs/g4.jpg"
-              alt="Logo kỉ niệm 10 năm"
-            /> -->
-          </div>
+          ></div>
         </div>
       </div>
 
@@ -143,9 +137,8 @@
         <div class="flex lg:gap-36 flex-col lg:flex-row px-[25px] lg:px-20">
           <div class="flex flex-col items-center justify-start lg:w-2/5">
             <img
-              src="../../public/assets/imgs/b1.jpg"
+              src="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2Fb1.jpg?alt=media&token=4b0d3818-d308-44a1-a0ef-083cad4fbad0"
               alt=""
-              loading="lazy"
             />
           </div>
           <div class="flex flex-col items-start justify-start lg:w-3/5">
@@ -317,7 +310,7 @@
                 rel="noopener noreferrer"
               >
                 <img
-                  src="../../public/assets/imgs/ChuNhiem.jpg"
+                  src="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2FChuNhiem.jpg?alt=media&token=8990d00b-8eaa-4412-9da9-07d0d3c48fbb"
                   alt="ChuNhiem"
                   loading="lazy"
                 />
@@ -352,7 +345,7 @@
         >
           <div class="bg-white team__content-item group">
             <img
-              src="../../public/assets/imgs/TrinhNgocHai.jpg"
+              src="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2FTrinhNgocHai.jpg?alt=media&token=04658eb4-02f3-4f26-8b34-93d3f45be5c4"
               alt=""
               height="305.65"
               loading="lazy"
@@ -383,7 +376,7 @@
           <div class="div"></div>
           <div class="bg-white team__content-item group">
             <img
-              src="../../public/assets/imgs/HoangDung.jpg"
+              src="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2FHoangDung.jpg?alt=media&token=735fd280-5963-4ba3-b938-9163ce5a8841"
               alt=""
               loading="lazy"
             />
@@ -412,7 +405,7 @@
           <div class="div"></div>
           <div class="bg-white team__content-item group">
             <img
-              src="../../public/assets/imgs/PhuongNu.jpg"
+              src="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2FPhuongNu.jpg?alt=media&token=82d70d48-fb3b-4e93-91c0-1ff9557dc919"
               alt=""
               loading="lazy"
             />
@@ -441,7 +434,7 @@
           <div class="div"></div>
           <div class="bg-white team__content-item group">
             <img
-              src="../../public/assets/imgs/DoPhuong.jpg"
+              src="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2FDoPhuong.jpg?alt=media&token=b4b02194-737c-47c5-aaf0-909a709fdd84"
               alt=""
               loading="lazy"
             />
@@ -960,24 +953,14 @@
     min-height: 1000px;
   }
 
-  /* .get__started {
-    display: flex;
-    width: 100%;
-    background-color: #f9f9f9;
-    background-image: url("../../public/assets/imgs/anh_nen.png");
-    background-size: cover;
-    background-attachment: fixed;
-
-  } */
-
   .get__started {
     display: flex;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Màu nền tối */
-    background-image: url("../../public/assets/imgs/anh_nen.jpg");
+    background-color: rgba(0, 0, 0, 0.5);
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2Fanh_nen.jpg?alt=media&token=1fb51a19-cc31-4aa0-951f-3db12c23754b");
     background-size: cover;
     background-attachment: fixed;
-    background-blend-mode: darken; /* Trộn màu nền với ảnh nền */
+    background-blend-mode: darken;
   }
 
   .get__started-right {

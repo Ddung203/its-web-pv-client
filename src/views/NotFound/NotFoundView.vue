@@ -2,7 +2,7 @@
 <template>
   <div class="container">
     <img
-      src="@assets/imgs/404_page.jpg"
+      src="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2F404_page.jpg?alt=media&token=0530785b-e00a-456c-947d-2c54004d9e04"
       alt="Page not found!"
     />
   </div>

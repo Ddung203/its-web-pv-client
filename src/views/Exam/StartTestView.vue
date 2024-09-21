@@ -84,7 +84,7 @@
 
 <style scoped>
   .back {
-    background-image: url("@/public/assets/imgs/Exam1-01.png");
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2FExam1-01.png?alt=media&token=2a2fe10b-c117-4061-8826-c6d9ebaa9828");
     background-size: cover;
     background-position: center;
   }

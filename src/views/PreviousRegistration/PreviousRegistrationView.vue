@@ -224,7 +224,7 @@
           <img
             class="block rounded-xl"
             width="250"
-            src="../../public/assets/imgs/Hà-new.jpg"
+            src="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2FH%C3%A0-new.jpg?alt=media&token=b16e5f1c-6f34-4123-8a11-a1f75cd53e58"
             alt="Demo Image"
           />
         </div>

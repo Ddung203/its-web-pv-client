@@ -19,7 +19,7 @@
   const { questions } = storeToRefs(questionStore);
   const loading = ref(false);
   const first = ref(0);
-  const rowsPerPage = ref(10);
+  const rowsPerPage = ref(5);
   const totalRecords = ref(0);
   const searchValue = ref("");
   const filteredQuestions = ref([]);
@@ -31,10 +31,6 @@
       filteredQuestions.value = questions.value;
 
       totalRecords.value = questions.value.length;
-
-      if (questions.value.length > 0) {
-        successNoti(toast, "Lấy danh sách câu hỏi thành công!");
-      }
 
       loading.value = false;
     } catch (error) {
@@ -48,8 +44,6 @@
   const toggleLoading = async () => {
     await getQuestionsHandle();
   };
-
-  const exportQuestionsCSV = () => {};
 
   const openNewQuestion = () => {
     router.push("/import-questions");
@@ -146,13 +140,6 @@
               @click="toggleLoading"
             />
           </div>
-          <Button
-            label="Export"
-            icon="pi pi-upload"
-            severity="help"
-            disabled
-            @click="exportQuestionsCSV"
-          />
         </template>
       </Toolbar>
     </div>

@@ -126,7 +126,7 @@
         :count="statObject?.countUserTested || 0"
       ></StatCard>
       <StatCard
-        :title="'Sinh viên tham gia phỏng vấn'"
+        :title="'Sinh viên tham gia PV'"
         :count="statObject?.countUserInterviewed || 0"
       ></StatCard>
       <StatCard

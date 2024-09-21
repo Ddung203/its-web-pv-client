@@ -123,7 +123,7 @@
 <style scoped>
   .background-container {
     font-family: "Poppins", sans-serif;
-    background-image: url("../../public/assets/imgs/DDT00475_fixed.jpg");
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2FDDT00475_fixed.jpg?alt=media&token=e9c39dfe-3a0e-4f98-9682-b104110a1bd5");
     background-size: cover;
     background-position: center;
     width: 100%;
