@@ -15,42 +15,39 @@
 
   const toast = useToast();
   const isLoading = ref(false);
-
-  const columns = ref([
-    { field: "studentName", header: "Họ tên" },
-    { field: "image", header: "Image" },
-    { field: "quantity", header: "Quantity" },
-  ]);
-  const selectedColumns = ref(columns.value);
-
-  const onToggle = (val) => {
-    selectedColumns.value = columns.value.filter((col) => val.includes(col));
-  };
-
-  //
   const visible = ref(false);
   const users = ref([]);
   const play = ref([]);
   const isPassedCount = ref(0);
   const isRejectedCount = ref(0);
 
-  const fetchUsers = async () => {
-    const response = await HTTP.get(
-      `user/list?limit=500&filter={"role":"user","isInterviewed":"1"}&sort={"isPassed":-1}`
-    );
+  const fetchUsers = async ({ limit = 500, filter = {}, sort = {} } = {}) => {
+    const query = `user/list?limit=${limit}&filter=${JSON.stringify(
+      filter
+    )}&sort=${JSON.stringify(sort)}`;
 
-    users.value = response?.payload?.users || [];
+    try {
+      isLoading.value = true;
 
-    isPassedCount.value = 0;
-    isRejectedCount.value = 0;
+      const response = await HTTP.get(query);
 
-    users.value.forEach((u) => {
-      if (u.isPassed) {
-        isPassedCount.value++;
-      } else {
-        isRejectedCount.value++;
-      }
-    });
+      users.value = response?.payload?.users || [];
+
+      isPassedCount.value = 0;
+      isRejectedCount.value = 0;
+
+      users.value.forEach((u) => {
+        if (u.isPassed) {
+          isPassedCount.value++;
+        } else {
+          isRejectedCount.value++;
+        }
+      });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      isLoading.value = false;
+    }
   };
 
   const showStudentResult = async (userID) => {
@@ -75,7 +72,10 @@
 
       visible.value = false;
 
-      await fetchUsers();
+      await fetchUsers({
+        filter: { role: "user", isInterviewed: "1" },
+        sort: { isPassed: -1 },
+      });
     } catch (e) {
       console.log("e :>> ", e);
     }
@@ -109,17 +109,23 @@
       if (response.success) {
         successNoti(toast, `Đã gửi mail đến ${studentName}`);
       }
-      isLoading.value = false;
     } catch (error) {
-      isLoading.value = false;
       errorNoti(toast, `Gửi mail đến ${studentName} thất bại!`);
+    } finally {
+      isLoading.value = false;
     }
 
-    await fetchUsers();
+    await fetchUsers({
+      filter: { role: "user", isInterviewed: "1" },
+      sort: { isPassed: -1 },
+    });
   };
 
   onMounted(() => {
-    fetchUsers();
+    fetchUsers({
+      filter: { role: "user", isInterviewed: "1" },
+      sort: { isPassed: -1 },
+    });
   });
 </script>
 
@@ -128,65 +134,52 @@
   <Toast></Toast>
   <Header></Header>
 
-  <!-- ! -->
+  <!-- Toolbar -->
   <Toolbar class="px-[25px] lg:px-10 mb-6">
     <template #start>
-      <h1 class="text-2xl font-bold uppercase">
-        Danh sách sinh viên đã được phỏng vấn
-      </h1>
+      <h1 class="text-2xl font-bold uppercase">Duyệt danh sách CTV</h1>
     </template>
+
     <template #end>
       <div class="flex flex-wrap gap-3">
         <Button
           :label="`Cộng tác viên: ${isPassedCount}`"
           severity="success"
           rounded
+          @click="
+            fetchUsers({
+              filter: { role: 'user', isInterviewed: '1', isPassed: '1' },
+              sort: { isPassed: -1 },
+            })
+          "
         />
         <Button
           :label="`Loại: ${isRejectedCount}`"
           severity="info"
           rounded
+          @click="
+            fetchUsers({
+              filter: { role: 'user', isInterviewed: '1', isPassed: '0' },
+              sort: { isPassed: -1 },
+            })
+          "
         />
         <Button
-          :label="`Tổng phỏng vấn: ${isPassedCount + isRejectedCount}`"
+          label="Tất cả"
           severity="warn"
           rounded
+          @click="
+            fetchUsers({
+              filter: { role: 'user', isInterviewed: '1' },
+              sort: { isPassed: -1 },
+            })
+          "
         />
       </div>
     </template>
   </Toolbar>
-  <!-- ! -->
-  <div class="hidden">
-    <DataTable
-      :value="users"
-      tableStyle="min-width: 50rem"
-    >
-      <template #header>
-        <div style="text-align: right">
-          <MultiSelect
-            :modelValue="selectedColumns"
-            :options="columns"
-            optionLabel="header"
-            @update:modelValue="onToggle"
-            display="chip"
-            placeholder="Select Columns"
-          />
-        </div>
-      </template>
-      <Column
-        field="studentCode"
-        header="Mã sinh viên"
-      />
-      <Column
-        v-for="(col, index) of selectedColumns"
-        :field="col.field"
-        :header="col.header"
-        :key="col.field + '_' + index"
-      ></Column>
-    </DataTable>
-  </div>
 
-  <!-- ! -->
+  <!-- Danh sách người dùng -->
   <div
     class="flex flex-wrap items-center justify-center gap-6 px-5 pb-8 md:justify-start lg:px-20"
   >
@@ -198,9 +191,10 @@
         <template #header>
           <div class="flex items-center justify-center">
             <img
-              class="h-[200px] pt-5"
+              class="h-[200px] pt-5 cursor-pointer"
               alt="user image"
               :src="user.image"
+              @click="showStudentResult(user._id)"
             />
           </div>
         </template>
@@ -269,12 +263,10 @@
           </div>
         </template>
       </Card>
-
-      <!--  -->
     </template>
   </div>
 
-  <!-- !DIALOG -->
+  <!-- Dialog -->
   <div class="flex justify-center card">
     <Dialog
       v-model:visible="visible"
@@ -283,7 +275,7 @@
       :style="{ width: '25rem' }"
       maximizable
     >
-      <!-- TT -->
+      <!-- Nội dung phỏng vấn -->
       <div class="flex flex-col items-center justify-center">
         <div class="mb-5">
           <a
@@ -315,7 +307,7 @@
           </p>
         </div>
       </div>
-      <!--  -->
+      <!-- Nút Duyệt/Từ chối -->
       <div class="flex justify-end gap-5 mt-11">
         <Button
           type="button"
@@ -341,7 +333,3 @@
 
   <ScrollToTop></ScrollToTop>
 </template>
-
-<style scoped>
-  /*  */
-</style>

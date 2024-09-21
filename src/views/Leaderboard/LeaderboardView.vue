@@ -35,7 +35,10 @@
     <Loading v-if="loading"></Loading>
     <div class="py-5">
       <TitleBannerMini :title="'Bảng xếp hạng'"></TitleBannerMini>
-      <div v-if="leaderboardStore.getPlays.length !== 0">
+      <div
+        v-if="leaderboardStore.getPlays.length !== 0"
+        class="px-6"
+      >
         <Leaderboard :playsData="leaderboardStore.getPlays"></Leaderboard>
       </div>
       <p

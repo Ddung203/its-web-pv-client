@@ -170,7 +170,6 @@
 
   onMounted(async () => {
     await callAPI();
-    // students.value = studentsData;
   });
 </script>
 

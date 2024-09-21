@@ -176,7 +176,7 @@
         <!-- Button Xóa nhiều -->
       </template>
       <template #end>
-        <div class="pr-5">
+        <div class="">
           <Button
             :disabled="loading"
             :icon="loading ? 'pi pi-refresh pi-spin' : 'pi pi-refresh'"
@@ -378,7 +378,10 @@
           >Trường này không được để trống.</small
         >
       </div>
-      <div class="field">
+      <div
+        class="field"
+        v-if="typeAction == 'update'"
+      >
         <label for="password">Mật khẩu</label>
         <InputText
           id="password"

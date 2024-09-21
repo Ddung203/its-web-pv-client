@@ -105,6 +105,21 @@
             </div>
           </div>
         </form>
+
+        <!-- NOTE -->
+        <div class="mt-6 pt-4 lg:pt-0 px-[20px] lg:px-[160px]">
+          <p class="pt-7 text-base text-justify font-[400] text-[#000]">
+            LƯU Ý: Nếu bạn có trong danh sách trúng tuyển nhưng chưa nhận được
+            email, bạn vui lòng liên hệ qua
+            <a
+              target="_blank"
+              class="text-blue-600"
+              href="https://www.facebook.com/itsupporter.haui"
+              >Fanpage Facebook</a
+            >
+            nhé
+          </p>
+        </div>
       </div>
     </transition>
   </div>

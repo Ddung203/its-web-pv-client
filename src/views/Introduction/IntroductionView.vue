@@ -14,6 +14,38 @@
   const senderEmail = ref("");
   const senderSubject = ref("");
   const senderMessage = ref("");
+  const mainActivities = [
+    {
+      title: "Tech Support",
+      description:
+        "Tech Support thường niên với nhiều hạng mục nhằm hỗ trợ những vấn đề về máy tính cho giảng viên sinh viên trong toàn trường.",
+    },
+    {
+      title: "Bảo trì, cài đặt phòng máy ở khoa CNTT",
+      description:
+        "Giúp cho những phòng máy cập nhật kịp thời những phần mềm mới nhất, hoạt động mượt mà nhất cho những giờ thực hành trên lớp.",
+    },
+    {
+      title: "Tech news",
+      description:
+        "Giúp tất cả mọi người đều được cập nhật những thông tin công nghệ nóng hổi, giúp bạn nắm bắt được xu thế công nghệ hiện đại.",
+    },
+    {
+      title: "Họp đội hàng tuần, tổ chức sự kiện hàng năm,...",
+      description:
+        "Các hoạt động giúp gắn kết các thành viên, cộng tác viên trong câu lạc bộ.",
+    },
+    {
+      title: "Tổ chức các lớp học, nhóm học tập",
+      description:
+        "Giúp các thành viên, cộng tác viên của CLB trau dồi kỹ năng của bản thân, trao đổi tài liệu học tập,...",
+    },
+    {
+      title: "Tuyển cộng tác viên khóa mới",
+      description:
+        "Đây là hoạt động hàng năm của CLB, tổ chức tại cả 2 cơ sở, dành cho tất cả sinh viên HaUI có đam mê",
+    },
+  ];
 
   const isFormValid = () => {
     if (!senderName.value.trim()) {
@@ -98,7 +130,9 @@
     class="wrapper"
   >
     <div class="main">
-      <div class="get__started">
+      <div
+        class="flex w-full bg-fixed bg-black bg-opacity-50 bg-cover get__started bg-blend-darken"
+      >
         <div
           class="lg:flex lg:justify-between gap-[60px] lg:items-center w-[100%] h-[530px] mt-[40px] lg:my-[40px] lg:mx-[80px]"
         >
@@ -118,11 +152,11 @@
               những vấn đề liên quan đến kỹ thuật khoa CNTT.
             </p>
             <router-link to="previous-registration">
-              <div
-                class="w-[100%] lg:w-[150px] mt-5 md:mt-16 lg:mt-6 py-2 px-7 rounded text-white bg-[#49b5e7] leading-6 font-medium hover:opacity-60 uppercase cursor-pointer tracking-tight transition-all ease duration-400 flex items-center justify-center"
-              >
-                <button class="block text-center text-white">Tham gia</button>
-              </div>
+              <Button
+                class="w-full mt-5 md:mt-16 lg:mt-6 md:w-1/5"
+                label="Tham gia"
+                severity="info"
+              />
             </router-link>
           </div>
 
@@ -222,76 +256,27 @@
             sinh viên một địa chỉ tin cậy để giao phó sự tin tưởng của mình
           </p>
         </div>
-        <div class="services__inner px-[80px] lg:pb-[60px]">
-          <ul class="services__inner-list">
-            <li class="services__inner-item">
-              <div
-                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
-              >
-                <span>Tech Support</span>
-                <p class="bottom">
-                  Tech Support thường niên với nhiều hạng mục nhằm hỗ trợ những
-                  vấn đề về máy tính cho giảng viên sinh viên trong toàn trường
-                </p>
+
+        <div class="w-full bg-[#f4fbfe] px-[20px] lg:px-[80px] lg:pb-[60px]">
+          <div
+            class="grid w-full grid-cols-1 grid-rows-2 lg:gap-6 lg:grid-cols-3"
+          >
+            <template
+              v-for="(item, index) in mainActivities"
+              :key="index"
+            >
+              <div class="mb-[40px] mx-[10px] bg-white rounded-xl shadow-md">
+                <div
+                  class="flex flex-col items-start justify-center p-[20px] gap-3 right"
+                >
+                  <span class="font-semibold uppercase">{{ item.title }}</span>
+                  <p class="">
+                    {{ item.description }}
+                  </p>
+                </div>
               </div>
-            </li>
-            <li class="services__inner-item">
-              <div
-                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
-              >
-                <span>Bảo trì, cài đặt phòng máy ở khoa CNTT</span>
-                <p class="bottom">
-                  Giúp cho những phòng máy cập nhật kịp thời những phần mềm mới
-                  nhất, hoạt động mượt mà nhất cho những giờ thực hành trên lớp.
-                </p>
-              </div>
-            </li>
-            <li class="services__inner-item">
-              <div
-                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
-              >
-                <span>Tech news</span>
-                <p class="bottom">
-                  Giúp tất cả mọi người đều được cập nhật những thông tin công
-                  nghệ nóng hổi, giúp bạn nắm bắt được xu thế công nghệ hiện
-                  đại.
-                </p>
-              </div>
-            </li>
-            <li class="services__inner-item">
-              <div
-                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
-              >
-                <span>Họp đội hàng tuần, tổ chức sự kiện hàng năm,...</span>
-                <p class="bottom">
-                  Các hoạt động giúp gắn kết các thành viên, cộng tác viên trong
-                  câu lạc bộ
-                </p>
-              </div>
-            </li>
-            <li class="services__inner-item">
-              <div
-                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
-              >
-                <span>Tổ chức các lớp học, nhóm học tập</span>
-                <p class="bottom">
-                  Giúp các thành viên, cộng tác viên của CLB trau dồi kỹ năng
-                  của bản thân, trao đổi tài liệu học tập,...
-                </p>
-              </div>
-            </li>
-            <li class="services__inner-item">
-              <div
-                class="flex flex-col items-start justify-center p-[15px] gap-5 right"
-              >
-                <span>Tuyển cộng tác viên khóa mới</span>
-                <p class="bottom">
-                  Đây là hoạt động hàng năm của CLB, tổ chức tại cả 2 cơ sở,
-                  dành cho <strong>tất cả</strong> sinh viên HaUI có đam mê
-                </p>
-              </div>
-            </li>
-          </ul>
+            </template>
+          </div>
         </div>
       </div>
       <!-- PORTFOLIO -->
@@ -797,9 +782,6 @@
 </template>
 
 <style scoped>
-  /* @import url("https://fonts.googleapis.com/css2?family=Dosis:wght@300;400;500;600&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"); */
-  /* ! Reset CSS */
-
   body {
     width: 100%;
     min-height: 100vh;
@@ -954,13 +936,7 @@
   }
 
   .get__started {
-    display: flex;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
     background-image: url("https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2Fanh_nen.jpg?alt=media&token=1fb51a19-cc31-4aa0-951f-3db12c23754b");
-    background-size: cover;
-    background-attachment: fixed;
-    background-blend-mode: darken;
   }
 
   .get__started-right {
@@ -1146,60 +1122,6 @@
     background-color: #f4fbfe;
   }
 
-  .services__inner {
-    width: 100%;
-    background-color: #f4fbfe;
-  }
-
-  .services__inner-item {
-    max-width: 396px;
-
-    margin: 0 10px 40px;
-    background-color: #fff;
-    border-radius: 10px;
-    display: flex;
-    /* overflow: hidden; */
-    box-shadow: 0 10px 29px 0 rgb(68 88 144 / 10%);
-    transition: all 0.3s ease-in-out;
-  }
-
-  .services__inner-item .left {
-    flex-basis: 20%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .services__inner-item .left i {
-    margin-left: -18px;
-    font-size: 64px;
-    line-height: 64px;
-    color: #ff689b;
-  }
-
-  .services__inner-item .right span {
-    font-weight: 700;
-    font-size: 18px;
-  }
-
-  .services__inner-item .right a {
-    color: #0f394c;
-    display: inline-block;
-
-    padding: 19px 0;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 21.6px;
-  }
-  .services__inner-item .right a:hover {
-    color: #48b5d7;
-  }
-  .services__inner-list {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
   .portfolio-nav {
     width: 100%;
     display: flex;
@@ -1706,12 +1628,7 @@
       justify-content: center;
       flex-direction: column;
     }
-    .services__inner {
-      width: 100%;
-      height: max-content;
-      padding: 0 10px 60px;
-      background-color: #f4fbfe;
-    }
+
     .portfolio-content {
       max-width: 100%;
       padding: 0 10px;

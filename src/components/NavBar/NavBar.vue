@@ -160,7 +160,7 @@
       icon: "pi pi-hourglass",
       items: [
         {
-          label: "Duyệt DS phỏng vấn",
+          label: "Duyệt CTV",
           icon: "pi pi-envelope",
           command: () => {
             UIStore.visibleLeft = false;
