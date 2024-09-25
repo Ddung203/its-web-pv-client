@@ -1,9 +1,6 @@
 <script setup>
   import Header from "@/components/Header/Header.vue";
   import { ref, onMounted } from "vue";
-  import DataTable from "primevue/datatable";
-  import Column from "primevue/column";
-  import MultiSelect from "primevue/multiselect";
   import Card from "primevue/card";
   import Toolbar from "primevue/toolbar";
   import HTTP from "../../helper/axiosInstance";
@@ -124,6 +121,19 @@
     });
   };
 
+  const nameSearch = ref("");
+
+  const searchBtnHandle = async () => {
+    await fetchUsers({
+      filter: {
+        role: "user",
+        isInterviewed: "1",
+        studentName: { $regex: nameSearch.value, $options: "i" },
+      },
+      sort: { updatedAt: 1, isPassed: -1 },
+    });
+  };
+
   onMounted(() => {
     fetchUsers({
       filter: { role: "user", isInterviewed: "1" },
@@ -143,16 +153,35 @@
       <h1 class="text-2xl font-bold uppercase">Duyệt danh sách CTV</h1>
     </template>
 
+    <template #center>
+      <form
+        class="flex items-center justify-center gap-3"
+        autocomplete="off"
+      >
+        <IconField>
+          <InputText
+            v-model="nameSearch"
+            placeholder="Tìm tên"
+          />
+        </IconField>
+        <Button
+          icon="pi pi-search"
+          aria-label="Search"
+          @click="searchBtnHandle"
+        />
+      </form>
+    </template>
+
     <template #end>
       <div class="flex flex-wrap gap-3">
         <Button
-          :label="`Cộng tác viên: ${isPassedCount}`"
+          :label="`CTV: ${isPassedCount}`"
           severity="success"
           rounded
           @click="
             fetchUsers({
               filter: { role: 'user', isInterviewed: '1', isPassed: '1' },
-              sort: { isPassed: -1 },
+              sort: { updatedAt: 1, isPassed: -1 },
             })
           "
         />
@@ -163,7 +192,7 @@
           @click="
             fetchUsers({
               filter: { role: 'user', isInterviewed: '1', isPassed: '0' },
-              sort: { isPassed: -1 },
+              sort: { updatedAt: 1, isPassed: -1 },
             })
           "
         />
@@ -174,7 +203,7 @@
           @click="
             fetchUsers({
               filter: { role: 'user', isInterviewed: '1' },
-              sort: { isPassed: -1 },
+              sort: { updatedAt: 1, isPassed: -1 },
             })
           "
         />

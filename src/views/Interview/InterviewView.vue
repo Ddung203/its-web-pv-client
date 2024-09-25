@@ -12,7 +12,12 @@
   import getLocalTime from "../../utils/getLocalTime";
 
   const toast = useToast();
-  const comment = ref("");
+  const comment = ref(`
+  1. Thái độ:
+  2. Kiến thức:
+  3. Câu hỏi tình huống:
+  4. Lý do trượt/pass:
+  5. Khác: `);
   const interviewScorePart1 = ref(25);
   const interviewScorePart2 = ref(25);
 
@@ -117,7 +122,7 @@
     <div class="grid grid-cols-1 grid-rows-1 gap-5 lg:grid-cols-3">
       <!--! Part 1 -->
       <div>
-        <h2 class="mb-2 font-semibold text-center uppercase">
+        <h2 class="mb-2 text-lg font-semibold text-center uppercase">
           Thông tin sinh viên
         </h2>
         <div class="w-full h-[1px] mb-1 bg-[#ff9700]"></div>
@@ -232,87 +237,14 @@
             </div>
           </div>
         </div>
-
-        <!-- Điểm phỏng vấn -->
         <div class="w-full h-[1px] mb-1 bg-[#ff9700]"></div>
-        <div class="mt-4 md:mt-0 md:px-6 md:py-5">
-          <!-- !Thái độ -->
-          <div class="mb-5">
-            <div class="mb-2">
-              <span>Thái độ</span>
-            </div>
-            <!-- <div class="progress-bar">
-              <div class="relative w-[330px] md:w-[380px] h-[20px]">
-                <div class="w-full h-full bg-gray-200 rounder-c">
-                  <div
-                    class="h-full bg-[#f59e0b] rounder-c"
-                    :style="{ width: interviewScorePart1 * 2 + '%' }"
-                  >
-                    <p class="text-center text-white">
-                      {{ interviewScorePart1 }}
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="absolute top-0 left-0 w-2/5 h-full cursor-pointer"
-                  @click="decreaseValue1"
-                ></div>
-                <div
-                  class="absolute top-0 right-0 w-3/5 h-full cursor-pointer"
-                  @click="increaseValue1"
-                ></div>
-              </div>
-            </div> -->
-
-            <!-- Slider -->
-            <div class="flex justify-center w-full">
-              <div class="w-full">
-                <InputText
-                  v-model.number="interviewScorePart1"
-                  class="w-full mb-4"
-                  disabled
-                />
-                <Slider
-                  v-model="interviewScorePart1"
-                  :step="5"
-                  class="w-full h-5"
-                  :min="0"
-                  :max="100"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- !Kiến thức -->
-          <div class="mb-5">
-            <div class="mb-2">
-              <span>Kiến thức</span>
-            </div>
-            <div class="flex justify-center w-full">
-              <div class="w-full">
-                <InputText
-                  v-model.number="interviewScorePart2"
-                  class="w-full mb-4"
-                  disabled
-                />
-                <Slider
-                  v-model="interviewScorePart2"
-                  :step="5"
-                  class="w-full h-5"
-                  :min="0"
-                  :max="100"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
       <!--! Part 2 -->
       <div>
-        <h2 class="mb-2 font-semibold text-center uppercase">
+        <h2 class="mb-2 text-lg font-semibold text-center uppercase">
           Câu hỏi phỏng vấn
         </h2>
-        <div class="w-full h-[1px] mb-1 bg-[#ff9700]"></div>
+        <div class="hidden md:block w-full h-[1px] mb-1 bg-[#ff9700]"></div>
         <!--! Chọn người phỏng vấn -->
         <div class="flex justify-center card py-7">
           <FloatLabel class="w-full md:w-14rem">
@@ -397,20 +329,77 @@
 
       <!--! Part 3 -->
       <div>
-        <h2 class="mb-2 font-semibold text-center uppercase">Nhận xét</h2>
+        <h2 class="mb-2 text-lg font-semibold text-center uppercase">
+          Nhận xét
+        </h2>
         <div class="w-full h-[1px] mb-1 bg-[#ff9700]"></div>
+
+        <div class="mt-4 md:mt-0 md:px-6 md:py-5">
+          <!-- !Thái độ -->
+          <div class="mb-5">
+            <div class="mb-2">
+              <span>Thái độ</span>
+            </div>
+            <!-- Slider -->
+            <div class="flex justify-center w-full">
+              <div class="w-full">
+                <InputText
+                  v-model.number="interviewScorePart1"
+                  class="w-full mb-4"
+                  disabled
+                />
+                <Slider
+                  v-model="interviewScorePart1"
+                  :step="5"
+                  class="w-full h-5"
+                  :min="0"
+                  :max="100"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- !Kiến thức -->
+          <div class="mb-5">
+            <div class="mb-2">
+              <span>Kiến thức</span>
+            </div>
+            <div class="flex justify-center w-full">
+              <div class="w-full">
+                <InputText
+                  v-model.number="interviewScorePart2"
+                  class="w-full mb-4"
+                  disabled
+                />
+                <Slider
+                  v-model="interviewScorePart2"
+                  :step="5"
+                  class="w-full h-5"
+                  :min="0"
+                  :max="100"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!--! NOTE -->
-        <div class="flex justify-center my-8">
+        <div class="flex justify-center mb-8">
           <Textarea
             v-model="comment"
             rows="10"
             cols="42"
-            placeholder="Nhận xét..."
+            placeholder="Nhận xét:
+1. Thái độ:
+2. Kiến thức:
+3. Câu hỏi tình huống:
+4. Lý do trượt/pass:
+5. Khác: "
           />
         </div>
 
-        <div class="w-full h-[1px] mb-1 bg-[#ff9700]"></div>
-        <div class="flex justify-center mt-4 mb-8 md:justify-end">
+        <!-- <div class="w-full h-[1px] mb-1 bg-[#ff9700]"></div> -->
+        <div class="flex justify-center mt-4 mb-8 mr-5 md:justify-end">
           <Button
             @click="endInterviewHandle"
             label="Kết thúc phỏng vấn"
