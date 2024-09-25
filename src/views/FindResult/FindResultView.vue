@@ -96,7 +96,9 @@
                 @click="onSubmitHandle"
               ></Button>
             </div>
-            <div class="hidden overflow-hidden rounded-md lg:block">
+            <div
+              class="justify-center hidden overflow-hidden rounded-md lg:flex"
+            >
               <img
                 class="block max-w-full"
                 src="https://firebasestorage.googleapis.com/v0/b/upload-images-42481.appspot.com/o/cdn%2F2v2.png?alt=media&token=77413380-dedf-45da-9ccb-7d98c88e526d"
@@ -109,8 +111,8 @@
         <!-- NOTE -->
         <div class="mt-6 pt-4 lg:pt-0 px-[20px] lg:px-[160px]">
           <p class="pt-7 text-base text-justify font-[400] text-[#000]">
-            LƯU Ý: Nếu bạn có trong danh sách trúng tuyển nhưng chưa nhận được
-            email, bạn vui lòng liên hệ qua
+            LƯU Ý: Nếu bạn có tên trong danh sách trúng tuyển nhưng chưa nhận
+            được email, bạn vui lòng liên hệ qua
             <a
               target="_blank"
               class="text-blue-600"
@@ -140,7 +142,7 @@
         <i class="text-6xl pi pi-check-circle"></i>
       </div>
 
-      <p class="pt-4 pb-8 text-xl text-center text-green-600">
+      <p class="pt-4 pb-8 text-base text-center text-green-600">
         Chúc mừng bạn đã trở thành cộng tác viên của CLB Hỗ trợ kỹ thuật IT
         Supporter HaUI. <br /><br />Thông tin chi tiết vui lòng kiểm tra email
         của bạn 😘
@@ -154,8 +156,9 @@
       <div class="flex items-center justify-center text-red-500">
         <i class="text-6xl pi pi-times-circle"></i>
       </div>
-      <p class="pt-4 pb-6 text-xl text-center text-red-500">
-        Không tìm thấy mã sinh viên hoặc bạn đã không đủ điều kiện trúng tuyển!
+      <p class="pt-4 pb-6 text-base text-center text-red-500">
+        Rất tiếc! Không có thông tin sinh viên hoặc bạn đã không đủ điều kiện
+        trúng tuyển.
       </p>
     </div>
   </Dialog>

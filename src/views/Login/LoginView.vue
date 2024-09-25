@@ -38,7 +38,7 @@
     }
 
     if (authStore.isLoggedIn) {
-      successNoti(toast, "Đăng nhập thành công");
+      successNoti(toast, "Đăng nhập thành công", 500);
       router.push("/introduction");
     }
   };

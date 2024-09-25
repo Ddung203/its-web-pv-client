@@ -50,7 +50,7 @@
     }
   };
 
-  const showStudentResult = async (userID) => {
+  const showStudentResult = async (userID, studentName) => {
     const response = await HTTP.get(
       `play/list?filter={"userID":${JSON.stringify(userID)}}`
     );
@@ -60,6 +60,9 @@
       errorNoti(toast, "Không lấy được thông tin!");
       return;
     }
+
+    play.value.comment = play.value.comment.replace(/\n/g, "<br />");
+    play.value.studentName = studentName;
 
     visible.value = true;
   };
@@ -124,7 +127,7 @@
   onMounted(() => {
     fetchUsers({
       filter: { role: "user", isInterviewed: "1" },
-      sort: { isPassed: -1 },
+      sort: { updatedAt: 1, isPassed: -1 },
     });
   });
 </script>
@@ -181,88 +184,90 @@
 
   <!-- Danh sách người dùng -->
   <div
-    class="flex flex-wrap items-center justify-center gap-6 px-5 pb-8 md:justify-start lg:px-20"
+    class="grid grid-cols-1 gap-4 px-5 pb-8 md:grid-cols-2 lg:grid-cols-4 md:justify-start lg:px-20"
   >
     <template
       v-for="(user, index) in users"
       :key="index"
     >
-      <Card style="width: 20rem; overflow: hidden">
-        <template #header>
-          <div class="flex items-center justify-center">
-            <img
-              class="h-[200px] pt-5 cursor-pointer"
-              alt="user image"
-              :src="user.image"
-              @click="showStudentResult(user._id)"
-            />
-          </div>
-        </template>
-        <template #title>{{ user.studentName }}</template>
-        <template #subtitle>{{ user.studentCode }}</template>
-        <template #content>
-          <p class="m-0 mb-1">
-            Lớp: <strong>{{ user.studentClass }}</strong>
-          </p>
-          <p class="m-0 mb-1">
-            Quê quán: <strong>{{ user.studentHometown }}</strong>
-          </p>
-          <p class="m-0 mb-1">
-            Email: <strong>{{ user.studentEmail }}</strong>
-          </p>
-          <div v-if="user.isPassed">
-            <span>Xếp loại: </span>
-            <Tag
-              class="uppercase"
-              icon="pi pi-check"
-              severity="success"
-              value="Cộng tác viên"
-            ></Tag>
-          </div>
-          <div v-else>
-            <span>Xếp loại: </span>
-            <Tag
-              class="uppercase"
-              icon="pi pi-times"
-              severity="danger"
-              value="Bị loại"
-            ></Tag>
-          </div>
-        </template>
-        <template #footer>
-          <div class="flex gap-4 mt-1">
-            <Button
-              label="Thông tin phỏng vấn"
-              class="w-full"
-              @click="showStudentResult(user._id)"
-            />
-            <Button
-              v-if="!user.isReceivedMail"
-              :disabled="!user.isPassed"
-              severity="info"
-              label="Gửi mail"
-              class="w-full"
-              @click="
-                sendMailHandle(
-                  user.studentCode,
-                  user.studentName,
-                  user.studentClass,
-                  user.studentEmail,
-                  user.studentPhone,
-                  user.studentHometown
-                )
-              "
-            />
-            <Button
-              v-if="user.isReceivedMail"
-              severity="secondary"
-              label="Đã gửi mail"
-              disabled
-              class="w-full"
-            />
-          </div>
-        </template>
-      </Card>
+      <div class="flex items-center justify-center">
+        <Card style="width: 20rem; overflow: hidden">
+          <template #header>
+            <div class="flex items-center justify-center">
+              <img
+                class="h-[200px] pt-5 cursor-pointer"
+                alt="user image"
+                :src="user.image"
+                @click="showStudentResult(user._id, user.studentName)"
+              />
+            </div>
+          </template>
+          <template #title>{{ user.studentName }}</template>
+          <template #subtitle>{{ user.studentCode }}</template>
+          <template #content>
+            <p class="m-0 mb-1">
+              Lớp: <strong>{{ user.studentClass }}</strong>
+            </p>
+            <p class="m-0 mb-1">
+              Quê quán: <strong>{{ user.studentHometown }}</strong>
+            </p>
+            <p class="m-0 mb-1">
+              Email: <strong>{{ user.studentEmail }}</strong>
+            </p>
+            <div v-if="user.isPassed">
+              <span>Xếp loại: </span>
+              <Tag
+                class="uppercase"
+                icon="pi pi-check"
+                severity="success"
+                value="Cộng tác viên"
+              ></Tag>
+            </div>
+            <div v-else>
+              <span>Xếp loại: </span>
+              <Tag
+                class="uppercase"
+                icon="pi pi-times"
+                severity="danger"
+                value="Bị loại"
+              ></Tag>
+            </div>
+          </template>
+          <template #footer>
+            <div class="flex gap-4 mt-1">
+              <Button
+                label="Chi tiết"
+                class="w-full"
+                @click="showStudentResult(user._id, user.studentName)"
+              />
+              <Button
+                v-if="!user.isReceivedMail"
+                :disabled="!user.isPassed"
+                severity="info"
+                label="Gửi mail"
+                class="w-full"
+                @click="
+                  sendMailHandle(
+                    user.studentCode,
+                    user.studentName,
+                    user.studentClass,
+                    user.studentEmail,
+                    user.studentPhone,
+                    user.studentHometown
+                  )
+                "
+              />
+              <Button
+                v-if="user.isReceivedMail"
+                severity="secondary"
+                label="Đã gửi mail"
+                disabled
+                class="w-full"
+              />
+            </div>
+          </template>
+        </Card>
+      </div>
     </template>
   </div>
 
@@ -291,6 +296,9 @@
         </div>
         <div>
           <p>
+            Sinh viên: <strong>{{ play.studentName }}</strong>
+          </p>
+          <p>
             Người phỏng vấn: <strong>{{ play.interviewer }}</strong>
           </p>
           <p>
@@ -302,9 +310,8 @@
           <p>
             Điểm phỏng vấn: <strong>{{ play.interviewScore }}</strong>
           </p>
-          <p>
-            Nhận xét: <strong>{{ play.comment }}</strong>
-          </p>
+
+          <p>Nhận xét: <strong v-html="play.comment"></strong></p>
         </div>
       </div>
       <!-- Nút Duyệt/Từ chối -->
@@ -324,7 +331,7 @@
         <Button
           v-if="play.userID.isPassed === 0"
           type="button"
-          label="Duyệt"
+          label="Duyệt CTV"
           @click="reviewUser(1)"
         ></Button>
       </div>

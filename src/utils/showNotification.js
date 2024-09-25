@@ -6,20 +6,20 @@ const showNotification = (toast, severity, summary, detail, life = 2000) => {
     life,
   });
 };
-const successNoti = (toast, detail) => {
+const successNoti = (toast, detail, life = 2000) => {
   toast.add({
     severity: "success",
     summary: "Thông báo",
     detail,
-    life: 2000,
+    life,
   });
 };
-const errorNoti = (toast, detail) => {
+const errorNoti = (toast, detail, life = 3000) => {
   toast.add({
     severity: "error",
     summary: "Thông báo lỗi",
     detail,
-    life: 3000,
+    life,
   });
 };
 

@@ -5,14 +5,15 @@
   import { useToast } from "primevue/usetoast";
   import usePlayStore from "../../stores/play";
   import { errorNoti } from "../../utils/showNotification";
-  import { storeToRefs } from "pinia";
   import verifyOTP from "../../utils/verifyOTP.js";
+  import Loading from "../../components/Loading/Loading.vue";
 
   const toast = useToast();
 
   const playStore = usePlayStore();
 
   const token = ref("");
+  const isLoading = ref(false);
 
   const startBtnHandle = async () => {
     const verifyResult = await verifyOTP(token.value);
@@ -23,6 +24,7 @@
     }
 
     try {
+      isLoading.value = true;
       await playStore.startPlay();
     } catch (e) {
       if (e.error.statusCode === 409) {
@@ -31,6 +33,8 @@
       }
 
       errorNoti(toast, "Lỗi máy chủ! Vui lòng thử lại sau!");
+    } finally {
+      isLoading.value = false;
     }
 
     router.push("/test");
@@ -38,6 +42,7 @@
 </script>
 
 <template>
+  <Loading v-if="isLoading"></Loading>
   <Toast></Toast>
   <Header></Header>
 
@@ -93,6 +98,7 @@
       </FloatLabel>
     </div>
     <Button
+      :disabled="isLoading"
       type="submit"
       class="flex items-center justify-center w-full"
       >Bắt đầu</Button

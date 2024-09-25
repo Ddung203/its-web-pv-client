@@ -118,11 +118,11 @@
     >
       <!-- Các StatCard -->
       <StatCard
-        :title="'Tài khoản sinh viên'"
+        :title="'Số lượng đơn ĐK'"
         :count="statObject?.countUser || 0"
       ></StatCard>
       <StatCard
-        :title="'Sinh viên tham gia bài test'"
+        :title="'Sinh viên làm bài test'"
         :count="statObject?.countUserTested || 0"
       ></StatCard>
       <StatCard
@@ -148,14 +148,14 @@
       class="p-5 flex items-start gap-1 justify-center flex-col lg:px-16 bg-[#fefefe]"
       v-if="show"
     >
-      <div class="flex items-center justify-start gap-5">
+      <div class="items-center justify-start hidden gap-5">
         <span>Thống kê cơ bản</span>
         <Button @click="exportHandle('Thống kê cơ bản', 1)"
           >Export Excel</Button
         >
       </div>
 
-      <div class="flex items-center justify-start gap-5">
+      <div class="items-center justify-start hidden gap-5">
         <span>Danh sách câu hỏi</span>
         <Button @click="exportHandle('Danh sách câu hỏi', 2)"
           >Export Excel</Button
@@ -163,21 +163,21 @@
       </div>
 
       <div class="flex items-center justify-start gap-5">
-        <span>Danh sách tài khoản người dùng</span>
-        <Button @click="exportHandle('Danh sách tài khoản người dùng', 3)"
+        <span>Tất cả tài khoản</span>
+        <Button @click="exportHandle('DS tất cả tài khoản', 3)"
           >Export Excel</Button
         >
       </div>
 
       <div class="flex items-center justify-start gap-5">
-        <span>Danh sách người dùng đã làm bài test</span>
+        <span>Danh sách sinh viên đã làm bài test</span>
         <Button @click="exportHandle('Danh sách người dùng đã làm bài test', 4)"
           >Export Excel</Button
         >
       </div>
 
       <div class="flex items-center justify-start gap-5">
-        <span>Danh sách người dùng đã được phỏng vấn</span>
+        <span>Danh sách sinh viên đã được phỏng vấn</span>
         <Button
           @click="exportHandle('Danh sách người dùng đã được phỏng vấn', 5)"
           >Export Excel</Button
